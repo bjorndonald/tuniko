@@ -1,4 +1,10 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {}
+const { withContentlayer } = require("next-contentlayer");
 
-module.exports = nextConfig
+module.exports = withContentlayer({
+    images: {
+        domains: [
+            "res.cloudinary.com",
+            "cdn.hashnode.com",
+        ]
+    }
+})
