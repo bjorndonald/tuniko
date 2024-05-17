@@ -9,9 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#010101",
+        primary: "rgb(25, 103, 210)",
         secondary: "#131313",
-        tertiary: "#222222",
+        tertiary: "#5f6368",
         accent: "#f3f3f3"
       },
       boxShadow: {
@@ -67,6 +67,6 @@ const config: Config = {
       })
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
 }
 export default config

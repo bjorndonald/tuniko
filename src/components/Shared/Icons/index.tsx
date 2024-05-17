@@ -17,3 +17,5 @@ export { default as StorliLogo } from "./Storli";
 export { default as SecliLogo } from "./Secli";
 export { default as PayPeerLogo } from "./PayPeer";
 export { default as IconFactory } from "./IconFactory";
+export { default as Logo } from "./Logo";
+export { default as ClockIcon } from "./Clock.icon";
