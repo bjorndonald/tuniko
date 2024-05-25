@@ -19,3 +19,4 @@ export { default as PayPeerLogo } from "./PayPeer";
 export { default as IconFactory } from "./IconFactory";
 export { default as Logo } from "./Logo";
 export { default as ClockIcon } from "./Clock.icon";
+export { default as TextIcon } from './Text.icon'

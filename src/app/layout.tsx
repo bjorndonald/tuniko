@@ -5,6 +5,7 @@ import Providers from "./Providers";
 import { authOptions } from "./auth";
 import { getServerSession } from "next-auth";
 import Header from "@/components/Common/Header";
+import { Toaster } from "react-hot-toast";
 
 const ptSans = ptsans({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -15,16 +16,22 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  auth
 }: {
   children: React.ReactNode;
+  auth: React.ReactNode
 }) {
   const session = await getServerSession(authOptions);
   return (
     <html lang="en">
       <body className={ptSans.className}>
         <Providers session={session}>
+          
           <Header session={session} />
+
           {children}
+          {auth}
+          <Toaster />
         </Providers>
       </body>
     </html>

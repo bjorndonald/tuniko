@@ -10,26 +10,20 @@ const CorpusGrid = () => {
     new Masonry(grid, {
       // set itemSelector so .grid-sizer is not used in layout
       itemSelector: ".corpus",
-      gutter: 20,
-
+      gutter: 16,
       // use element for option
       columnWidth: ".corpus",
       percentPosition: true,
     });
 
-    return () => {};
+    return () => { };
   }, []);
 
   return (
-    <div id="corpus" className="pt-4 lg:grid lg:grid-cols-3 lg:gap-6">
-      <CorpusCard />
-      <CorpusCard />
-      <CorpusCard />
-      <CorpusCard />
-      <CorpusCard />
-      <CorpusCard />
-      <CorpusCard />
-      <CollectionCard />
+    <div id="corpus" className="pt-4 w-full lg:grid lg:grid-cols-3 lg:gap-6">
+      {[0, 1, 2, 3, 4, 5, 6, 7].map((x, i) => (
+        <CorpusCard key={i} corpus={{ id: `corpus${x}` }} />
+      ))}
     </div>
   );
 };

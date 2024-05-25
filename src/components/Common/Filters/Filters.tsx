@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import TextIcon from "./Text.icon";
 import Logo from "../../Shared/Icons/Logo";
-import { FileText } from "react-feather";
+import { FileText, X } from "react-feather";
 import Icon from "@mdi/react";
 import { mdiSwapHorizontal } from "@mdi/js";
+import useCorpus from "@/store/corpus";
 
 type TextType = "All" | "Text" | "Document";
 type SortType = "Popular" | "Recent" | "Easiest" | "Hardest";
@@ -16,6 +17,9 @@ const Filters = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [from, setFrom] = useState<Language>();
   const [to, setTo] = useState<Language>();
+  const selected = useCorpus(s => s.selected)
+  const resetSelections = useCorpus(s => s.resetSelections)
+
   return (
     <div className="flew-row flex h-[68px] items-center justify-between ">
       <div className="flex items-center gap-2">
@@ -88,6 +92,20 @@ const Filters = () => {
             </li>
           </ul>
         </div>
+
+        {!!selected.length && <div onClick={() => {
+          alert("collection")
+        }} className="btn h-9 min-h-9 px-3 btn-primary bg-primary text-white flex gap-2 ">
+          Make {selected.length} into collection
+          <button onClick={e => {
+            resetSelections()
+            e.stopPropagation()
+          }} className="btn btn-ghost w-fit h-fit min-h-fit p-0.5 btn-circle">
+            <X size={16} color="white" />
+          </button>
+
+        </div>}
+
       </div>
 
       <div className="flex items-center gap-2">
