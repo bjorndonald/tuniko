@@ -1,7 +1,6 @@
 import React from "react";
 import { ArrowRight, MoreVertical, User } from "react-feather";
-import Icon from "@mdi/react";
-import { mdiSwapHorizontal } from "@mdi/js";
+
 import { ClockIcon } from "@/components/Shared/Icons";
 
 const CollectionCard = () => {
@@ -13,23 +12,37 @@ const CollectionCard = () => {
           <p className="z-0  whitespace-pre-wrap text-2xl/8 text-tertiary">
             This is a text to be translated
           </p>
-
         </div>
 
         <div className="flex h-fit items-center gap-2 pl-3">
-          <div className="gap-0.5 flex whitespace-nowrap p-1 text-[10px] text-tertiary">
+          <div className="flex gap-0.5 whitespace-nowrap p-1 text-[10px] text-tertiary">
             <ClockIcon />2 mins
           </div>
 
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-circle btn-ghost btn-xs text-info">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-circle btn-ghost btn-xs text-info"
+            >
               <MoreVertical height={16} />
             </div>
-            <ul tabIndex={0} className="menu dropdown-content z-[1]  w-28 rounded border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow">
-              <li><a>Select</a></li>
-              <li><a>Hide</a></li>
-              <li><a>Share</a></li>
-              <li><a>Translate</a></li>
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content z-[1]  w-28 rounded border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+            >
+              <li>
+                <a>Select</a>
+              </li>
+              <li>
+                <a>Hide</a>
+              </li>
+              <li>
+                <a>Share</a>
+              </li>
+              <li>
+                <a>Translate</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -48,7 +61,7 @@ const CollectionCard = () => {
           <div className="rounded-3xl bg-gray-100 px-1.5 py-1 text-[10px] text-tertiary">
             3 cards
           </div>
-          <div className="rounded-3xl py-1 items-center flex gap-1 px-1.5 text-[10px]">
+          <div className="flex items-center gap-1 rounded-3xl px-1.5 py-1 text-[10px]">
             <User size={12} />
             10 answered
           </div>

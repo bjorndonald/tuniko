@@ -1,20 +1,20 @@
-import React from 'react'
-import Options from './Options'
+import React from "react";
+import Options from "./Options";
 
-import Input from './Input'
-import Language from '@/types/language'
-import { getLanguages } from '@/actions/language'
+import Input from "./Input";
+import Language from "@/types/language";
+import { getLanguages } from "@/actions/language";
 
 const RequestPage = async () => {
-    const languages: Language[] = await getLanguages()
-    return (
-        <main className="min-h-screen py-[65px]">
-            <div className="container mx-auto w-auto max-w-[635px] px-12 transition-all">
-                <Options languages={languages} />
-                <Input />
-            </div>
-        </main>
-    )
-}
+  const languages: Language[] = await getLanguages();
+  return (
+    <main className="min-h-screen py-[65px]">
+      <div className="container mx-auto w-auto max-w-[635px] px-12 transition-all">
+        <Options languages={languages} />
+        <Input />
+      </div>
+    </main>
+  );
+};
 
-export default RequestPage
+export default RequestPage;

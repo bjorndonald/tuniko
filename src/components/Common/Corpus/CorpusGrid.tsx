@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import Masonry from "masonry-layout";
 import CorpusCard from "./CorpusCard";
-import { CollectionCard } from "../Collection";
 
 const CorpusGrid = () => {
   useEffect(() => {
@@ -16,11 +15,11 @@ const CorpusGrid = () => {
       percentPosition: true,
     });
 
-    return () => { };
+    return () => {};
   }, []);
 
   return (
-    <div id="corpus" className="pt-4 w-full lg:grid lg:grid-cols-3 lg:gap-6">
+    <div id="corpus" className="w-full pt-4 lg:grid lg:grid-cols-3 lg:gap-6">
       {[0, 1, 2, 3, 4, 5, 6, 7].map((x, i) => (
         <CorpusCard key={i} corpus={{ id: `corpus${x}` }} />
       ))}

@@ -17,8 +17,8 @@ const Filters = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [from, setFrom] = useState<Language>();
   const [to, setTo] = useState<Language>();
-  const selected = useCorpus(s => s.selected)
-  const resetSelections = useCorpus(s => s.resetSelections)
+  const selected = useCorpus(s => s.selected);
+  const resetSelections = useCorpus(s => s.resetSelections);
 
   return (
     <div className="flew-row flex h-[68px] items-center justify-between ">
@@ -93,19 +93,25 @@ const Filters = () => {
           </ul>
         </div>
 
-        {!!selected.length && <div onClick={() => {
-          alert("collection")
-        }} className="btn h-9 min-h-9 px-3 btn-primary bg-primary text-white flex gap-2 ">
-          Make {selected.length} into collection
-          <button onClick={e => {
-            resetSelections()
-            e.stopPropagation()
-          }} className="btn btn-ghost w-fit h-fit min-h-fit p-0.5 btn-circle">
-            <X size={16} color="white" />
-          </button>
-
-        </div>}
-
+        {!!selected.length && (
+          <div
+            onClick={() => {
+              alert("collection");
+            }}
+            className="btn btn-primary flex h-9 min-h-9 gap-2 bg-primary px-3 text-white "
+          >
+            Make {selected.length} into collection
+            <button
+              onClick={e => {
+                resetSelections();
+                e.stopPropagation();
+              }}
+              className="btn btn-circle btn-ghost h-fit min-h-fit w-fit p-0.5"
+            >
+              <X size={16} color="white" />
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="flex items-center gap-2">

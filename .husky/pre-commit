@@ -3,13 +3,13 @@
 
 echo "💻 Running pre-commit hook..."
 
-yarn format || 
+yarn format:fix || 
 (
     echo "🚨 Format failed.";
     false;
 )
 
-yarn lint || 
+yarn lint:fix || 
 (
     echo "🚨 Lint failed.";
     false;

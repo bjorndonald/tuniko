@@ -16,17 +16,16 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  auth
+  auth,
 }: {
   children: React.ReactNode;
-  auth: React.ReactNode
+  auth: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
   return (
     <html lang="en">
       <body className={ptSans.className}>
         <Providers session={session}>
-          
           <Header session={session} />
 
           {children}
