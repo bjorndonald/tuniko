@@ -1,10 +1,7 @@
 export default interface User {
-    id: number
+    id: string
     name: string
-    profile_pic: string
-    username: string
+    image: string
+    emailVerified: string | null
     email: string
-    social_id: string
-    created_at: string
-    updated_at: string
 }

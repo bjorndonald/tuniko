@@ -2,10 +2,11 @@
 import React, { useState } from "react";
 import TextIcon from "./Text.icon";
 import Logo from "../../Shared/Icons/Logo";
-import { FileText, X } from "react-feather";
+import { FileText, Plus, X } from "react-feather";
 import Icon from "@mdi/react";
 import { mdiSwapHorizontal } from "@mdi/js";
 import useCorpus from "@/store/corpus";
+import Link from "next/link";
 
 type TextType = "All" | "Text" | "Document";
 type SortType = "Popular" | "Recent" | "Easiest" | "Hardest";
@@ -21,35 +22,67 @@ const Filters = () => {
   const resetSelections = useCorpus(s => s.resetSelections);
 
   return (
-    <div className="flew-row flex h-[68px] items-center justify-between ">
+    <div className="flex-col-reverse  desktop:flex-row h-fit pt-3 flex desktop:h-[68px] desktop:items-center justify-between ">
       <div className="flex items-center gap-2">
+        <div className="tablet-md:hidden dropdown">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-outline m-1 h-9 min-h-9 rounded border-[rgb(218,220,224)] font-normal text-[rgb(25,103,210)] hover:bg-primary/10"
+          >
+            {textType}
+          </div>
+          <ul
+            tabIndex={0}
+            className="menu dropdown-content z-[1]  w-52 rounded border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+          >
+            <li onClick={() => setTextType("All")}>
+              <a className="flex gap-1">
+                <Logo width={20} /> 
+                All
+              </a>
+            </li>
+            <li onClick={() => setTextType("Text")}>
+              <a className="flex gap-1">
+                <TextIcon />
+                Text
+              </a>
+            </li>
+            <li onClick={() => setTextType("Document")}>
+              <a className="flex gap-1">
+                <FileText width={20} color={"rgb(25,103,210)"} />
+                Document
+              </a>
+            </li>
+          </ul>
+        </div>
         <button
           onClick={() => setTextType("All")}
-          className={`flex h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 ${textType === "All" ? "!bg-primary/10" : ""} cursor-pointer rounded`}
+          className={`hidden tablet-md:flex h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 ${textType === "All" ? "!bg-primary/10" : ""} cursor-pointer rounded`}
         >
           <Logo width={20} />
-          <span className="text-sm text-primary">All</span>
+          <span className="text-sm text-accent">All</span>
         </button>
         <button
           onClick={() => setTextType("Text")}
-          className={`flex h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 ${textType === "Text" ? "!bg-primary/10" : ""} cursor-pointer rounded`}
+          className={`hidden tablet-md:flex h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 ${textType === "Text" ? "!bg-primary/10" : ""} cursor-pointer rounded`}
         >
           <TextIcon />
-          <span className="text-sm text-primary">Text</span>
+          <span className="text-sm text-accent">Text</span>
         </button>
         <button
           onClick={() => setTextType("Document")}
-          className={`flex h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 ${textType === "Document" ? "!bg-primary/10" : ""} cursor-pointer rounded`}
+          className={`hidden tablet-md:flex h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 ${textType === "Document" ? "!bg-primary/10" : ""} cursor-pointer rounded`}
         >
           <FileText width={20} color={"rgb(25,103,210)"} />
-          <span className="text-sm text-primary">Document</span>
+          <span className="text-sm text-accent">Document</span>
         </button>
 
         <div className="dropdown">
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-outline m-1 h-9 min-h-9 rounded border-[rgb(218,220,224)] font-normal text-[rgb(25,103,210)] hover:bg-primary/10"
+            className="btn btn-outline m-1 h-9 min-h-9 rounded border-[rgb(218,220,224)] font-normal text-accent hover:bg-primary/10"
           >
             {from || "All"}
           </div>
@@ -66,7 +99,7 @@ const Filters = () => {
           </ul>
         </div>
 
-        <button className="mx-1 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full p-2 hover:bg-black/10">
+        <button className="tablet-md:mx-1 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full p-2 hover:bg-black/10">
           <Icon path={mdiSwapHorizontal} size={24} />
         </button>
 
@@ -76,7 +109,7 @@ const Filters = () => {
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-outline m-1 h-9 min-h-9 rounded border-[rgb(218,220,224)] font-normal text-[rgb(25,103,210)] hover:bg-primary/10"
+            className="btn btn-outline m-1 h-9 min-h-9 rounded border-[rgb(218,220,224)] font-normal text-accent hover:bg-primary/10"
           >
             {to || "All"}
           </div>
@@ -112,6 +145,10 @@ const Filters = () => {
             </button>
           </div>
         )}
+        <Link href={"/request"} className="min-h-9 h-9 btn btn-outline btn-primary mr-2 flex !border-primary !text-primary hover:!bg-primary hover:!text-white rounded-1">
+          <Plus width={20} />
+          Request
+        </Link>
       </div>
 
       <div className="flex items-center gap-2">

@@ -12,8 +12,9 @@ import { loading as loadingIcon } from "@/components/icons";
 import Icon from "@mdi/react";
 import cx from "classnames";
 import useLanguageStore from "@/store/language";
-import { ENGLISH_LANGUAGE_ID } from "@/constants/languages";
+import { ANONYMOUS_USER_EMAIL, ANONYMOUS_USER_ID, ENGLISH_LANGUAGE_ID } from "@/constants/strings";
 import { EnglishTextArea } from "@/components/Common/Language";
+import { useSession } from "next-auth/react";
 
 const schema = z.object({
   text: z.string(),
@@ -23,6 +24,8 @@ type FormData = z.infer<typeof schema>;
 
 const Input = () => {
   const navigate = useRouter();
+  const session= useSession()
+  const entryType = useLanguageStore(s => s.entryType)
   const [loading, setLoading] = useState(false);
   const [corpus, setCorpus] = useState("");
   const languageFrom = useLanguageStore(s => s.languageFrom);
@@ -43,7 +46,10 @@ const Input = () => {
         process.env.NEXT_PUBLIC_SERVER_URI + "/corpus",
         {
           text: corpus,
-          owner_id: 1,
+          owner: {
+            email: session.status === "authenticated" ? session.data.user.email : ANONYMOUS_USER_EMAIL
+          },
+          entry_type: entryType,
           language_from_id: languageFrom,
           language_to_id: languageTo,
         },
@@ -62,7 +68,7 @@ const Input = () => {
   return (
     <form
       onSubmit={handleSubmit(saveCorpus)}
-      className="relative flex min-h-[166px] grow flex-col justify-between rounded-lg border border-black/[0.12]"
+      className="relative flex min-h-[166px] grow flex-col justify-between rounded-lg border border-divider"
     >
       {!!corpus.length && (
         <button
@@ -111,7 +117,7 @@ const Input = () => {
             />
           )}
         </button>
-        <span className="text-xs/[27px] text-[rgb(60,64,67)]">
+        <span className="text-xs/[27px] text-secondary-txt">
           {corpus.length} / 300
         </span>
       </div>

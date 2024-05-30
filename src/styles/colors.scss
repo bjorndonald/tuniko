@@ -1,0 +1,59 @@
+:root,
+::backdrop {
+    --color-background: theme('colors.light');
+    --color-divider: theme(colors.brand.950 / 12%);
+--b1: theme('colors.light');
+--bc: theme('colors.dark');
+    --color-progress: theme(colors.brand.100);
+    --color-toolbar: theme(colors.brand.500 / 5%);
+    --color-toolbar-highlight: theme(colors.brand.600 / 8%);
+    --color-hover: theme(colors.dark / 15%);
+    --color-accent: theme('colors.brand.500');
+    --color-accent-dark: theme('colors.brand.600');
+    --color-on-accent: theme('colors.background');
+
+    --color-primary-txt: theme('colors.dark');
+    --color-secondary-txt: theme(colors.dark / 85%);
+    --color-tertiary-txt: theme(colors.dark / 70%);
+
+    --opacity-tint-bg: 0.12;
+    --opacity-tint-border: 0.24;
+}
+
+input:-internal-autofill-selected { 
+    background-color: darken(#fff, $amount: 3) !important;
+}
+
+input:-internal-autofill-selected {
+     background-color: darken(#fff, $amount: 3) !important;
+}
+
+html.dark input:-internal-autofill-selected {
+    background-color: lighten(#000, $amount: 3) !important;
+}
+
+html.dark input:-internal-autofill-selected {
+    background-color: lighten(#000, $amount: 3) !important;
+}
+ 
+html.dark {
+    --color-background: theme('colors.dark');
+    --color-divider: theme(colors.brand.50 / 18%);
+    --color-progress: theme(colors.brand.900);
+--b1: theme('colors.dark');
+--bc: theme('colors.light');
+ --color-hover: theme(colors.light / 15%);
+    --color-toolbar: theme(colors.brand.300 / 8%);
+    --color-toolbar-highlight: theme(colors.brand.200 / 12%);
+
+    --color-accent: theme('colors.brand.300');
+    --color-accent-dark: theme('colors.brand.200');
+    --color-on-accent: theme('colors.background');
+
+    --color-primary-txt: theme('colors.light');
+    --color-secondary-txt: theme(colors.light / 85%);
+    --color-tertiary-txt: theme(colors.light / 70%);
+
+    --opacity-tint-bg: 0.24;
+    --opacity-tint-border: 0.48;
+}

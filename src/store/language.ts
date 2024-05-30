@@ -1,27 +1,33 @@
-import { ENGLISH_LANGUAGE_ID } from "@/constants/languages";
+import { ENGLISH_LANGUAGE_ID } from "@/constants/strings";
 import Language from "@/types/language";
-import create from "zustand";
-
+import {create} from "zustand";
+type EntryType = "Text" | "Document";
 interface ILanguageState {
-    languageFrom: number,
-    languageTo: number,
+    languageFrom: string,
+    languageTo: string,
     isEditing: boolean,
     corpus: string,
     translation: string
+    entryType: EntryType
+    setEntryType: (entry: EntryType) => void
     setCorpus: (str: string) => void
     setTranslation: (str: string) => void
     setIsEditing: (bool: boolean) => void
-    setLanguageTo: (id: number) => void
-    setLanguageFrom: (id: number) => void
+    setLanguageTo: (id: string) => void
+    setLanguageFrom: (id: string) => void
     reset: () => void
     swap: () => void
 }
 const useLanguageStore = create<ILanguageState>((set, get) => ({
-    languageFrom: 0,
-    languageTo: 0,
+    languageFrom: "",
+    languageTo: "",
     isEditing: false,
     corpus: "",
     translation: "",
+    entryType: "Text",
+    setEntryType: (entry: EntryType) => set({
+        entryType: entry
+    }),
     setCorpus(str) {
         set({
             corpus: str
@@ -37,13 +43,13 @@ const useLanguageStore = create<ILanguageState>((set, get) => ({
             isEditing: bool
         })
     },
-    setLanguageTo: (id: number) => {
+    setLanguageTo: (id: string) => {
         set({
             languageTo: id,
             languageFrom: ENGLISH_LANGUAGE_ID
         })
     },
-    setLanguageFrom: (id: number) => {
+    setLanguageFrom: (id: string) => {
         set({
             languageTo: ENGLISH_LANGUAGE_ID,
             languageFrom: id

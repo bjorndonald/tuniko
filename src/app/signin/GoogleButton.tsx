@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { signIn, LiteralUnion } from "next-auth/react";
-import GoogleIcon from "./Google.icon";
+import GoogleIcon from "../../components/Shared/Icons/Google.icon";
 import { BuiltInProviderType } from "next-auth/providers/index";
 import { useRouter } from "next/navigation";
 

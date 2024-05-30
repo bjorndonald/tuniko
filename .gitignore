@@ -38,3 +38,8 @@ next-env.d.ts
 # Contentlayer
 .contentlayer
 credentials.json
+
+# package manager
+*-lock.json
+yarn.lock
+bun.lockb

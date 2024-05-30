@@ -8,24 +8,29 @@ import { getCorpusById } from "@/actions/corpus";
 import CorpusText from "@/types/corpustext";
 import Language from "@/types/language";
 import { getLanguages } from "@/actions/language";
-import { getTranslationsByCorpusId } from "@/actions/translation";
-import Translation from "@/types/translation";
+import { getTranslationsByCorpusId, getVoteOfTranslation } from "@/actions/translation";
+import Translation, { Vote } from "@/types/translation";
+import { auth } from "@/auth";
+import { ANONYMOUS_USER_EMAIL } from "@/constants/strings";
 
 interface Props {
   params: { id: string };
 }
 
+
 const TranslationPage = async ({ params: { id } }: Props) => {
-  const corpus: CorpusText = await getCorpusById(parseInt(id));
-  const translations: Translation[] = await getTranslationsByCorpusId(parseInt(id));
-  
+  const corpus: CorpusText = await getCorpusById(id);
+  const translations: Translation[] = await getTranslationsByCorpusId(
+    id,
+  );
   const languages: Language[] = await getLanguages();
+  
   return (
     <main className="min-h-screen py-[65px]">
-      <div className="container mx-auto w-auto max-w-[1376px] px-12 transition-all">
+      <div className=" mx-auto w-full tablet-md:w-auto tablet-md:max-w-[1376px] px-4 tablet-md:px-12 transition-all">
         <Options />
 
-        <Languages corpus={corpus} />
+        <Languages languages={languages} corpus={corpus} />
         <Inputs corpusText={corpus} languages={languages} />
         <TranslationFilters />
         <Translations translations={translations} />

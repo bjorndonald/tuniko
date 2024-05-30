@@ -7,7 +7,7 @@ const TranslationFilters = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sort, setSort] = useState<SortType>();
   return (
-    <div className="flew-row mx-auto mt-24 flex h-[68px] max-w-2xl items-center justify-between ">
+    <div className="tablet-md:flew-row flex-col gap-3 mx-auto mt-24 flex mb-4 tablet-md:mb-0 tablet-md:h-[68px] tablet-md:max-w-2xl items-center justify-between px-4">
       <h2 className="text-3xl">Translations</h2>
 
       <div className="flex items-center gap-2">
@@ -33,7 +33,7 @@ const TranslationFilters = () => {
           </svg>
         </label>
 
-        <div className="dropdown">
+        <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
             role="button"

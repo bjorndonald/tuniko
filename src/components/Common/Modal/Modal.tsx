@@ -9,8 +9,8 @@ interface Props {
 const Modal = ({ children }: Props) => {
   const navigation = useRouter();
   return (
-    <dialog id="my_modal_3" className="modal modal-open">
-      <div className="modal-box">
+    <dialog id="my_modal_3" className="modal  modal-open">
+      <div className="modal-box bg-background">
         <form method="dialog">
           {/* if there is a button in form, it will close the modal */}
           <button

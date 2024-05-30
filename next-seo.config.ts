@@ -1,19 +1,19 @@
 const defaultSEOConfig = {
-    title: "Bjorn-Donald | Full-stack Developer",
-    description: "Fullstack Web developer • Tech Enthusiast • Web3 Enthusiast",
-    cannonical: "https://6lackbjorn.dev",
+    title: "Tuniko | Help Us Translate",
+    description: "This is a platform that allows users to help each other with translations for languages not supported digitally",
+    cannonical: "https://tuniko.com",
     openGraph: {
         type: "website",
-        url: "https://6lackbjorn.dev",
-        site_name: "Bjorn-Donald",
-        title: "Bjorn-Donald | Fullstack Developer",
-        description: "Fullstack Web developer • Tech Enthusiast • Web3 Enthusiast",
+        url: "https://tuniko.com",
+        site_name: "Tuniko",
+        title: "Tuniko | Help Us Translate",
+        description: "This is a platform that allows users to help each other with translations for languages not supported digitally",
         images: [
             {
-                url: "https://res.cloudinary.com/anishde12020/image/upload/v1654360780/Blogfolio/og.png",
-                width: 1200,
-                height: 630,
-                alt: "Anish De's Portfolio Site's Opengraph Image",
+                url: "https://res.cloudinary.com/b-bassey/image/upload/v1716981224/tuniko/og.png",
+                width: 1020,
+                height: 750,
+                alt: "Tuniko Site's Opengraph Image",
             },
         ],
         profile: {
@@ -24,8 +24,8 @@ const defaultSEOConfig = {
         },
     },
     twitter: {
-        handle: "@6lackbjorn",
-        site: "@6lackbjorn",
+        handle: "@tuniko",
+        site: "@tuniko",
         cardType: "summary_large_image",
     },
 }

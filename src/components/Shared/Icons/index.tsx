@@ -20,3 +20,6 @@ export { default as IconFactory } from "./IconFactory";
 export { default as Logo } from "./Logo";
 export { default as ClockIcon } from "./Clock.icon";
 export { default as TextIcon } from "./Text.icon";
+export { default as GoogleIcon } from "./Google.icon";
+export { default as AppleIcon } from "./Apple.icon";
+export { default as EyeIcon } from "./Eye.icon";

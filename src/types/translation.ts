@@ -2,15 +2,17 @@ import Language from "./language"
 import User from "./user"
 
 export default interface Translation {
-    id: number
+    id: string
     text: string
-    translator_id: number
+    translator_id: string
     translator: User
     upvotes: number
     downvotes: number
-    language_id: number
+    language_id: string
     language: Language
-    corpus: number
+    corpus: string
     created_at: string
     updated_at: string
 }
+
+export type Vote = "upvote" | "downvote" | "none"

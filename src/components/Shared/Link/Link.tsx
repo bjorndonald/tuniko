@@ -1,111 +1,56 @@
-import Link from "next/link";
-import {
-  AnchorHTMLAttributes,
-  ReactElement,
-  ReactNode,
-  cloneElement,
-  forwardRef,
-} from "react";
-import cx from "classnames";
-import { ArrowUpRight } from "react-feather";
+import NextLink from "next/link";
+import type { ComponentProps } from "react";
 
-interface ExternalLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  href: string;
-  className?: string;
-  children?: ReactNode;
-  gradientUnderline?: boolean;
-  noGradientUnderline?: boolean;
-  noExternalLinkIcon?: boolean;
-  noHighlight?: boolean;
-  icon?: ReactNode;
+import cx from "@/utils/cx";
+
+const isLocalLink = (href?: string) =>
+  href && (href.startsWith("/") || href.startsWith("#"));
+
+interface LinkProps extends ComponentProps<typeof NextLink> {
+  title: string;
+  openInNewTab?: boolean;
+  ignoreNextLink?: boolean;
 }
 
-const ExternalLink = forwardRef<HTMLAnchorElement, ExternalLinkProps>(
-  (
-    {
-      href,
-      className,
-      children,
-      gradientUnderline,
-      noGradientUnderline,
-      noExternalLinkIcon,
-      noHighlight = false,
-      icon,
-      ...otherProps
-    }: ExternalLinkProps,
-    ref,
-  ): JSX.Element => {
-    const isInternalLink = href.startsWith("/") || href.startsWith("#");
+const Link = (props: LinkProps) => {
+  const { href, ...otherProps } = props;
+  const {
+    openInNewTab = !isLocalLink(
+      typeof href !== "string" ? href.toString() : href,
+    ),
+    ignoreNextLink,
+    ...rest
+  } = otherProps;
 
-    const isGradientUnderline = gradientUnderline
-      ? true
-      : (typeof children === "string" || typeof children === "undefined") &&
-          !noGradientUnderline
-        ? true
-        : false;
+  // Next.js Link dows not scroll to elements with id
+  const LinkComponent =
+    href.toString().includes("#") || ignoreNextLink ? "a" : NextLink;
 
-    return (
-      <>
-        {isInternalLink ? (
-          <Link href={href}>
-            <span
-              className={cx(
-                "transition duration-200",
-                isGradientUnderline && "gradient-underline flex items-center",
-                className,
-              )}
-              ref={ref}
-              {...otherProps}
-            >
-              {isGradientUnderline ? <span>{children ?? href}</span> : children}
-            </span>
-          </Link>
-        ) : (
-          <Link
-            href={href}
-            className={cx(
-              "mr-1 inline-flex items-center space-x-1 text-gray-300 transition duration-200",
-              isGradientUnderline && "gradient-underline no-underline",
-              isGradientUnderline &&
-                !noHighlight &&
-                "text-blue-400 hover:text-blue-300",
-              className,
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            ref={ref}
-            {...otherProps}
-          >
-            {icon &&
-              cloneElement(icon as ReactElement, {
-                className: "h-4 w-4 mr-1",
-              })}
-            {noExternalLinkIcon ? children : <span>{children} </span>}
-            {!noExternalLinkIcon && <ArrowUpRight className="h-4 w-4" />}
-          </Link>
-        )}
-        <style jsx={true}>
-          {`
-            .gradient-underline :not(.anchor) {
-              text-decoration: none;
-              background-image: linear-gradient(to right, #be185d, #1d4ed8);
-              background-repeat: no-repeat;
-              background-position: bottom left;
-              background-size: 0% 2px;
-              transition: background-size 150ms ease-in-out;
-            }
+  const className = cx(
+    "inline-block font-medium text-accent self-start transition-colors hocus:text-accent-dark ",
+    props.className,
+  );
 
-            .gradient-underline:hover :not(.anchor) {
-              background-size: 100% 2px;
-              color: inherit;
-            }
-          `}
-        </style>
-      </>
-    );
-  },
-);
+  return (
+    <LinkComponent
+      {...{ href, ...rest }}
+      href={href.toString()}
+      className={className}
+      prefetch={
+        LinkComponent === "a"
+          ? undefined
+          : openInNewTab || rest.target === "_blank"
+            ? false
+            : rest.prefetch
+      }
+      {...(openInNewTab
+        ? {
+          target: "_blank",
+          rel: `${props.rel || ""} noopener noreferrer`.trim(),
+        }
+        : {})}
+    />
+  );
+};
 
-ExternalLink.displayName = "Link";
-
-export default ExternalLink;
+export default Link

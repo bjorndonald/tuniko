@@ -26,7 +26,7 @@ const EnglishTextArea = (props: Props) => {
       disabled={disabled}
       onChange={e => setValue(e.target.value)}
       className={cx(
-        "min-h-16 w-full resize-none whitespace-pre-wrap border-none bg-transparent text-2xl text-[rgb(60,64,67)] outline-none",
+        "min-h-16 w-full resize-none focus:border-none whitespace-pre-wrap border-none bg-transparent text-2xl text-secondary-txt outline-none",
         className,
       )}
       aria-label="translation"

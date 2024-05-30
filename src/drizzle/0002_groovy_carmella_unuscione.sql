@@ -1,0 +1,1 @@
+ALTER TABLE "corpustexts" ADD COLUMN "entryType" "entryType";

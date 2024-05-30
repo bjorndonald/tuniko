@@ -4,44 +4,51 @@ import ClockIcon from "./Clock.icon";
 import { MoreVertical, User, Check, ArrowRight } from "react-feather";
 import $ from "jquery";
 import useCorpus from "@/store/corpus";
+import cx from "@/utils/cx";
+import moment from 'moment'
+import CorpusText from "@/types/corpustext";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Props {
-  corpus: { id: string };
+  corpus: CorpusText;
 }
 
-const CorpusCard = ({ corpus: { id } }: Props) => {
+const CorpusCard = ({ corpus }: Props) => {
+  const navigate = useRouter()
   const selected = useCorpus(s => s.selected);
   const addSelected = useCorpus(s => s.addSelected);
   const removeSelection = useCorpus(s => s.removeSelection);
 
   return (
     <div
-      id={`${id}`}
+      id={`${corpus.id}`}
       onClick={() => {
-        if (selected.includes(id)) {
-          removeSelection(id);
+        if (selected.includes(corpus.id)) {
+          removeSelection(corpus.id);
           return;
         }
         if (selected.length) {
-          addSelected(id);
+          addSelected(corpus.id);
         }
       }}
-      className={`corpus relative mb-4 flex min-h-[166px] w-[410px] flex-col justify-between rounded border border-black/10 
-    px-4 pb-3 pt-3 ${selected.includes(id) ? "bg-gray-200" : ""}`}
+      className={cx(`corpus relative mb-4 flex min-h-[166px] w-full flex-col justify-between rounded border border-divider
+    px-4 pb-3 pt-3 ${selected.includes(corpus.id) ? "bg-gray-200" : ""}`, "desktop-lg:w-[410px] tablet-md:w-[calc((100%-16px)/2)]"
+  )}
     >
       <div className="flex w-full grow">
         <p
           onClick={e => {
-            alert("h");
+            navigate.push("/translation/"+ corpus.id)
             e.stopPropagation();
           }}
-          className="z-0 h-fit cursor-pointer whitespace-pre-wrap text-2xl/8 text-tertiary hover:underline"
+          className="z-0 h-fit grow cursor-pointer whitespace-pre-wrap text-2xl/8 text-secondary-txt hover:underline"
         >
-          This is a text to be translated
+          {corpus.text}
         </p>
         <div className="flex h-fit items-center gap-2 pl-3">
           <div className="flex items-center gap-0.5 whitespace-nowrap rounded-full bg-black/[0.05] p-1 pr-2 text-[10px] text-tertiary">
-            <ClockIcon />2 mins
+            <ClockIcon /> {moment.duration(moment().diff(moment(corpus.created_at))).humanize()}
           </div>
 
           <div className="dropdown ">
@@ -58,12 +65,15 @@ const CorpusCard = ({ corpus: { id } }: Props) => {
               className="menu dropdown-content z-[1]  w-28 rounded border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
             >
               <li>
+                <Link href={"/request"} onClick={e => e.stopPropagation()}>Translate</Link>
+              </li>
+              <li>
                 <a
                   onClick={e => {
-                    if (selected.includes(id)) {
-                      removeSelection(id);
+                    if (selected.includes(corpus.id)) {
+                      removeSelection(corpus.id);
                     } else {
-                      addSelected(id);
+                      addSelected(corpus.id);
                     }
                     $(".dropdown").removeClass("dropdown-open");
                     const active = document.activeElement as HTMLElement;
@@ -71,7 +81,7 @@ const CorpusCard = ({ corpus: { id } }: Props) => {
                     e.stopPropagation();
                   }}
                 >
-                  {selected.includes(id) ? "Deselect" : "Select"}
+                  {selected.includes(corpus.id) ? "Deselect" : "Select"}
                 </a>
               </li>
               <li>
@@ -80,9 +90,7 @@ const CorpusCard = ({ corpus: { id } }: Props) => {
               <li>
                 <a onClick={e => e.stopPropagation()}>Share</a>
               </li>
-              <li>
-                <a onClick={e => e.stopPropagation()}>Translate</a>
-              </li>
+              
             </ul>
           </div>
         </div>
@@ -95,22 +103,23 @@ const CorpusCard = ({ corpus: { id } }: Props) => {
           </div>
 
           <div className="flex items-center">
-            <span className="text-[10px] text-tertiary">English</span>
+            <span className="text-[10px] text-tertiary">{corpus.language_from.name}</span>
             <span className=" flex h-5 w-5 cursor-pointer items-center justify-center rounded-full">
               <ArrowRight size={12} />
             </span>
-            <span className="text-[10px] text-tertiary">Efik</span>
+            <span className="text-[10px] text-tertiary">{corpus.language_to.name}</span>
           </div>
         </div>
 
         <div className="flex gap-1">
-          <div className="flex items-center gap-1 rounded-3xl border-primary bg-primary/20 px-1.5 py-1 text-[10px] text-primary">
+          {corpus.has_chosen && <div className="flex items-center gap-1 rounded-3xl border-primary bg-primary/20 px-1.5 py-1 text-[10px] text-primary">
             <Check size={12} color="rgb(25,103,210)" />
             Chosen
-          </div>
+          </div>}
+          
           <div className="rounded-3xlpy-1 flex items-center gap-1 px-1.5 text-[10px]">
             <User size={12} />
-            10 answered
+            {corpus.no_of_answers} answered
           </div>
 
           {/* <button className='w-6 h-6 p-2 mx-1 cursor-pointer rounded-full hover:bg-black/10 flex items-center justify-center'>
