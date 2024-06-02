@@ -1,134 +1,233 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { ThumbsDown, ThumbsUp, ArrowUpRight } from "react-feather";
+import { ThumbsDown, ThumbsUp, ArrowUpRight, MoreVertical, Check } from "react-feather";
 import { mdiDiamond } from "@mdi/js";
 import Icon from "@mdi/react";
 import Translation, { Vote } from "@/types/translation";
 import useLanguageStore from "@/store/language";
 import axios from "axios";
-import { ANONYMOUS_USER_EMAIL, ANONYMOUS_USER_ID } from "@/constants/strings";
+import { ANONYMOUS_USER_EMAIL } from "@/constants/strings";
 import { useSession } from "next-auth/react";
 import cx from "@/utils/cx";
-import { getVoteOfTranslation } from "@/actions/translation";
-
+import { TranslationIsChosen, getVoteOfTranslation } from "@/actions/translation";
+import { ClockIcon } from "@/components/Shared/Icons";
+import moment from "moment";
+import $ from 'jquery'
+import toast from "react-hot-toast";
+import { chooseTranslation } from "@/actions/corpus";
+import { useRouter } from "next/navigation";
 interface Props {
   translation: Translation;
+  corpusId: string
+  owner: string
 }
 
-const TranslationCard = ({ translation, }: Props) => {
-  const session = useSession()
+const TranslationCard = ({ translation, owner, corpusId }: Props) => {
+  const navigate = useRouter()
+  const session = useSession();
+  const [isChosen, setIsChosen] = useState()
   const setTranslation = useLanguageStore(s => s.setTranslation);
   const [upvotes, setUpvotes] = useState(translation.upvotes);
   const [downvotes, setDownvotes] = useState(translation.downvotes);
-  const [vote, setVote] = useState<Vote>()
-  const [defaultVote, setDefaultVote] = useState()
+  const [vote, setVote] = useState<Vote>();
+  const [defaultVote, setDefaultVote] = useState();
 
   useEffect(() => {
     const init = async () => {
-      const vote = session.status === "authenticated" ? await getVoteOfTranslation(translation.id, session.data.user.email) : "none"
-      setVote(vote)
-      setDefaultVote(vote)
-    } 
+      const vote =
+        session.status === "authenticated"
+          ? await getVoteOfTranslation(translation.id, session.data.user.email)
+          : "none";
+      const isChosen = await TranslationIsChosen(translation.id)
+      setIsChosen(isChosen)
+      setVote(vote);
+      setDefaultVote(vote);
+    };
 
-    init()
-  
-    return () => {
-    }
-  }, [])
-  
+    init();
+
+    return () => { };
+  }, []);
 
   const upvote = async () => {
-    if (vote === "upvote" && session.status === "authenticated"){
-      setUpvotes(upvotes - 1)
-      setVote("none")
+    if (vote === "upvote") {
+      setUpvotes(upvotes - 1);
+      setVote("none");
+    } else {
+      setUpvotes(upvotes + 1);
+      setDownvotes(translation.downvotes)
+      setVote("upvote");
     }
-    else {setUpvotes(upvotes + 1)
-    setVote("upvote")}
-    
+
     try {
       await axios.post(
         process.env.NEXT_PUBLIC_SERVER_URI +
-          "/translation/" +
-          translation.id +
-          "/upvote",
+        "/translation/" +
+        translation.id +
+        "/upvote",
         {
-          email: session.status === "authenticated" ? session.data.user.email : ANONYMOUS_USER_EMAIL,
+          email:
+            session.status === "authenticated"
+              ? session.data.user.email
+              : ANONYMOUS_USER_EMAIL,
         },
       );
     } catch (error) {
-      if (session.status === "authenticated") {
-        setUpvotes(upvotes - 1)
-      }
-      setVote(defaultVote)
+      setUpvotes(translation.upvotes);
+      setVote(defaultVote);
     }
   };
 
   const downvote = async () => {
-    if (vote === "downvote" && session.status === "authenticated") {
-      setDownvotes(downvotes - 1)
-      setVote("none")
+    if (vote === "downvote") {
+      setDownvotes(downvotes - 1);
+      setVote("none");
+    } else {
+      setDownvotes(downvotes + 1);
+      setUpvotes(translation.upvotes)
+      setVote("downvote");
     }
-    else {setDownvotes(downvotes + 1)
-    setVote("downvote")}
     try {
       await axios.post(
         process.env.NEXT_PUBLIC_SERVER_URI +
-          "/translation/" +
-          translation.id +
-          "/downvote",
+        "/translation/" +
+        translation.id +
+        "/downvote",
         {
-          email: session.status === "authenticated" ? session.data.user.email : ANONYMOUS_USER_EMAIL,
+          email:
+            session.status === "authenticated"
+              ? session.data.user.email
+              : ANONYMOUS_USER_EMAIL,
         },
       );
     } catch (error) {
-      if (session.status === "authenticated") {
-        setDownvotes(downvotes - 1)
-      }
-      setVote(defaultVote)
+      setDownvotes(translation.downvotes);
+      setVote(defaultVote);
     }
   };
 
+  const choose = async () => {
+    toast.loading("Choosing", {id: "loading"})
+    try {
+      await chooseTranslation(corpusId, translation.id)
+      toast.success("Chosen")
+      toast.remove("loading")
+      navigate.refresh()
+    } catch (error) {
+      toast.error("Not done")
+      toast.remove("loading")
+    }
+  }
+
   return (
-    <div className="translation flex flex-col gap-3 rounded border border-black/10 px-4 pb-3 pt-3 ">
-      <p
-        onClick={() => setTranslation(translation.text)}
-        className="group z-0 flex h-fit cursor-pointer whitespace-pre-wrap text-2xl/8 text-tertiary-tx"
-      >
-        {translation.text}{" "}
-        <i className="my-2 hidden group-hover:inline-block">
-          <ArrowUpRight size={16} />
-        </i>
-      </p>
+    <div className={cx(`translation rounded flex flex-col gap-3 border border-divider px-4 pb-3 pt-3 `, isChosen && 'bg-primary/5')}>
+      <div className="flex w-full grow">
+        <p
+          onClick={() => setTranslation(translation.text)}
+          className="text-tertiary-tx group grow z-0 flex h-fit cursor-pointer whitespace-pre-wrap text-2xl/8"
+        >
+          {translation.text}{" "}
+          <i className="my-2 hidden group-hover:inline-block">
+            <ArrowUpRight size={16} />
+          </i>
+        </p>
+        <div className="flex h-fit items-center gap-2 pl-3">
+          <div className="flex items-center gap-0.5 whitespace-nowrap rounded-full bg-black/[0.05] p-1 pr-2 text-[10px] text-tertiary">
+            <ClockIcon />{" "}
+            {moment
+              .duration(moment().diff(moment(translation.created_at)))
+              .humanize()}
+          </div>
+
+          <div className="dropdown ">
+            <div
+              tabIndex={0}
+              onClick={e => e.stopPropagation()}
+              role="button"
+              className="btn btn-circle btn-ghost btn-xs text-info"
+            >
+              <MoreVertical height={16} />
+            </div>
+            <ul
+              tabIndex={0}
+              className="rounded menu dropdown-content  z-[1] w-28 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+            >
+              <li>
+                <a onClick={e => {
+                  setTranslation(translation.text)
+                  e.stopPropagation()
+                  $(".dropdown").removeClass("dropdown-open");
+                  const active = document.activeElement as HTMLElement;
+                  active.blur();
+                  e.stopPropagation();
+                  }}>
+                  Use
+                </a>
+              </li>
+              {session.data?.user?.email === owner && <li>
+                <a onClick={e => {
+                  e.stopPropagation()
+                  choose()
+                }}>Choose</a>
+              </li>}
+              
+              <li>
+                <a onClick={e => e.stopPropagation()}>Copy</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <div className="flex items-center justify-between">
         <div></div>
 
-        <div className="flex gap-3">
-          
-          {vote && <button
-            onClick={upvote}
-            className={cx("btn btn-sm flex items-center gap-2 rounded-xl text-[10px] font-medium ",
-              vote === "upvote" ? "btn-primary text-light" : "btn-ghost text-tertiary-txt"
-            )}
-          >
-            <ThumbsUp size={14} />
-            {upvotes}
-          </button>}
-          {!vote && <button className="skeleton rounded-2 text-[10px] h-8 w-14"></button>}
-          
-          {vote &&<button
-            onClick={downvote}
-            className={cx("btn btn-sm flex items-center gap-2 rounded-xl text-[10px] font-medium ",
-              vote === "downvote" ? "btn-primary text-light" : "btn-ghost text-tertiary-txt"
-            )}
-          >
-            <ThumbsDown size={14} />
-            {downvotes}
-          </button>}
-          {!vote && <button className="skeleton rounded-2 text-[10px] h-8 w-14"></button>}
+        <div className="flex items-center gap-3">
+          {isChosen && (
+            <div className="rounded-3xl flex items-center gap-1 border-primary h-6 bg-primary/15 px-1.5 py-0.5 text-[10px] text-primary">
+              <Check size={12} color="rgb(25,103,210)" />
+              Chosen
+            </div>
+          )}
+          {vote && (
+            <button
+              onClick={upvote}
+              className={cx(
+                "rounded-xl btn btn-sm flex items-center gap-2 text-[10px] font-medium ",
+                vote === "upvote"
+                  ? "btn-primary text-light"
+                  : "btn-ghost text-tertiary-txt",
+              )}
+            >
+              <ThumbsUp size={14} />
+              {upvotes}
+            </button>
+          )}
+          {!vote && (
+            <div className="skeleton h-8 w-14 rounded-2"></div>
+          )}
+
+          {vote && (
+            <button
+              onClick={downvote}
+              className={cx(
+                "rounded-xl btn btn-sm flex items-center gap-2 text-[10px] font-medium ",
+                vote === "downvote"
+                  ? "btn-primary text-light"
+                  : "btn-ghost text-tertiary-txt",
+              )}
+            >
+              <ThumbsDown size={14} />
+              {downvotes}
+            </button>
+          )}
+          {!vote && (
+            <div className="skeleton h-8 w-14 rounded-2"></div>
+          )}
 
           <div className="flex items-center gap-2 text-lg font-semibold text-tertiary">
             <Icon path={mdiDiamond} size={1} />
-            16
+            {translation.score}
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}

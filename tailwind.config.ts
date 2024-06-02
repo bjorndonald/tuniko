@@ -22,6 +22,7 @@ const colors = [
   'background',
   'divider',
   'hover',
+  'toolbar',
   'toolbar-highlight',
   'primary-txt',
   'secondary-txt',
@@ -46,7 +47,7 @@ const breakpoints = {
   'mobile-md': '375px',
   'mobile-lg': '425px',
   'tablet-sm': '596px',
-  'tablet-md': '768px',
+  'tablet-md': '768px', 
   desktop: '960px',
   'desktop-lg': '1359px'
 };

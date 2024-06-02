@@ -2,10 +2,11 @@
 ::backdrop {
     --color-background: theme('colors.light');
     --color-divider: theme(colors.brand.950 / 12%);
---b1: theme('colors.light');
+    --b1: 100% 0 0;
 --bc: theme('colors.dark');
+    --b3: 92.4169% .00108 197.137559;
     --color-progress: theme(colors.brand.100);
-    --color-toolbar: theme(colors.brand.500 / 5%);
+   --color-toolbar: theme(colors.brand.50 / 8%);
     --color-toolbar-highlight: theme(colors.brand.600 / 8%);
     --color-hover: theme(colors.dark / 15%);
     --color-accent: theme('colors.brand.500');
@@ -43,7 +44,7 @@ html.dark {
 --b1: theme('colors.dark');
 --bc: theme('colors.light');
  --color-hover: theme(colors.light / 15%);
-    --color-toolbar: theme(colors.brand.300 / 8%);
+    --color-toolbar: theme(colors.brand.950 / 8%);
     --color-toolbar-highlight: theme(colors.brand.200 / 12%);
 
     --color-accent: theme('colors.brand.300');

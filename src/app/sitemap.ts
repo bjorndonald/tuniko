@@ -8,20 +8,13 @@ const today = ((): Date => {
 })();
 
 export default function sitemap(): MetadataRoute.Sitemap {
-
-  const routes = [
-    "",
-    "request",
-    "translation",
-    "signin",
-    "signup",
-  ].map(route => ({
-    url: `https://tuniko.com/${route}`,
-    lastModified: today.toISOString().split("T")[0],
-    priority: route ? 0.8 : 1,
-  }));
-
-  return [...routes].sort(
-    (a, b) => (b.priority || 0) - (a.priority || 0),
+  const routes = ["", "request", "translation", "signin", "signup"].map(
+    route => ({
+      url: `https://tuniko.com/${route}`,
+      lastModified: today.toISOString().split("T")[0],
+      priority: route ? 0.8 : 1,
+    }),
   );
+
+  return [...routes].sort((a, b) => (b.priority || 0) - (a.priority || 0));
 }

@@ -47,7 +47,7 @@ export const linksGroups = [
           ignoreNextLink: true,
         },
       },
-    ]
+    ],
   },
   {
     title: "Misc",

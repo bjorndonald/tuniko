@@ -45,12 +45,12 @@ const Link = (props: LinkProps) => {
       }
       {...(openInNewTab
         ? {
-          target: "_blank",
-          rel: `${props.rel || ""} noopener noreferrer`.trim(),
-        }
+            target: "_blank",
+            rel: `${props.rel || ""} noopener noreferrer`.trim(),
+          }
         : {})}
     />
   );
 };
 
-export default Link
+export default Link;

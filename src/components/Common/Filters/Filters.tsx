@@ -22,23 +22,23 @@ const Filters = () => {
   const resetSelections = useCorpus(s => s.resetSelections);
 
   return (
-    <div className="flex-col-reverse  desktop:flex-row h-fit pt-3 flex desktop:h-[68px] desktop:items-center justify-between ">
+    <div className="flex  h-fit flex-col-reverse justify-between pt-3 desktop:h-[68px] desktop:flex-row desktop:items-center ">
       <div className="flex items-center gap-2">
-        <div className="tablet-md:hidden dropdown">
+        <div className="dropdown tablet-md:hidden">
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-outline m-1 h-9 min-h-9 rounded border-[rgb(218,220,224)] font-normal text-[rgb(25,103,210)] hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-[rgb(218,220,224)] font-normal text-[rgb(25,103,210)] hover:bg-primary/10"
           >
             {textType}
           </div>
           <ul
             tabIndex={0}
-            className="menu dropdown-content z-[1]  w-52 rounded border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+            className="rounded menu dropdown-content  z-[1] w-52 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
           >
             <li onClick={() => setTextType("All")}>
               <a className="flex gap-1">
-                <Logo width={20} /> 
+                <Logo width={20} />
                 All
               </a>
             </li>
@@ -58,21 +58,21 @@ const Filters = () => {
         </div>
         <button
           onClick={() => setTextType("All")}
-          className={`hidden tablet-md:flex h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 ${textType === "All" ? "!bg-primary/10" : ""} cursor-pointer rounded`}
+          className={`hidden h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${textType === "All" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
         >
           <Logo width={20} />
           <span className="text-sm text-accent">All</span>
         </button>
         <button
           onClick={() => setTextType("Text")}
-          className={`hidden tablet-md:flex h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 ${textType === "Text" ? "!bg-primary/10" : ""} cursor-pointer rounded`}
+          className={`hidden h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${textType === "Text" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
         >
           <TextIcon />
           <span className="text-sm text-accent">Text</span>
         </button>
         <button
           onClick={() => setTextType("Document")}
-          className={`hidden tablet-md:flex h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 ${textType === "Document" ? "!bg-primary/10" : ""} cursor-pointer rounded`}
+          className={`hidden h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${textType === "Document" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
         >
           <FileText width={20} color={"rgb(25,103,210)"} />
           <span className="text-sm text-accent">Document</span>
@@ -82,13 +82,13 @@ const Filters = () => {
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-outline m-1 h-9 min-h-9 rounded border-[rgb(218,220,224)] font-normal text-accent hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-[rgb(218,220,224)] font-normal text-accent hover:bg-primary/10"
           >
             {from || "All"}
           </div>
           <ul
             tabIndex={0}
-            className="menu dropdown-content z-[1]  w-52 rounded border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+            className="rounded menu dropdown-content  z-[1] w-52 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
           >
             <li onClick={() => setFrom("English")}>
               <a>English</a>
@@ -99,7 +99,7 @@ const Filters = () => {
           </ul>
         </div>
 
-        <button className="tablet-md:mx-1 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full p-2 hover:bg-black/10">
+        <button className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full p-2 hover:bg-black/10 tablet-md:mx-1">
           <Icon path={mdiSwapHorizontal} size={24} />
         </button>
 
@@ -109,13 +109,13 @@ const Filters = () => {
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-outline m-1 h-9 min-h-9 rounded border-[rgb(218,220,224)] font-normal text-accent hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-[rgb(218,220,224)] font-normal text-accent hover:bg-primary/10"
           >
             {to || "All"}
           </div>
           <ul
             tabIndex={0}
-            className="menu dropdown-content z-[1]  w-52 rounded border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+            className="rounded menu dropdown-content  z-[1] w-52 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
           >
             <li onClick={() => setTo("English")}>
               <a>English</a>
@@ -145,14 +145,17 @@ const Filters = () => {
             </button>
           </div>
         )}
-        <Link href={"/request"} className="min-h-9 h-9 btn btn-outline btn-primary mr-2 flex !border-primary !text-primary hover:!bg-primary hover:!text-white rounded-1">
+        <Link
+          href={"/request"}
+          className="btn btn-outline btn-primary mr-2 flex h-9 min-h-9 rounded-1 !border-primary !text-primary hover:!bg-primary hover:!text-white"
+        >
           <Plus width={20} />
           Request
         </Link>
       </div>
 
       <div className="flex items-center gap-2">
-        <label className="input input-bordered flex h-9 items-center gap-2 rounded border-[rgb(218,220,224)] bg-transparent !outline-none">
+        <label className="rounded input input-bordered flex h-9 items-center gap-2 border-[rgb(218,220,224)] bg-transparent !outline-none">
           <input
             type="text"
             value={searchTerm}
@@ -178,13 +181,13 @@ const Filters = () => {
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-outline m-1 h-9 min-h-9 rounded border-[rgb(218,220,224)] font-normal text-[rgb(25,103,210)] hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-[rgb(218,220,224)] font-normal text-[rgb(25,103,210)] hover:bg-primary/10"
           >
             {sort ?? "Sort By"}
           </div>
           <ul
             tabIndex={0}
-            className="menu dropdown-content z-[1]  w-52 rounded border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+            className="rounded menu dropdown-content  z-[1] w-52 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
           >
             <li onClick={() => setSort("Popular")}>
               <a>Popular</a>

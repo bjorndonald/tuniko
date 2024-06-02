@@ -78,7 +78,7 @@ export const corpusTexts = pgTable("corpustexts", {
         .primaryKey()
         .$defaultFn(() => crypto.randomUUID()),
     text: text("text"),
-    entryType: pgEnum('entryType', ['Text', 'Document'])('entryType'),
+    entryType: pgEnum('entrytype', ['Text', 'Document'])('entrytype'),
     owner: text("owner")
             .notNull()
         .references(() => users.id, { onUpdate: "cascade", onDelete: "cascade" }),
@@ -154,6 +154,18 @@ export const translationscores = pgTable("translationscores", {
     translation: text("translation")
         .notNull()
         .references(() => translations.id, { onDelete: "cascade" }),
+    score: numeric("score"),
+    created_at: timestamp("created_at", { mode: "date" }),
+    updated_at: timestamp("updated_at", { mode: "date" })
+})
+
+export const userscore = pgTable("userscore", {
+    id: text("id")
+        .primaryKey()
+        .$defaultFn(() => crypto.randomUUID()),
+    user: text("user")
+        .notNull()
+        .references(() => users.id, { onDelete: "cascade" }),
     score: numeric("score"),
     created_at: timestamp("created_at", { mode: "date" }),
     updated_at: timestamp("updated_at", { mode: "date" })

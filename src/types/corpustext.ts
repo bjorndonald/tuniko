@@ -4,6 +4,7 @@ import User from "./user"
 export default interface CorpusText {
 	id: string
 	text: string
+	complexity: number
 	has_chosen: boolean
 	no_of_answers: number
 	entry_type: string

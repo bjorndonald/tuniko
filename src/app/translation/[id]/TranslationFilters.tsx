@@ -7,11 +7,11 @@ const TranslationFilters = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sort, setSort] = useState<SortType>();
   return (
-    <div className="tablet-md:flew-row flex-col gap-3 mx-auto mt-24 flex mb-4 tablet-md:mb-0 tablet-md:h-[68px] tablet-md:max-w-2xl items-center justify-between px-4">
+    <div className="mx-auto mb-4 mt-24 flex flex-col items-center justify-between gap-3 px-4 tablet-md:mb-0 tablet-md:h-[68px] tablet-md:max-w-2xl tablet-md:flex-row">
       <h2 className="text-3xl">Translations</h2>
 
       <div className="flex items-center gap-2">
-        <label className="input input-bordered flex h-9 items-center gap-2 rounded border-[rgb(218,220,224)] bg-transparent !outline-none">
+        <label className="rounded input input-bordered flex h-9 items-center gap-2 border-divider bg-transparent !outline-none">
           <input
             type="text"
             value={searchTerm}
@@ -37,13 +37,13 @@ const TranslationFilters = () => {
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-outline m-1 h-9 min-h-9 rounded border-[rgb(218,220,224)] font-normal text-[rgb(25,103,210)] hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-divider font-normal text-[rgb(25,103,210)] hover:bg-primary/10"
           >
             {sort ?? "Sort By"}
           </div>
           <ul
             tabIndex={0}
-            className="menu dropdown-content z-[1]  w-52 rounded border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+            className="rounded menu dropdown-content  z-[1] w-52 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
           >
             <li onClick={() => setSort("Popular")}>
               <a>Popular</a>

@@ -4,9 +4,7 @@ import { config } from "@/utils/og";
 import type { PathName } from "./logo-title";
 import { OgImage } from "./og";
 
-const getInterFont = async (): Promise<
-  SatoriOptions["fonts"] | undefined
-> => {
+const getInterFont = async (): Promise<SatoriOptions["fonts"] | undefined> => {
   const url = new URL("./Inter-Bold.ttf", import.meta.url);
   try {
     const fontData = await fetch(url)

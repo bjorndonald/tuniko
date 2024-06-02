@@ -6,7 +6,14 @@ import CorpusText from "@/types/corpustext";
 import Language from "@/types/language";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState } from "react";
-import { ArrowUpRight, CheckCircle, Copy, RefreshCw, Share, X } from "react-feather";
+import {
+  ArrowUpRight,
+  CheckCircle,
+  Copy,
+  RefreshCw,
+  Share,
+  X,
+} from "react-feather";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import toast from "react-hot-toast";
@@ -35,8 +42,8 @@ type RightFormData = z.infer<typeof rightSchema>;
 
 const Inputs = ({ corpusText }: Props) => {
   const navigate = useRouter();
-  const session = useSession()
-  const [chosen, setChosen] = useState<Translation>()
+  const session = useSession();
+  const [chosen, setChosen] = useState<Translation>();
   const [loading, setLoading] = useState(false);
   const isEditing = useLanguageStore(s => s.isEditing);
   const setIsEditing = useLanguageStore(s => s.setIsEditing);
@@ -59,12 +66,13 @@ const Inputs = ({ corpusText }: Props) => {
   useEffect(() => {
     setCorpus(corpusText.text);
     const init = async () => {
-      const chosen: Translation = await getChosen(corpusText.id)
-
-      setChosen(chosen)
-    }
-    init()
-    return () => { };
+      try {
+        const chosen: Translation = await getChosen(corpusText.id);
+        setChosen(chosen);
+      } catch (error) {}
+    };
+    init();
+    return () => {};
   }, []);
 
   const saveTranslation = async () => {
@@ -75,10 +83,13 @@ const Inputs = ({ corpusText }: Props) => {
     setLoading(true);
 
     try {
-      const res = await axios.post(process.env.NEXT_PUBLIC_SERVER_URI + "/translation", {
+      await axios.post(process.env.NEXT_PUBLIC_SERVER_URI + "/translation", {
         text: translation.trim(),
         translator: {
-          email: session.status === "authenticated" ? session.data.user.email : ANONYMOUS_USER_EMAIL
+          email:
+            session.status === "authenticated"
+              ? session.data.user.email
+              : ANONYMOUS_USER_EMAIL,
         },
         corpus: corpusText.id,
         language_id: languageTo,
@@ -130,11 +141,11 @@ const Inputs = ({ corpusText }: Props) => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-1 flex-col tablet-md:flex-row flex-nowrap gap-2">
+      <div className="flex flex-1 flex-col flex-nowrap gap-2 tablet-md:flex-row">
         {loading && <></>}
         <form
           onSubmit={handleLeftSubmit(saveTranslation)}
-          className="relative flex min-h-[166px] grow flex-col justify-between rounded-lg border border-black/[0.12]"
+          className="rounded-lg relative flex min-h-[166px] grow flex-col justify-between border border-divider"
         >
           {!!corpus.length && (
             <button className="btn btn-circle btn-ghost absolute right-2 top-2 h-10 !min-h-10 w-10 rounded-full">
@@ -178,7 +189,7 @@ const Inputs = ({ corpusText }: Props) => {
 
         <form
           onSubmit={handleRightSubmit(saveCorpus)}
-          className="relative flex grow flex-col justify-between rounded-lg bg-[#f5f5f5]"
+          className="rounded-lg relative flex grow flex-col justify-between bg-toolbar border-divider border"
         >
           <button className="btn btn-circle btn-ghost absolute right-2 top-2 h-10 !min-h-10 w-10 rounded-full">
             <Copy width={24} height={24} color="rgb(95,99,104)" />
@@ -247,28 +258,26 @@ const Inputs = ({ corpusText }: Props) => {
           </div>
         </form>
       </div>
-      {!!chosen && <div className="flex w-full gap-2">
-        <div className="hidden tablet-md:block tablet-md:w-[calc(50%)]">
-        </div>
-        <div className="translation flex gap-3 rounded border border-divider bg-primary/5 tablet-md:w-[calc(50%)] w-full px-4 pb-3 pt-3 ">
-          <p
-            onClick={() => setTranslation(chosen.text)}
-            className="group grow z-0 flex h-fit cursor-pointer whitespace-pre-wrap text-2xl/8 text-tertiary-tx"
-          >
-            {chosen.text}{" "}
-            <i className="my-2 hidden group-hover:inline-block">
-              <ArrowUpRight size={16} />
+      {!!chosen && (
+        <div className="flex w-full gap-2">
+          <div className="hidden tablet-md:block tablet-md:w-[calc(50%)]"></div>
+          <div className="translation rounded flex w-full gap-3 border border-divider bg-primary/5 px-4 pb-3 pt-3 tablet-md:w-[calc(50%)] ">
+            <p
+              onClick={() => setTranslation(chosen.text)}
+              className="text-tertiary-tx group z-0 flex h-fit grow cursor-pointer whitespace-pre-wrap text-2xl/8"
+            >
+              {chosen.text}{" "}
+              <i className="my-2 hidden group-hover:inline-block">
+                <ArrowUpRight size={16} />
+              </i>
+            </p>
+            <i className="text-primary">
+              <CheckCircle />
             </i>
-          </p>
-          <i className="text-primary">
-            <CheckCircle />
-          </i>
-
+          </div>
         </div>
-      </div>
-      }
+      )}
     </div>
-
   );
 };
 

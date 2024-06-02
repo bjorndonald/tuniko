@@ -18,7 +18,7 @@ const GoogleButton = ({ id }: Props) => {
   return (
     <button
       onClick={login}
-      className="google-blue mx-auto flex w-64 cursor-pointer items-center justify-start rounded px-4 py-3 text-sm font-bold text-gray-100 shadow hover:text-white"
+      className="google-blue rounded text-gray-100 mx-auto flex w-64 cursor-pointer items-center justify-start px-4 py-3 text-sm font-bold shadow hover:text-white"
     >
       <GoogleIcon />
       <span className="block h-6 w-1 border-l border-blue-500"></span>

@@ -11,11 +11,11 @@ const KResults = () => {
       items={results}
       onRender={({ item, active }) =>
         typeof item === "string" ? (
-          <div className="px-3 pb-2 pt-4 text-sm text-gray-400">{item}</div>
+          <div className="text-gray-400 px-3 pb-2 pt-4 text-sm">{item}</div>
         ) : (
           <div
             className={cx(
-              "flex cursor-pointer items-center justify-between rounded-lg px-3 py-3 transition-colors",
+              "rounded-lg flex cursor-pointer items-center justify-between px-3 py-3 transition-colors",
               active ? "bg-tertiary" : "bg-transparent",
             )}
           >

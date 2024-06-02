@@ -58,7 +58,7 @@ const EfikTextArea = (props: Props) => {
   }, [value]);
 
   return (
-    <div className="efik-editor grow relative">
+    <div className="efik-editor relative grow">
       <textarea
         disabled={disabled}
         placeholder={placeholder}
@@ -116,7 +116,7 @@ const EfikTextArea = (props: Props) => {
           }
         }}
         className={cx(
-          "min-h-16 w-full ring-0 focus:border-none resize-none whitespace-pre-wrap border-none bg-transparent text-2xl text-secondary-txt outline-none",
+          "min-h-16 w-full resize-none whitespace-pre-wrap border-none bg-transparent text-2xl text-secondary-txt outline-none ring-0 focus:border-none",
           className,
         )}
         aria-label="corpus"
@@ -130,7 +130,7 @@ const EfikTextArea = (props: Props) => {
         name="corpus"
       />
       {!!currentletter && (
-        <div className="tones  absolute -top-10 left-1/4 flex h-10 items-center divide-x border border-divider bg-background/65">
+        <div className="tones  bg-background/65 absolute -top-10 left-1/4 flex h-10 items-center divide-x border border-divider">
           {tones[currentletter].map((x, i) => (
             <div
               key={i}
@@ -139,7 +139,7 @@ const EfikTextArea = (props: Props) => {
                 setCurrentletter("");
                 setSelectedTone(0);
               }}
-              className={`flex justify-center hover:bg-hover cursor-pointer items-center h-full w-10 ${selectedTone === i ? "bg-hover text-secondary-txt" : ""}`}
+              className={`flex h-full w-10 cursor-pointer items-center justify-center hover:bg-hover ${selectedTone === i ? "bg-hover text-secondary-txt" : ""}`}
             >
               {x}
             </div>

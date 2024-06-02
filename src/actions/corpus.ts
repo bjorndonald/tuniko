@@ -13,13 +13,24 @@ export const getCorpusById = async (id: string) => {
 
 export const getCorpus = async () => {
     const res = await fetch(process.env.SERVER_URI + '/corpus', {
-        
+        cache: "reload"
     })
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
 
     return (await res.json()).list
+}
+
+export const getCorpusFile = async () => {
+    const res = await fetch(process.env.SERVER_URI + '/download', {
+        cache: "reload"
+    })
+    if (!res.ok) {
+        throw new Error('Failed to fetch data')
+    }
+
+    return (await res.blob())
 }
 
 export const getChosen = async (corpusId: string) => {
@@ -31,4 +42,19 @@ export const getChosen = async (corpusId: string) => {
     }
 
     return (await res.json()).chosen
+}
+
+export const chooseTranslation = async (corpus: string, translation: string) => {
+    const res = await fetch(process.env.SERVER_URI + `/corpus/chosen/${corpus}`, {
+        method: "POST",
+        body: JSON.stringify({
+            translation,
+        })
+    })
+    
+    if (!res.ok) {
+        throw new Error('Failed to post data')
+    }
+
+    return (await res.json()).vote
 }

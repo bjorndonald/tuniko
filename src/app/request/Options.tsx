@@ -5,10 +5,8 @@ import useLanguageStore from "@/store/language";
 import Language from "@/types/language";
 import { mdiSwapHorizontal } from "@mdi/js";
 import Icon from "@mdi/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FileText } from "react-feather";
-
-type TextType = "All" | "Text" | "Document";
 
 interface Props {
   languages: Language[];
@@ -19,8 +17,8 @@ const Options = ({ languages }: Props) => {
   const setLanguageTo = useLanguageStore(s => s.setLanguageTo);
   const languageFrom = useLanguageStore(s => s.languageFrom);
   const languageTo = useLanguageStore(s => s.languageTo);
-  const entryType = useLanguageStore(s => s.entryType)
-  const setEntryType = useLanguageStore(s => s.setEntryType)
+  const entryType = useLanguageStore(s => s.entryType);
+  const setEntryType = useLanguageStore(s => s.setEntryType);
   const reset = useLanguageStore(s => s.reset);
   const swap = useLanguageStore(s => s.swap);
 
@@ -35,17 +33,17 @@ const Options = ({ languages }: Props) => {
   return (
     <div className="flew-row flex h-[68px] items-center justify-between ">
       <div className="flex items-center gap-2">
-        <div className="tablet-md:hidden dropdown">
+        <div className="dropdown tablet-md:hidden">
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-outline m-1 h-9 min-h-9 rounded border-[rgb(218,220,224)] font-normal text-[rgb(25,103,210)] hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-[rgb(218,220,224)] font-normal text-[rgb(25,103,210)] hover:bg-primary/10"
           >
             {entryType}
           </div>
           <ul
             tabIndex={0}
-            className="menu dropdown-content z-[1]  w-52 rounded border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+            className="rounded menu dropdown-content  z-[1] w-52 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
           >
             <li onClick={() => setEntryType("Text")}>
               <a className="flex gap-1">
@@ -63,14 +61,14 @@ const Options = ({ languages }: Props) => {
         </div>
         <button
           onClick={() => setEntryType("Text")}
-          className={`hidden tablet-md:flex h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 ${entryType === "Text" ? "!bg-primary/10" : ""} cursor-pointer rounded`}
+          className={`hidden h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${entryType === "Text" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
         >
           <TextIcon />
           <span className="text-sm text-primary">Text</span>
         </button>
         <button
           onClick={() => setEntryType("Document")}
-          className={`mr-3 hidden tablet-md:flex h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 ${entryType === "Document" ? "!bg-primary/10" : ""} cursor-pointer rounded`}
+          className={`mr-3 hidden h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${entryType === "Document" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
         >
           <FileText width={20} color={"rgb(25,103,210)"} />
           <span className="text-sm text-primary">Document</span>
@@ -81,13 +79,13 @@ const Options = ({ languages }: Props) => {
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-outline m-1 h-9 min-h-9 rounded border-divider font-normal text-secondary-txt hover:bg-background/10"
+              className="rounded hover:bg-background/10 btn btn-outline m-1 h-9 min-h-9 border-divider font-normal text-secondary-txt"
             >
               {languages.find(x => x.id === languageFrom)?.name || "Select"}
             </div>
             <ul
               tabIndex={0}
-              className="menu dropdown-content z-[1]  w-52 rounded border border-secondary-txt bg-background p-2 text-secondary-txt shadow"
+              className="rounded menu dropdown-content  z-[1] w-52 border border-secondary-txt bg-background p-2 text-secondary-txt shadow"
             >
               {languages.map((x, i) => (
                 <li
@@ -109,7 +107,7 @@ const Options = ({ languages }: Props) => {
 
           <button
             onClick={swap}
-            className="mx-1 border-divider flex h-10 w-10 cursor-pointer items-center justify-center rounded-full p-2 hover:bg-black/10"
+            className="mx-1 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-divider p-2 hover:bg-black/10"
           >
             <Icon path={mdiSwapHorizontal} size={24} />
           </button>
@@ -120,13 +118,13 @@ const Options = ({ languages }: Props) => {
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-outline m-1 h-9 min-h-9 rounded border-divider font-normal text-secondary-txt hover:bg-primary/10"
+              className="rounded btn btn-outline m-1 h-9 min-h-9 border-divider font-normal text-secondary-txt hover:bg-primary/10"
             >
               {languages.find(x => x.id === languageTo)?.name || "Select"}
             </div>
             <ul
               tabIndex={0}
-              className="menu dropdown-content z-[1]  w-52 rounded border border-secondary-txt bg-background p-2 text-secondary-txt shadow"
+              className="rounded menu dropdown-content  z-[1] w-52 border border-secondary-txt bg-background p-2 text-secondary-txt shadow"
             >
               {languages.map((x, i) => (
                 <li

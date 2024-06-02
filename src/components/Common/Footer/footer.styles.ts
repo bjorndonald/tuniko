@@ -1,10 +1,9 @@
-
 import Link from "@/components/Shared/Link";
 import { MAX_SITE_WIDTH } from "@/constants";
 import { twc } from "@/utils/cx";
 
 export const StyledFooter = twc.footer.attrs({
-    style: { maxWidth: MAX_SITE_WIDTH },
+  style: { maxWidth: MAX_SITE_WIDTH },
 })`
     w-full
     mx-auto

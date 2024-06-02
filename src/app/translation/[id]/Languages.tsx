@@ -10,7 +10,7 @@ import Language from "@/types/language";
 
 interface Props {
   corpus: CorpusText;
-  languages: Language[]
+  languages: Language[];
 }
 
 const Languages = ({ corpus, languages }: Props) => {
@@ -32,29 +32,26 @@ const Languages = ({ corpus, languages }: Props) => {
 
   return (
     <div className=" flex items-center">
-      <div className="tablet-md:hidden flex-1 dropdown">
+      <div className="dropdown flex-1 tablet-md:hidden">
         <div
           tabIndex={0}
           role="button"
-          className="w-full flex items-center justify-center rounded-0  h-9 min-h-9 border-[rgb(218,220,224)] font-normal text-lg text-[rgb(25,103,210)] hover:bg-primary/10"
+          className="flex h-9 min-h-9 w-full items-center  justify-center rounded-0 border-[rgb(218,220,224)] text-lg font-normal text-[rgb(25,103,210)] hover:bg-primary/10"
         >
           {languages.find(x => x.id === languageTo)?.name}
         </div>
         <ul
           tabIndex={0}
-          className="menu dropdown-content z-[1]  w-full rounded border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+          className="rounded menu dropdown-content  z-[1] w-full border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
         >
-          {languages.map((x, i)=> (
+          {languages.map((x, i) => (
             <li key={i} onClick={() => setLanguageTo(x.id)}>
-              <a className="flex gap-1">
-                {x.name}
-              </a>
+              <a className="flex gap-1">{x.name}</a>
             </li>
           ))}
-        
         </ul>
       </div>
-      <div className="tablet-md:flex tabs tabs-bordered hidden flex-1 px-2">
+      <div className="tabs tabs-bordered hidden flex-1 px-2 tablet-md:flex">
         <a
           role="tab"
           onClick={() => {
@@ -97,29 +94,26 @@ const Languages = ({ corpus, languages }: Props) => {
           size={1}
         />
       </button>
-      <div className="tablet-md:hidden flex-1 dropdown">
+      <div className="dropdown flex-1 tablet-md:hidden">
         <div
           tabIndex={0}
           role="button"
-          className="w-full flex items-center justify-center rounded-0  h-9 min-h-9 border-[rgb(218,220,224)] font-normal text-lg text-[rgb(25,103,210)] hover:bg-primary/10"
+          className="flex h-9 min-h-9 w-full items-center  justify-center rounded-0 border-[rgb(218,220,224)] text-lg font-normal text-[rgb(25,103,210)] hover:bg-primary/10"
         >
           {languages.find(x => x.id === languageFrom)?.name}
         </div>
         <ul
           tabIndex={0}
-          className="menu dropdown-content z-[1]  w-full rounded border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+          className="rounded menu dropdown-content  z-[1] w-full border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
         >
           {languages.map((x, i) => (
             <li key={i} onClick={() => setLanguageFrom(x.id)}>
-              <a className="flex gap-1">
-                {x.name}
-              </a>
+              <a className="flex gap-1">{x.name}</a>
             </li>
           ))}
-
         </ul>
       </div>
-      <div className="tabs tabs-bordered hidden tablet-md:flex flex-1 px-2">
+      <div className="tabs tabs-bordered hidden flex-1 px-2 tablet-md:flex">
         <a
           role="tab"
           onClick={() => {

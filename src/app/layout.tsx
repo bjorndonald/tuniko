@@ -1,5 +1,4 @@
 import "./../styles/global.scss";
-import type { Metadata } from "next";
 import { PT_Sans as ptsans } from "next/font/google";
 import Header from "@/components/Common/Header";
 import { Toaster } from "react-hot-toast";
@@ -17,18 +16,11 @@ export const metadata = {
     title: "Tuniko | Help Us Translate",
     description:
       "This is a platform that allows users to help each other with translations for languages not supported digitally",
-    keywords: [
-      "translations",
-      "community",
-      "efik",
-      "translate",
-      "web",
-    ],
+    keywords: ["translations", "community", "efik", "translate", "web"],
   }),
 };
 
-const { UMAMI_WEBSITE_ID: umamiWebsiteId = "" } =
-  process.env;
+const { UMAMI_WEBSITE_ID: umamiWebsiteId = "" } = process.env;
 
 export default async function RootLayout({
   children,

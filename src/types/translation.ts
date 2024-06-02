@@ -4,6 +4,7 @@ import User from "./user"
 export default interface Translation {
     id: string
     text: string
+    score: number
     translator_id: string
     translator: User
     upvotes: number

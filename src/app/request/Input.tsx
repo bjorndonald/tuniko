@@ -12,7 +12,7 @@ import { loading as loadingIcon } from "@/components/icons";
 import Icon from "@mdi/react";
 import cx from "classnames";
 import useLanguageStore from "@/store/language";
-import { ANONYMOUS_USER_EMAIL, ANONYMOUS_USER_ID, ENGLISH_LANGUAGE_ID } from "@/constants/strings";
+import { ANONYMOUS_USER_EMAIL, ENGLISH_LANGUAGE_ID } from "@/constants/strings";
 import { EnglishTextArea } from "@/components/Common/Language";
 import { useSession } from "next-auth/react";
 
@@ -24,8 +24,8 @@ type FormData = z.infer<typeof schema>;
 
 const Input = () => {
   const navigate = useRouter();
-  const session= useSession()
-  const entryType = useLanguageStore(s => s.entryType)
+  const session = useSession();
+  const entryType = useLanguageStore(s => s.entryType);
   const [loading, setLoading] = useState(false);
   const [corpus, setCorpus] = useState("");
   const languageFrom = useLanguageStore(s => s.languageFrom);
@@ -47,7 +47,10 @@ const Input = () => {
         {
           text: corpus,
           owner: {
-            email: session.status === "authenticated" ? session.data.user.email : ANONYMOUS_USER_EMAIL
+            email:
+              session.status === "authenticated"
+                ? session.data.user.email
+                : ANONYMOUS_USER_EMAIL,
           },
           entry_type: entryType,
           language_from_id: languageFrom,
@@ -68,7 +71,7 @@ const Input = () => {
   return (
     <form
       onSubmit={handleSubmit(saveCorpus)}
-      className="relative flex min-h-[166px] grow flex-col justify-between rounded-lg border border-divider"
+      className="rounded-lg relative flex min-h-[166px] grow flex-col justify-between border border-divider"
     >
       {!!corpus.length && (
         <button

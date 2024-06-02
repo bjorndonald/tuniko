@@ -1,6 +1,5 @@
 import Logo from "@/components/Shared/Logo";
 
-
 const pathEmojiMap = {
   "404": "👻",
   about: "😀",

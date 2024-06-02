@@ -5,7 +5,12 @@ import { createMetadata } from "@/utils/metadata";
 
 export default function NotFound() {
   return (
-    <section id="error" className={"flex flex-col gap-5 -m-7 h-full w-full flex-1 tablet-sm:-mb-8"}>
+    <section
+      id="error"
+      className={
+        "-m-7 flex h-full w-full flex-1 flex-col gap-5 tablet-sm:-mb-8"
+      }
+    >
       <h1 className={getColoredTextClasses("red", "mb-4")}>
         Woops! ~ Page not found
       </h1>
