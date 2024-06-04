@@ -27,6 +27,7 @@
         ]
       }
     ],
+    "no-empty": "off",
     "no-undef": "off",
     "require-jsdoc": "off",
     "new-cap": "off",

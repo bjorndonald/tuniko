@@ -104,22 +104,26 @@ const CorpusCard = ({ corpus }: Props) => {
 
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center gap-2">
-          {corpus.complexity > 67 && <div className="rounded-3xl flex items-center gap-1 border-green-500/30 bg-green-500/30 px-1.5 py-1 text-[10px] font-medium text-green-500">
-            Easy
-          </div>}
-          {corpus.complexity > 33 && corpus.complexity < 67 &&
+          {corpus.complexity > 67 && (
+            <div className="rounded-3xl flex items-center gap-1 border-green-500/30 bg-green-500/30 px-1.5 py-1 text-[10px] font-medium text-green-500">
+              Easy
+            </div>
+          )}
+          {corpus.complexity > 33 && corpus.complexity < 67 && (
             <div className="rounded-3xl flex items-center gap-1 border-red-500/30 bg-red-500/30 px-1.5 py-1 text-[10px] font-medium text-red-500">
               Medium
-            </div>}
-          {corpus.complexity < 33 &&
-          <div className="rounded-3xl flex items-center gap-1 border-red-500/30 bg-red-500/30 px-1.5 py-1 text-[10px] font-medium text-red-500">
-            Hard
-          </div>}
+            </div>
+          )}
+          {corpus.complexity < 33 && (
+            <div className="rounded-3xl flex items-center gap-1 border-red-500/30 bg-red-500/30 px-1.5 py-1 text-[10px] font-medium text-red-500">
+              Hard
+            </div>
+          )}
 
           <div className="flex items-center">
             <span className="text-[10px] text-tertiary">
               {corpus.language_from.name}
-            </span> 
+            </span>
             <span className=" flex h-5 w-5 cursor-pointer items-center justify-center rounded-full">
               <ArrowRight size={12} />
             </span>

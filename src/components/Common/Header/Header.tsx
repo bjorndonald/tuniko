@@ -1,7 +1,6 @@
 import React from "react";
 import { Logo } from "../../Shared/Icons";
 import Link from "next/link";
-import { Download } from "react-feather";
 import { auth } from "@/auth";
 import ThemeToggle from "./ThemeToggle";
 import ProfileMenu from "./ProfileMenu";
@@ -24,14 +23,11 @@ const Header = async () => {
 
         <div className="flex items-center gap-3">
           <DownloadButton />
-          {!!session?.user && (
-          <UserScore session={session} />)}
+          {!!session?.user && <UserScore session={session} />}
 
           <ThemeToggle />
 
-          {!!session?.user && (
-            <ProfileMenu session={session} />
-          )}
+          {!!session?.user && <ProfileMenu session={session} />}
           {!session?.user && (
             <Link href={"/signin"} className="btn btn-ghost ml-2 text-primary">
               LOGIN TO TRACK PROGRESS

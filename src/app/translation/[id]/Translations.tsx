@@ -6,8 +6,8 @@ import Translation from "@/types/translation";
 
 interface Props {
   translations: Translation[];
-  corpusId: string
-  owner: string
+  corpusId: string;
+  owner: string;
 }
 
 const Translations = ({ translations, owner, corpusId }: Props) => {
@@ -15,7 +15,14 @@ const Translations = ({ translations, owner, corpusId }: Props) => {
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6">
-      {translations?.map((x, i) => <TranslationCard owner={owner} corpusId={corpusId} key={i} translation={x} />)}
+      {translations?.map((x, i) => (
+        <TranslationCard
+          owner={owner}
+          corpusId={corpusId}
+          key={i}
+          translation={x}
+        />
+      ))}
       <Pagination
         pageSize={4}
         currentPage={page}

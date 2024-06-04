@@ -14,6 +14,7 @@ export type ThemeOption = "system" | "light" | "dark";
 interface ThemeContextValue {
     theme: ThemeOption;
     isDark: boolean;
+    resolvedTheme: ThemeOption
     systemTheme: ThemeOption
     setTheme?: (theme: ThemeOption) => void;
 }
@@ -22,6 +23,8 @@ const defaultContextState: ThemeContextValue = {
     theme: "system",
     systemTheme: 'light',
     isDark: false,
+    resolvedTheme: "light",
+    setTheme: (theme: ThemeOption) => {}
 };
 
 const ThemeContext = createContext<ThemeContextValue>(defaultContextState);
@@ -49,6 +52,7 @@ export const CustomThemeProvider = (props: PropsWithChildren) => {
                 theme: theme as ThemeOption,
                 isDark: resolvedTheme === "dark",
                 setTheme,
+                resolvedTheme: resolvedTheme as ThemeOption,
                 systemTheme: systemTheme as ThemeOption
             }}
         >

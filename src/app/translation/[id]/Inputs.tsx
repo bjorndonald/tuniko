@@ -189,7 +189,7 @@ const Inputs = ({ corpusText }: Props) => {
 
         <form
           onSubmit={handleRightSubmit(saveCorpus)}
-          className="rounded-lg relative flex grow flex-col justify-between bg-toolbar border-divider border"
+          className="rounded-lg relative flex grow flex-col justify-between border border-divider bg-toolbar"
         >
           <button className="btn btn-circle btn-ghost absolute right-2 top-2 h-10 !min-h-10 w-10 rounded-full">
             <Copy width={24} height={24} color="rgb(95,99,104)" />

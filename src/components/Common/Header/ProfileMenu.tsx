@@ -1,37 +1,47 @@
-
-import { Session } from 'next-auth'
-import {signOut} from '@/auth'
-import Image from 'next/image'
-import React from 'react'
-import toast from 'react-hot-toast'
+import { Session } from "next-auth";
+import { signOut } from "@/auth";
+import Image from "next/image";
+import React from "react";
 
 interface Props {
-    session: Session
+  session: Session;
 }
 
-const ProfileMenu = ({session}: Props) => {
+const ProfileMenu = ({ session }: Props) => {
   return (
-      <form action={async () => {
-          "use server"
-          
-          await signOut()
-          
-      }} className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost rounded-full p-1">
-              <Image
-                  className="rounded-full"
-                  width={32}
-                  height={32}
-                  src={session.user.image}
-                  alt={`${session.user.name}`}
-              />
-          </div>
-          <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-background/80 border border-divider rounded-box w-52">
-              <li><a><button>Log out</button></a></li>
+    <form
+      action={async () => {
+        "use server";
 
-          </ul>
-      </form>
-  )
-}
+        await signOut();
+      }}
+      className="dropdown dropdown-end"
+    >
+      <div
+        tabIndex={0}
+        role="button"
+        className="btn btn-ghost rounded-full p-1"
+      >
+        <Image
+          className="rounded-full"
+          width={32}
+          height={32}
+          src={session.user.image}
+          alt={`${session.user.name}`}
+        />
+      </div>
+      <ul
+        tabIndex={0}
+        className="bg-background/80 menu dropdown-content z-[1] w-52 rounded-box border border-divider p-2 shadow"
+      >
+        <li>
+          <a>
+            <button>Log out</button>
+          </a>
+        </li>
+      </ul>
+    </form>
+  );
+};
 
-export default ProfileMenu
+export default ProfileMenu;

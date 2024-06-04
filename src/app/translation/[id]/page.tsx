@@ -28,7 +28,11 @@ const TranslationPage = async ({ params: { id } }: Props) => {
         <Languages languages={languages} corpus={corpus} />
         <Inputs corpusText={corpus} languages={languages} />
         <TranslationFilters />
-        <Translations owner={corpus.owner.email} corpusId={id} translations={translations} />
+        <Translations
+          owner={corpus.owner.email}
+          corpusId={id}
+          translations={translations}
+        />
       </div>
     </main>
   );

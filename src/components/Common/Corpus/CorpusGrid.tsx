@@ -10,7 +10,7 @@ interface Props {
 const CorpusGrid = ({ corpusList }: Props) => {
   useEffect(() => {
     const init = async () => {
-      const Masonry = (await import('masonry-layout')).default;
+      const Masonry = (await import("masonry-layout")).default;
       const grid = document.querySelector("#corpus");
       if (typeof window !== "undefined") {
         new Masonry(grid, {
@@ -23,8 +23,8 @@ const CorpusGrid = ({ corpusList }: Props) => {
           percentPosition: false,
         });
       }
-    }
-   init()
+    };
+    init();
 
     return () => {};
   }, []);
