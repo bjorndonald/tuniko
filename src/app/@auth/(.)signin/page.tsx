@@ -1,10 +1,10 @@
 import SignIn from "@/app/signin";
-import Modal from "@/components/Common/Modal";
+import Modal from "@/components/Common/PageModal";
 import React from "react";
 
 const page = () => {
   return (
-    <Modal>
+    <Modal show>
       <SignIn />
     </Modal>
   );

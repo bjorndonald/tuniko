@@ -126,9 +126,13 @@ const Options = ({ languages }: Props) => {
               tabIndex={0}
               className="rounded menu dropdown-content  z-[1] w-52 border border-secondary-txt bg-background p-2 text-secondary-txt shadow"
             >
-              <li onClick={() => {
-                setLanguageTo(ALL_LANGUAGE_ID)
-              }}><a>All</a></li>
+              <li
+                onClick={() => {
+                  setLanguageTo(ALL_LANGUAGE_ID);
+                }}
+              >
+                <a>All</a>
+              </li>
               {languages.map((x, i) => (
                 <li
                   key={i}

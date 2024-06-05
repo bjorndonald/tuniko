@@ -16,6 +16,7 @@ interface Props {
 
 const CorpusCard = ({ corpus }: Props) => {
   const navigate = useRouter();
+  const showShareModal = useCorpus(s => s.showShareModal);
   const selected = useCorpus(s => s.selected);
   const addSelected = useCorpus(s => s.addSelected);
   const removeSelection = useCorpus(s => s.removeSelection);
@@ -92,10 +93,23 @@ const CorpusCard = ({ corpus }: Props) => {
                 </a>
               </li>
               <li>
-                <a onClick={e => e.stopPropagation()}>Hide</a>
+                <a
+                  onClick={e => {
+                    e.stopPropagation();
+                  }}
+                >
+                  Copy
+                </a>
               </li>
               <li>
-                <a onClick={e => e.stopPropagation()}>Share</a>
+                <a
+                  onClick={e => {
+                    e.stopPropagation();
+                    showShareModal(corpus.id);
+                  }}
+                >
+                  Share
+                </a>
               </li>
             </ul>
           </div>
