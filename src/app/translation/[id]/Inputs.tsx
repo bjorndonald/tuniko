@@ -23,6 +23,7 @@ import { ANONYMOUS_USER_EMAIL, ENGLISH_LANGUAGE_ID } from "@/constants/strings";
 import { useSession } from "next-auth/react";
 import Translation from "@/types/translation";
 import { getChosen } from "@/actions/corpus";
+import { doCopyText } from "@/utils/copy";
 
 interface Props {
   corpusText: CorpusText;
@@ -191,7 +192,13 @@ const Inputs = ({ corpusText }: Props) => {
           onSubmit={handleRightSubmit(saveCorpus)}
           className="rounded-lg relative flex grow flex-col justify-between border border-divider bg-toolbar"
         >
-          <button className="btn btn-circle btn-ghost absolute right-2 top-2 h-10 !min-h-10 w-10 rounded-full">
+          <button
+            onClick={() => {
+              doCopyText(corpus);
+              toast.success("Copied.");
+            }}
+            className="btn btn-circle btn-ghost absolute right-2 top-2 h-10 !min-h-10 w-10 rounded-full"
+          >
             <Copy width={24} height={24} color="rgb(95,99,104)" />
           </button>
 

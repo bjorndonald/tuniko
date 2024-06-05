@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-import ClockIcon from "./Clock.icon";
-import { MoreVertical, User, Check, ArrowRight } from "react-feather";
+import { MoreVertical, User, Check, ArrowRight, Clock } from "react-feather";
 import $ from "jquery";
 import useCorpus from "@/store/corpus";
 import cx from "@/utils/cx";
@@ -9,6 +8,8 @@ import moment from "moment";
 import CorpusText from "@/types/corpustext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { doCopyText } from "@/utils/copy";
+import toast from "react-hot-toast";
 
 interface Props {
   corpus: CorpusText;
@@ -20,7 +21,11 @@ const CorpusCard = ({ corpus }: Props) => {
   const selected = useCorpus(s => s.selected);
   const addSelected = useCorpus(s => s.addSelected);
   const removeSelection = useCorpus(s => s.removeSelection);
-
+  const closeMenu = () => {
+    $(".dropdown").removeClass("dropdown-open");
+    const active = document.activeElement as HTMLElement;
+    active.blur();
+  };
   return (
     <div
       id={`${corpus.id}`}
@@ -50,8 +55,8 @@ const CorpusCard = ({ corpus }: Props) => {
           {corpus.text}
         </p>
         <div className="flex h-fit items-center gap-2 pl-3">
-          <div className="flex items-center gap-0.5 whitespace-nowrap rounded-full bg-black/[0.05] p-1 pr-2 text-[10px] text-tertiary">
-            <ClockIcon />{" "}
+          <div className="flex items-center gap-2 whitespace-nowrap rounded-full bg-background p-1 pr-2 text-[10px] text-tertiary-txt">
+            <Clock size={12} />
             {moment
               .duration(moment().diff(moment(corpus.created_at)))
               .humanize()}
@@ -68,7 +73,7 @@ const CorpusCard = ({ corpus }: Props) => {
             </div>
             <ul
               tabIndex={0}
-              className="rounded menu dropdown-content  z-[1] w-28 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+              className="rounded menu dropdown-content  z-[1] w-28 border border-divider bg-background p-2 text-tertiary-txt shadow"
             >
               <li>
                 <Link href={"/request"} onClick={e => e.stopPropagation()}>
@@ -83,9 +88,7 @@ const CorpusCard = ({ corpus }: Props) => {
                     } else {
                       addSelected(corpus.id);
                     }
-                    $(".dropdown").removeClass("dropdown-open");
-                    const active = document.activeElement as HTMLElement;
-                    active.blur();
+                    closeMenu();
                     e.stopPropagation();
                   }}
                 >
@@ -95,6 +98,9 @@ const CorpusCard = ({ corpus }: Props) => {
               <li>
                 <a
                   onClick={e => {
+                    doCopyText(corpus.text);
+                    closeMenu();
+                    toast.success("Copy");
                     e.stopPropagation();
                   }}
                 >

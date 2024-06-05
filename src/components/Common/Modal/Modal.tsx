@@ -11,7 +11,7 @@ interface Props {
 const Modal = ({ children, show, onClose }: Props) => {
   return (
     <dialog id="my_modal_3" className={cx("modal", show && "modal-open")}>
-      <div className="modal-box bg-background">
+      <div className="modal-box w-11/12 max-w-lg bg-background">
         <form method="dialog">
           {/* if there is a button in form, it will close the modal */}
           <button

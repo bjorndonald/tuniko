@@ -6,6 +6,7 @@ import {
   ArrowUpRight,
   MoreVertical,
   Check,
+  Clock,
 } from "react-feather";
 import { mdiDiamond } from "@mdi/js";
 import Icon from "@mdi/react";
@@ -19,12 +20,12 @@ import {
   TranslationIsChosen,
   getVoteOfTranslation,
 } from "@/actions/translation";
-import { ClockIcon } from "@/components/Shared/Icons";
 import moment from "moment";
 import $ from "jquery";
 import toast from "react-hot-toast";
 import { chooseTranslation } from "@/actions/corpus";
 import { useRouter } from "next/navigation";
+import { doCopyText } from "@/utils/copy";
 interface Props {
   translation: Translation;
   corpusId: string;
@@ -127,7 +128,11 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
       toast.remove("loading");
     }
   };
-
+  const closeMenu = () => {
+    $(".dropdown").removeClass("dropdown-open");
+    const active = document.activeElement as HTMLElement;
+    active.blur();
+  };
   return (
     <div
       className={cx(
@@ -146,8 +151,8 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
           </i>
         </p>
         <div className="flex h-fit items-center gap-2 pl-3">
-          <div className="flex items-center gap-0.5 whitespace-nowrap rounded-full bg-black/[0.05] p-1 pr-2 text-[10px] text-tertiary">
-            <ClockIcon />{" "}
+          <div className="flex items-center gap-2 whitespace-nowrap rounded-full bg-background p-1 pr-2 text-[10px] text-tertiary-txt">
+            <Clock size={12} />
             {moment
               .duration(moment().diff(moment(translation.created_at)))
               .humanize()}
@@ -171,9 +176,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
                   onClick={e => {
                     setTranslation(translation.text);
                     e.stopPropagation();
-                    $(".dropdown").removeClass("dropdown-open");
-                    const active = document.activeElement as HTMLElement;
-                    active.blur();
+                    closeMenu();
                     e.stopPropagation();
                   }}
                 >
@@ -184,8 +187,9 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
                 <li>
                   <a
                     onClick={e => {
-                      e.stopPropagation();
                       choose();
+                      closeMenu();
+                      e.stopPropagation();
                     }}
                   >
                     Choose
@@ -194,7 +198,16 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
               )}
 
               <li>
-                <a onClick={e => e.stopPropagation()}>Copy</a>
+                <a
+                  onClick={e => {
+                    doCopyText(translation.text);
+                    toast.success("Copied.");
+                    closeMenu();
+                    e.stopPropagation();
+                  }}
+                >
+                  Copy
+                </a>
               </li>
             </ul>
           </div>

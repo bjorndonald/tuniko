@@ -1,6 +1,6 @@
 "use client";
 import Modal from "@/components/Common/Modal";
-import React, { useState } from "react";
+import React from "react";
 import { Facebook, Instagram, Link as LinkIcon, Twitter } from "react-feather";
 import WhatsappIcon from "./Whatsapp.icon";
 import TelegramIcon from "./Telegram.icon";
@@ -8,11 +8,11 @@ import useCorpus from "@/store/corpus";
 import { doCopyText } from "@/utils/copy";
 
 const ShareModal = () => {
-  const shareModal = useCorpus(s => s.shareModal)
-  const showShareModal = useCorpus(s => s.showShareModal)
-    const shareLink = `${process.env.NEXT_PUBLIC_DOMAIN_URI}/translation/${shareModal}`
+  const shareModal = useCorpus(s => s.shareModal);
+  const showShareModal = useCorpus(s => s.showShareModal);
+  const shareLink = `${process.env.NEXT_PUBLIC_DOMAIN_URI}/translation/${shareModal}`;
   return (
-    <Modal show={!shareModal} onClose={() => showShareModal(undefined)}>
+    <Modal show={!!shareModal} onClose={() => showShareModal(undefined)}>
       <div className="flex items-center justify-center">
         <p className="text-xl font-bold">Share Modal</p>
       </div>
@@ -43,18 +43,23 @@ const ShareModal = () => {
         </div>
 
         <p className="text-sm">Or copy link</p>
-        <div className="border-gray-200 mt-4 flex items-center justify-between border-2 py-2">
+        <div className="border-gray-200 mt-4 flex items-center justify-between gap-2 rounded-box border px-2 py-2">
           <LinkIcon />
 
           <input
-            className="w-full bg-transparent outline-none"
+            className="w-full overflow-x-hidden text-ellipsis whitespace-nowrap bg-transparent outline-none"
             type="text"
             disabled
             placeholder="link"
-                      value={shareLink}
+            value={shareLink}
           />
 
-                  <button onClick={() => doCopyText(shareLink)} className="btn btn-primary btn-sm">Copy</button>
+          <button
+            onClick={() => doCopyText(shareLink)}
+            className="btn btn-primary btn-sm"
+          >
+            Copy
+          </button>
         </div>
       </div>
     </Modal>
