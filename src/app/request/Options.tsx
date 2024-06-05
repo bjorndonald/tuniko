@@ -1,6 +1,6 @@
 "use client";
 import { TextIcon } from "@/components/Shared/Icons";
-import { ENGLISH_LANGUAGE_ID } from "@/constants/strings";
+import { ALL_LANGUAGE_ID, ENGLISH_LANGUAGE_ID } from "@/constants/strings";
 import useLanguageStore from "@/store/language";
 import Language from "@/types/language";
 import { mdiSwapHorizontal } from "@mdi/js";
@@ -126,6 +126,9 @@ const Options = ({ languages }: Props) => {
               tabIndex={0}
               className="rounded menu dropdown-content  z-[1] w-52 border border-secondary-txt bg-background p-2 text-secondary-txt shadow"
             >
+              <li onClick={() => {
+                setLanguageTo(ALL_LANGUAGE_ID)
+              }}><a>All</a></li>
               {languages.map((x, i) => (
                 <li
                   key={i}
