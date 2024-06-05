@@ -1,3 +1,6 @@
+import { SortType } from "@/types/options"
+
+
 export const getCorpusById = async (id: string) => {
     const res = await fetch(process.env.SERVER_URI + '/corpus/'+ id)
     // The return value is *not* serialized
@@ -11,8 +14,8 @@ export const getCorpusById = async (id: string) => {
     return (await res.json()).corpus
 }
 
-export const getCorpus = async () => {
-    const res = await fetch(process.env.SERVER_URI + '/corpus', {
+export const getCorpus = async (page: number = 1, sort_by: string = "") => {
+    const res = await fetch(process.env.SERVER_URI + `/corpus?page=${page}&limit=30&sort_by=${sort_by}`, {
         cache: "reload"
     })
     if (!res.ok) {

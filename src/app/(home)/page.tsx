@@ -2,8 +2,14 @@ import { getCorpus } from "@/actions/corpus";
 import { CorpusGrid } from "@/components/Common/Corpus";
 import Filters from "@/components/Common/Filters";
 
-export default async function Home() {
-  const corpusList = await getCorpus();
+interface Props {
+  searchParams: { [key: string]: string |  undefined }
+}
+
+export default async function HomePage({searchParams}: Props) {
+  const sort_by = searchParams["sort_by"]
+  const page = !!searchParams["page"] ? parseInt(searchParams["page"]): 1;
+  const corpusList = await getCorpus(page, sort_by);
 
   return (
     <main className="min-h-screen pt-[65px]">

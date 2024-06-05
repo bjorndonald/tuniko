@@ -6,20 +6,32 @@ import { FileText, Plus, X } from "react-feather";
 import Icon from "@mdi/react";
 import { mdiSwapHorizontal } from "@mdi/js";
 import useCorpus from "@/store/corpus";
-import Link from "next/link";
+import NextLink from 'next/link'
+import { SortType } from "@/types/options";
+import { useSearchParams } from "next/navigation";
+import Link from "@/components/Shared/Link";
+import $ from 'jquery'
 
 type TextType = "All" | "Text" | "Document";
-type SortType = "Popular" | "Recent" | "Easiest" | "Hardest";
 type Language = "Efik" | "English";
 
 const Filters = () => {
+  const searchParams = useSearchParams()
+  const sortType = searchParams.get("sort_type")
+  const page = !!searchParams.get("page") ? parseInt(searchParams.get("page")) : 1;
   const [textType, setTextType] = useState<TextType>("All");
-  const [sort, setSort] = useState<SortType>();
+  const [sort, setSort] = useState<SortType>(sortType as SortType);
   const [searchTerm, setSearchTerm] = useState("");
   const [from, setFrom] = useState<Language>();
   const [to, setTo] = useState<Language>();
   const selected = useCorpus(s => s.selected);
   const resetSelections = useCorpus(s => s.resetSelections);
+
+  const closeMenu = () => {
+    $(".dropdown").removeClass("dropdown-open");
+    const active = document.activeElement as HTMLElement;
+    active.blur();
+  };
 
   return (
     <div className="flex  h-fit flex-col-reverse justify-between pt-3 desktop:h-[68px] desktop:flex-row desktop:items-center ">
@@ -58,21 +70,21 @@ const Filters = () => {
         </div>
         <button
           onClick={() => setTextType("All")}
-          className={`hidden h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${textType === "All" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
+          className={`hidden h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${textType === "All" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
         >
           <Logo width={20} />
           <span className="text-sm text-accent">All</span>
         </button>
         <button
           onClick={() => setTextType("Text")}
-          className={`hidden h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${textType === "Text" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
+          className={`hidden h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${textType === "Text" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
         >
           <TextIcon />
           <span className="text-sm text-accent">Text</span>
         </button>
         <button
           onClick={() => setTextType("Document")}
-          className={`hidden h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${textType === "Document" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
+          className={`hidden h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${textType === "Document" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
         >
           <FileText width={20} color={"rgb(25,103,210)"} />
           <span className="text-sm text-accent">Document</span>
@@ -82,13 +94,13 @@ const Filters = () => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-[rgb(218,220,224)] font-normal text-accent hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-divider font-normal text-accent hover:bg-primary/10"
           >
             {from || "All"}
           </div>
           <ul
             tabIndex={0}
-            className="rounded menu dropdown-content  z-[1] w-52 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+            className="rounded menu dropdown-content  z-[1] w-52 border border-divider bg-background p-2 text-tertiary-txt shadow"
           >
             <li onClick={() => setFrom("English")}>
               <a>English</a>
@@ -109,13 +121,13 @@ const Filters = () => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-[rgb(218,220,224)] font-normal text-accent hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-divider font-normal text-accent hover:bg-primary/10"
           >
             {to || "All"}
           </div>
           <ul
             tabIndex={0}
-            className="rounded menu dropdown-content  z-[1] w-52 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+            className="rounded menu dropdown-content  z-[1] w-52 border border-divider bg-background p-2 text-tertiary-txt shadow"
           >
             <li onClick={() => setTo("English")}>
               <a>English</a>
@@ -145,17 +157,17 @@ const Filters = () => {
             </button>
           </div>
         )}
-        <Link
+        <NextLink
           href={"/request"}
           className="btn btn-outline btn-primary mr-2 flex h-9 min-h-9 rounded-1 !border-primary !text-primary hover:!bg-primary hover:!text-white"
         >
           <Plus width={20} />
           Request
-        </Link>
+        </NextLink>
       </div>
 
       <div className="flex items-center gap-2">
-        <label className="rounded input input-bordered flex h-9 items-center gap-2 border-[rgb(218,220,224)] bg-transparent !outline-none">
+        <label className="rounded input flex h-9 items-center gap-2 border-divider bg-transparent !outline-none">
           <input
             type="text"
             value={searchTerm}
@@ -181,25 +193,43 @@ const Filters = () => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-[rgb(218,220,224)] font-normal text-[rgb(25,103,210)] hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-divider font-normal text-primary hover:bg-primary/10"
           >
             {sort ?? "Sort By"}
           </div>
           <ul
             tabIndex={0}
-            className="rounded menu dropdown-content  z-[1] w-52 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+            className="rounded menu dropdown-content  z-[1] w-52 border border-divider bg-background p-2 text-tertiary-txt shadow"
           >
-            <li onClick={() => setSort("Popular")}>
-              <a>Popular</a>
+            <li onClick={() =>{ 
+              setSort("Popular")
+              closeMenu()
+              }}>
+              <Link title="Popular entries" 
+              href={`/?sort_by=Popular&page=${page}`}>
+                Popular
+              </Link>
             </li>
-            <li onClick={() => setSort("Recent")}>
-              <a>Recent</a>
+            <li onClick={() => {
+              setSort("Recent")
+              closeMenu()
+            }}>
+              <Link title="Recent entries"
+                href={`/?sort_by=Recent&page=${page}`}>Recent</Link>
             </li>
-            <li onClick={() => setSort("Easiest")}>
-              <a>Easiest</a>
+            <li onClick={() => {
+              setSort("Easiest")
+              closeMenu()
+            }}>
+              <Link title="Easiest entries"
+                href={`/?sort_by=Easiest&page=${page}`}>Easiest</Link>
             </li>
-            <li onClick={() => setSort("Hardest")}>
-              <a>Hardest</a>
+            <li onClick={() => {
+              setSort("Hardest")
+              closeMenu()
+            }}>
+              <Link title="Hardest entries"
+                href={`/?sort_by=Hardest&page=${page}`}>Hardest</Link>
             </li>
           </ul>
         </div>

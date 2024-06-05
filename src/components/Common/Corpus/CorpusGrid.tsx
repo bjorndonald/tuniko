@@ -4,13 +4,19 @@ import CorpusCard from "./CorpusCard";
 import CorpusText from "@/types/corpustext";
 import useCorpus from "@/store/corpus";
 import ShareModal from "@/components/Shared/ShareModal";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Pagination } from "../Pagination";
 
 interface Props {
   corpusList: CorpusText[];
 }
 
 const CorpusGrid = ({ corpusList }: Props) => {
+  const navigate = useRouter()
   const shareModal = useCorpus(s => s.shareModal);
+  const searchParams = useSearchParams()
+  const sortType = searchParams.get("sort_type")
+  const page = !!searchParams.get("page") ? parseInt(searchParams.get("page")) : 1;
 
   useEffect(() => {
     const init = async () => {
@@ -34,7 +40,8 @@ const CorpusGrid = ({ corpusList }: Props) => {
   }, []);
 
   return (
-    <div
+    <div className="flex flex-col gap-4">
+      <div
       id="corpus"
       className="lg:gap-6 relative grid w-full grid-cols-1 gap-x-4 gap-y-4 pt-4 tablet-md:grid-cols-2 desktop-lg:grid-cols-3"
     >
@@ -43,6 +50,16 @@ const CorpusGrid = ({ corpusList }: Props) => {
       {corpusList.map((x, i) => (
         <CorpusCard key={i} corpus={x} />
       ))}
+      </div>
+      {corpusList.length > 10 &&
+        <Pagination 
+        totalCount={corpusList.length}
+        currentPage={page}
+        pageSize={10}
+        onPageChange={p => navigate.push(`/?page=${page}&sort_type=${sortType}`)}
+      />
+      }
+      
     </div>
   );
 };

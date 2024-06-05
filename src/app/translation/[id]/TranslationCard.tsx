@@ -41,7 +41,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
   const [downvotes, setDownvotes] = useState(translation.downvotes);
   const [vote, setVote] = useState<Vote>();
   const [defaultVote, setDefaultVote] = useState();
-console.log(owner, session.data.user.email)
+  console.log(owner, session.data.user.email);
   useEffect(() => {
     const init = async () => {
       const vote =
@@ -182,7 +182,7 @@ console.log(owner, session.data.user.email)
             </div>
             <ul
               tabIndex={0}
-              className="rounded menu dropdown-content  z-[1] w-28 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+              className="rounded menu dropdown-content  z-[1] w-28 border border-divider bg-background p-2 text-tertiary-txt shadow"
             >
               <li>
                 <a
@@ -199,14 +199,14 @@ console.log(owner, session.data.user.email)
                 <li>
                   <a
                     onClick={e => {
-                      if(isChosen) unchoose()
+                      if (isChosen) unchoose();
                       else choose();
                       closeMenu();
-                      navigate.refresh()
+
                       e.stopPropagation();
                     }}
                   >
-                    {isChosen?'Remove choice':'Choose'}
+                    {isChosen ? "Remove choice" : "Choose"}
                   </a>
                 </li>
               )}
