@@ -58,3 +58,18 @@ export const chooseTranslation = async (corpus: string, translation: string) => 
 
     return (await res.json()).vote
 }
+
+export const unchooseTranslation = async (corpus: string, translation: string) => {
+    const res = await fetch(process.env.SERVER_URI + `/corpus/unchoose/${corpus}`, {
+        method: "POST",
+        body: JSON.stringify({
+            translation,
+        })
+    })
+
+    if (!res.ok) {
+        throw new Error('Failed to post data')
+    }
+
+    return (await res.json()).vote
+}

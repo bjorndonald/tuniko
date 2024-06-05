@@ -23,7 +23,7 @@ import {
 import moment from "moment";
 import $ from "jquery";
 import toast from "react-hot-toast";
-import { chooseTranslation } from "@/actions/corpus";
+import { chooseTranslation, unchooseTranslation } from "@/actions/corpus";
 import { useRouter } from "next/navigation";
 import { doCopyText } from "@/utils/copy";
 interface Props {
@@ -41,7 +41,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
   const [downvotes, setDownvotes] = useState(translation.downvotes);
   const [vote, setVote] = useState<Vote>();
   const [defaultVote, setDefaultVote] = useState();
-
+console.log(owner, session.data.user.email)
   useEffect(() => {
     const init = async () => {
       const vote =
@@ -128,6 +128,19 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
       toast.remove("loading");
     }
   };
+
+  const unchoose = async () => {
+    toast.loading("Removing choice", { id: "loading" });
+    try {
+      await unchooseTranslation(corpusId, translation.id);
+      toast.success("Done");
+      toast.remove("loading");
+      navigate.refresh();
+    } catch (error) {
+      toast.error("Not done");
+      toast.remove("loading");
+    }
+  };
   const closeMenu = () => {
     $(".dropdown").removeClass("dropdown-open");
     const active = document.activeElement as HTMLElement;
@@ -175,7 +188,6 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
                 <a
                   onClick={e => {
                     setTranslation(translation.text);
-                    e.stopPropagation();
                     closeMenu();
                     e.stopPropagation();
                   }}
@@ -187,12 +199,14 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
                 <li>
                   <a
                     onClick={e => {
-                      choose();
+                      if(isChosen) unchoose()
+                      else choose();
                       closeMenu();
+                      navigate.refresh()
                       e.stopPropagation();
                     }}
                   >
-                    Choose
+                    {isChosen?'Remove choice':'Choose'}
                   </a>
                 </li>
               )}
