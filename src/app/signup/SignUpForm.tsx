@@ -12,7 +12,6 @@ const SignUpForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmVisible, setConfirmVisible] = useState(false);
-
   const methods = useForm<CreateUserInput>({
     resolver: zodResolver(createUserSchema),
   });

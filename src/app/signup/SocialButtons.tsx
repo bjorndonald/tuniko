@@ -1,11 +1,17 @@
 "use client";
+import { signIn } from "@/auth";
 import { AppleIcon, GoogleIcon } from "@/components/Shared/Icons";
+import { useSearchParams } from "next/navigation";
 import React from "react";
+import { Linkedin } from "react-feather";
 
 const SocialButtons = () => {
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
   return (
     <>
       <button
+        onClick={() => signIn("google", { callbackUrl })}
         aria-label="Sign up with Google"
         className="hover:bg-gray-100 btn btn-block !border-base-content/20 bg-white text-black hover:text-black "
       >
@@ -13,11 +19,12 @@ const SocialButtons = () => {
         Sign up with Google
       </button>
       <button
-        aria-label="Sign up with Apple"
+        onClick={() => signIn("linkedin", { callbackUrl })}
+        aria-label="Sign up with Linkedin"
         className="btn btn-block border-0 bg-black text-white hover:bg-black/80 hover:text-white "
       >
-        <AppleIcon />
-        Sign up with Apple
+        <Linkedin />
+        Sign up with Linkedin
       </button>
     </>
   );

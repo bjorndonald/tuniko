@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import { DrizzleAdapter } from "@auth/drizzle-adapter"
 import { accounts, sessions, users, verificationTokens } from "./database/schema"
+import LinkedInProvider from "next-auth/providers/linkedin";
 import bcrypt from "bcryptjs";
 import Credentials from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
@@ -20,7 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       name: "Sign in",
-      id: "credentials",
+      id: "credentials", 
       credentials: {
         email: {
           label: "Email",
@@ -58,6 +59,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     GoogleProvider({
       clientId: process.env.AUTH_GOOGLE_ID!,
       clientSecret: process.env.AUTH_GOOGLE_SECRET!
+    }),
+    LinkedInProvider({
+      clientId: process.env.LINKEDIN_CLIENT_ID!,
+      clientSecret: process.env.LINKEDIN_CLIENT_SECRET!
     })
   ],
 })

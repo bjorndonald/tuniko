@@ -10,6 +10,10 @@ module.exports = {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'media.licdn.com'
+      }
     ],
   },
   webpack: new webpack.IgnorePlugin({

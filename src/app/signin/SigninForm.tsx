@@ -1,7 +1,7 @@
 "use client";
 import { GoogleIcon } from "@/components/Shared/Icons";
 import React, { useState } from "react";
-import { ArrowRight, Eye, EyeOff, Twitter } from "react-feather";
+import { ArrowRight, Eye, EyeOff, Linkedin, Twitter } from "react-feather";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -61,16 +61,18 @@ const SigninForm = () => {
   return (
     <>
       <button
+        aria-label="Sign up with Google"
         onClick={() => signIn("google", { callbackUrl })}
         className="btn btn-block !border-base-content/20 bg-white text-black hover:bg-primary hover:text-white "
       >
         <GoogleIcon /> Sign in with Google
       </button>
       <button
-        onClick={() => signIn("twitter", { callbackUrl })}
+        aria-label="Sign up with Linkedin"
+        onClick={() => signIn("linkedin", { callbackUrl })}
         className="btn btn-block border-0 bg-black text-white hover:bg-black/80 hover:text-white "
       >
-        <Twitter /> Sign in with Twitter
+        <Linkedin /> Sign in with LinkedIn
       </button>
       <div className="divider">
         <span className="opacity-75">OR</span>

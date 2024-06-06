@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import SigninForm from "./SigninForm";
+import Link from "@/components/Shared/Link";
 
 const SignIn = async () => {
   return (
@@ -21,9 +22,9 @@ const SignIn = async () => {
       </div>
       <div className="text-center">
         Don&apos;t have an account?{" "}
-        <a className="link" href="/signup">
+        <Link title="Register page" className="link" href="/signup">
           Sign up
-        </a>
+        </Link>
       </div>
     </div>
   );

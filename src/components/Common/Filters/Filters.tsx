@@ -6,19 +6,21 @@ import { FileText, Plus, X } from "react-feather";
 import Icon from "@mdi/react";
 import { mdiSwapHorizontal } from "@mdi/js";
 import useCorpus from "@/store/corpus";
-import NextLink from 'next/link'
+import NextLink from "next/link";
 import { SortType } from "@/types/options";
 import { useSearchParams } from "next/navigation";
 import Link from "@/components/Shared/Link";
-import $ from 'jquery'
+import $ from "jquery";
 
 type TextType = "All" | "Text" | "Document";
 type Language = "Efik" | "English";
 
 const Filters = () => {
-  const searchParams = useSearchParams()
-  const sortType = searchParams.get("sort_type")
-  const page = !!searchParams.get("page") ? parseInt(searchParams.get("page")) : 1;
+  const searchParams = useSearchParams();
+  const sortType = searchParams.get("sort_type");
+  const page = searchParams.get("page")
+    ? parseInt(searchParams.get("page"))
+    : 1;
   const [textType, setTextType] = useState<TextType>("All");
   const [sort, setSort] = useState<SortType>(sortType as SortType);
   const [searchTerm, setSearchTerm] = useState("");
@@ -201,35 +203,57 @@ const Filters = () => {
             tabIndex={0}
             className="rounded menu dropdown-content  z-[1] w-52 border border-divider bg-background p-2 text-tertiary-txt shadow"
           >
-            <li onClick={() =>{ 
-              setSort("Popular")
-              closeMenu()
-              }}>
-              <Link title="Popular entries" 
-              href={`/?sort_by=Popular&page=${page}`}>
+            <li
+              onClick={() => {
+                setSort("Popular");
+                closeMenu();
+              }}
+            >
+              <Link
+                title="Popular entries"
+                href={`/?sort_by=Popular&page=${page}`}
+              >
                 Popular
               </Link>
             </li>
-            <li onClick={() => {
-              setSort("Recent")
-              closeMenu()
-            }}>
-              <Link title="Recent entries"
-                href={`/?sort_by=Recent&page=${page}`}>Recent</Link>
+            <li
+              onClick={() => {
+                setSort("Recent");
+                closeMenu();
+              }}
+            >
+              <Link
+                title="Recent entries"
+                href={`/?sort_by=Recent&page=${page}`}
+              >
+                Recent
+              </Link>
             </li>
-            <li onClick={() => {
-              setSort("Easiest")
-              closeMenu()
-            }}>
-              <Link title="Easiest entries"
-                href={`/?sort_by=Easiest&page=${page}`}>Easiest</Link>
+            <li
+              onClick={() => {
+                setSort("Easiest");
+                closeMenu();
+              }}
+            >
+              <Link
+                title="Easiest entries"
+                href={`/?sort_by=Easiest&page=${page}`}
+              >
+                Easiest
+              </Link>
             </li>
-            <li onClick={() => {
-              setSort("Hardest")
-              closeMenu()
-            }}>
-              <Link title="Hardest entries"
-                href={`/?sort_by=Hardest&page=${page}`}>Hardest</Link>
+            <li
+              onClick={() => {
+                setSort("Hardest");
+                closeMenu();
+              }}
+            >
+              <Link
+                title="Hardest entries"
+                href={`/?sort_by=Hardest&page=${page}`}
+              >
+                Hardest
+              </Link>
             </li>
           </ul>
         </div>
