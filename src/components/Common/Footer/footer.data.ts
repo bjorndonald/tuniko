@@ -1,38 +1,18 @@
 export const linksGroups = [
   {
-    title: "Product",
-    a11yTitle: "Product links",
+    title: "Resources",
+    a11yTitle: "Products and Resources",
     links: [
       {
-        title: "iOS App",
-        href: "/ios",
-        className: "text-brand",
-      },
-      {
-        title: "Android App",
-        href: "/request",
-        className: "text-green",
-      },
-      {
-        title: "Web App",
-        href: "/web",
-        className: "text-orange",
+        title: "Blog",
+        href: "https://bjorndonald.hashnode.dev",
+        className: "text-blue",
       },
       {
         title: "Updates",
         href: "/updates",
         className: "text-purple",
       },
-      // {
-      //   title: "Templates",
-      //   href: "/templates",
-      //   className: "text-yellow",
-      // },
-      // {
-      //   title: "Uses",
-      //   href: "/uses",
-      //   className: "text-blue",
-      // },
     ],
   },
   {
@@ -41,7 +21,15 @@ export const linksGroups = [
     links: [
       {
         title: "Twitter",
-        href: "#",
+        href: "https://twitter.com/6lackbjorn",
+        className: "text-green",
+        props: {
+          ignoreNextLink: true,
+        },
+      },
+      {
+        title: "Linkedin",
+        href: "https://www.linkedin.com/company/tuniko",
         className: "text-green",
         props: {
           ignoreNextLink: true,

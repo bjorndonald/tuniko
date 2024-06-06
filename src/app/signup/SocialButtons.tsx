@@ -1,12 +1,12 @@
 "use client";
 import { signIn } from "@/auth";
-import { AppleIcon, GoogleIcon } from "@/components/Shared/Icons";
+import { GoogleIcon } from "@/components/Shared/Icons";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 import { Linkedin } from "react-feather";
 
 const SocialButtons = () => {
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
   return (
     <>

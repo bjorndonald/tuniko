@@ -1,7 +1,7 @@
 "use client";
 import { GoogleIcon } from "@/components/Shared/Icons";
 import React, { useState } from "react";
-import { ArrowRight, Eye, EyeOff, Linkedin, Twitter } from "react-feather";
+import { ArrowRight, Eye, EyeOff, Linkedin } from "react-feather";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";

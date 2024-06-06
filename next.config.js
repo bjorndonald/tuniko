@@ -13,7 +13,7 @@ module.exports = {
       {
         protocol: 'https',
         hostname: 'media.licdn.com'
-      }
+      },
     ],
   },
   webpack: new webpack.IgnorePlugin({

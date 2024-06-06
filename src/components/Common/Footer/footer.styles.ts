@@ -49,3 +49,15 @@ export const FooterLink = twc(Link)`
   hocus:dark:saturate-150
   hocus:decoration-current
 `;
+
+export const DownloadLink = twc.button`
+  text-3xs
+  font-manrope
+  font-semibold
+  transition-colors
+  text-tertiary-txt
+  hocus:text-secondary-txt
+  hocus:saturate-125
+  hocus:dark:saturate-150
+  hocus:decoration-current
+`;

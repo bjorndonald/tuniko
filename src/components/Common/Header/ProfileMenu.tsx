@@ -32,7 +32,7 @@ const ProfileMenu = ({ session }: Props) => {
       </div>
       <ul
         tabIndex={0}
-        className="bg-background menu dropdown-content z-[1] w-52 rounded-box border border-divider p-2 shadow"
+        className="menu dropdown-content z-[1] w-52 rounded-box border border-divider bg-background p-2 shadow"
       >
         <li>
           <a className="cursor-pointer">
