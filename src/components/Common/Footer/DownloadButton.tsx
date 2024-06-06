@@ -3,8 +3,7 @@ import { getCorpusFile } from "@/actions/corpus";
 import React from "react";
 import { Download } from "react-feather";
 import toast from "react-hot-toast";
-import { DownloadLink, FooterLink } from "./footer.styles";
-import Link from "@/components/Shared/Link";
+import { DownloadLink } from "./footer.styles";
 
 const DownloadButton = () => {
   const download = async () => {
@@ -25,10 +24,7 @@ const DownloadButton = () => {
     }
   };
   return (
-    <DownloadLink
-      onClick={download}
-      className="hocus:text-yellow"
-    >
+    <DownloadLink onClick={download} className="hocus:text-yellow">
       <Download width={20} />
       <span className="hidden tablet-md:block">Download</span> CSV
     </DownloadLink>

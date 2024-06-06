@@ -106,11 +106,8 @@ const Footer = () => {
                         </FooterLink>
                       </li>
                     );
-                    
                   })}
-                  {group.title === "Resources" && <>
-                    
-                  </>}
+                  {group.title === "Resources" && <></>}
                 </ul>
               </LinksList>
             );
