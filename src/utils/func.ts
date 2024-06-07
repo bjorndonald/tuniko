@@ -13,5 +13,5 @@ export function removeDuplicates(arr: string[]) {
 }
 
 export function numberWithCommas(x: number) {
-    return x ? x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',') : '0'
+    return x ? x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") : "0"
 }

@@ -4,7 +4,8 @@ import {
     text,
     primaryKey,
     integer,
-    numeric} from "drizzle-orm/pg-core"
+    numeric
+} from "drizzle-orm/pg-core"
 import type { AdapterAccountType } from "next-auth/adapters"
 
 export const users = pgTable("users", {
@@ -12,7 +13,7 @@ export const users = pgTable("users", {
         .primaryKey()
         .$defaultFn(() => crypto.randomUUID()),
     name: text("name"),
-    password: text('password'),
+    password: text("password"),
     email: text("email").notNull(),
     emailVerified: timestamp("emailVerified", { mode: "date" }),
     image: text("image"),
@@ -76,7 +77,7 @@ export const corpusTexts = pgTable("corpustexts", {
         .primaryKey()
         .$defaultFn(() => crypto.randomUUID()),
     text: text("text"),
-    entryType: text('entrytype'),
+    entryType: text("entrytype"),
     owner: text("owner")
             .notNull()
         .references(() => users.id, { onUpdate: "cascade", onDelete: "cascade" }),

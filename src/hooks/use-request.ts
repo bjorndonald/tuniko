@@ -1,5 +1,5 @@
-import useSWR from 'swr';
-import type { SWRConfiguration } from 'swr';
+import useSWR from "swr";
+import type { SWRConfiguration } from "swr";
 
 async function fetcher<T>(input: RequestInfo, init?: RequestInit): Promise<T> {
     const res = await fetch(input, init);
