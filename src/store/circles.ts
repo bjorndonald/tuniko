@@ -1,4 +1,4 @@
-import {create} from "zustand";
+import { create } from "zustand";
 import type CirclesState from "../types/circles";
 
 const useCircles = create<CirclesState>(set => ({

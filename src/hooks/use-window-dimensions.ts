@@ -1,6 +1,6 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from "react";
 
-import { useHasMounted } from './use-has-mounted';
+import { useHasMounted } from "./use-has-mounted";
 
 interface WindowDimensions {
   width: number;
@@ -22,9 +22,9 @@ export const useWindowDimensions = (): WindowDimensions => {
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (hasMounted) {
-      window.addEventListener('resize', handleResize);
+      window.addEventListener("resize", handleResize);
       handleResize();
-      return () => window.removeEventListener('resize', handleResize);
+      return () => window.removeEventListener("resize", handleResize);
     }
   }, [hasMounted, handleResize]);
 

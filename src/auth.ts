@@ -16,7 +16,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     verificationTokensTable: verificationTokens,
   }),
   pages: {
-    signIn: '/signin',
+    signIn: "/signin",
   },
   providers: [
     Credentials({

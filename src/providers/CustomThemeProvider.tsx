@@ -21,7 +21,7 @@ interface ThemeContextValue {
 
 const defaultContextState: ThemeContextValue = {
     theme: "system",
-    systemTheme: 'light',
+    systemTheme: "light",
     isDark: false,
     resolvedTheme: "light",
     setTheme: (theme: ThemeOption) => {}

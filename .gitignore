@@ -43,3 +43,5 @@ credentials.json
 *-lock.json
 yarn.lock
 bun.lockb
+./src/drizzle
+ca.pem

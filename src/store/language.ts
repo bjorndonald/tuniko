@@ -1,6 +1,5 @@
 import { ENGLISH_LANGUAGE_ID } from "@/constants/strings";
-import Language from "@/types/language";
-import {create} from "zustand";
+import { create } from "zustand";
 type EntryType = "Text" | "Document";
 interface ILanguageState {
     languageFrom: string,

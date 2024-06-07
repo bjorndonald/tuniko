@@ -4,9 +4,7 @@ import {
     text,
     primaryKey,
     integer,
-    numeric,
-    pgEnum
-} from "drizzle-orm/pg-core"
+    numeric} from "drizzle-orm/pg-core"
 import type { AdapterAccountType } from "next-auth/adapters"
 
 export const users = pgTable("users", {
