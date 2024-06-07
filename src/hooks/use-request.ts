@@ -15,7 +15,7 @@ export const useRequest = <T>(
     url: string,
     options?: SWRConfiguration,
 ): SwrData<T> => {
-    const {data, error, isLoading} = useSWR<T>(url, fetcher, options)
+    const { data, error, isLoading } = useSWR<T>(url, fetcher, options)
     return {
         data,
         loading: isLoading || (!data && !error)
