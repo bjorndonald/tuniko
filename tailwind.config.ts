@@ -97,7 +97,7 @@ const config: Config = {
           DEFAULT: '#0A85F7',
           '50': '#eff9ff',
           '100': '#daf0ff',
-          '200': '#bee5ff',
+          '200': '#bee5ff', 
           '300': '#91d7ff',
           '400': '#5ebefc',
           '500': '#38a0f9',

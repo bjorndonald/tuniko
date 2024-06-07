@@ -1,5 +1,5 @@
 {
-  "id": "ec0293fd-1e7e-49c4-98e6-ff4660159403",
+  "id": "97337d13-b36a-49a1-abef-8cc281f136a4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
@@ -77,10 +77,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "account_userId_user_id_fk": {
-          "name": "account_userId_user_id_fk",
+        "account_userId_users_id_fk": {
+          "name": "account_userId_users_id_fk",
           "tableFrom": "account",
-          "tableTo": "user",
+          "tableTo": "users",
           "columnsFrom": [
             "userId"
           ],
@@ -139,10 +139,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "chosencorpus_chosen_translation_id_fk": {
-          "name": "chosencorpus_chosen_translation_id_fk",
+        "chosencorpus_chosen_translations_id_fk": {
+          "name": "chosencorpus_chosen_translations_id_fk",
           "tableFrom": "chosencorpus",
-          "tableTo": "translation",
+          "tableTo": "translations",
           "columnsFrom": [
             "chosen"
           ],
@@ -152,10 +152,10 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "chosencorpus_corpustext_corpustext_id_fk": {
-          "name": "chosencorpus_corpustext_corpustext_id_fk",
+        "chosencorpus_corpustext_corpustexts_id_fk": {
+          "name": "chosencorpus_corpustext_corpustexts_id_fk",
           "tableFrom": "chosencorpus",
-          "tableTo": "corpustext",
+          "tableTo": "corpustexts",
           "columnsFrom": [
             "corpustext"
           ],
@@ -169,8 +169,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.corpustext": {
-      "name": "corpustext",
+    "public.corpustexts": {
+      "name": "corpustexts",
       "schema": "",
       "columns": {
         "id": {
@@ -181,6 +181,12 @@
         },
         "text": {
           "name": "text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "entrytype": {
+          "name": "entrytype",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -218,10 +224,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "corpustext_owner_user_id_fk": {
-          "name": "corpustext_owner_user_id_fk",
-          "tableFrom": "corpustext",
-          "tableTo": "user",
+        "corpustexts_owner_users_id_fk": {
+          "name": "corpustexts_owner_users_id_fk",
+          "tableFrom": "corpustexts",
+          "tableTo": "users",
           "columnsFrom": [
             "owner"
           ],
@@ -229,12 +235,12 @@
             "id"
           ],
           "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "cascade"
         },
-        "corpustext_language_to_language_id_fk": {
-          "name": "corpustext_language_to_language_id_fk",
-          "tableFrom": "corpustext",
-          "tableTo": "language",
+        "corpustexts_language_to_languages_id_fk": {
+          "name": "corpustexts_language_to_languages_id_fk",
+          "tableFrom": "corpustexts",
+          "tableTo": "languages",
           "columnsFrom": [
             "language_to"
           ],
@@ -244,10 +250,10 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "corpustext_language_from_language_id_fk": {
-          "name": "corpustext_language_from_language_id_fk",
-          "tableFrom": "corpustext",
-          "tableTo": "language",
+        "corpustexts_language_from_languages_id_fk": {
+          "name": "corpustexts_language_from_languages_id_fk",
+          "tableFrom": "corpustexts",
+          "tableTo": "languages",
           "columnsFrom": [
             "language_from"
           ],
@@ -298,10 +304,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "corpuscomplexities_corpustext_corpustext_id_fk": {
-          "name": "corpuscomplexities_corpustext_corpustext_id_fk",
+        "corpuscomplexities_corpustext_corpustexts_id_fk": {
+          "name": "corpuscomplexities_corpustext_corpustexts_id_fk",
           "tableFrom": "corpuscomplexities",
-          "tableTo": "corpustext",
+          "tableTo": "corpustexts",
           "columnsFrom": [
             "corpustext"
           ],
@@ -352,10 +358,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "corpustranslations_translation_translation_id_fk": {
-          "name": "corpustranslations_translation_translation_id_fk",
+        "corpustranslations_translation_translations_id_fk": {
+          "name": "corpustranslations_translation_translations_id_fk",
           "tableFrom": "corpustranslations",
-          "tableTo": "translation",
+          "tableTo": "translations",
           "columnsFrom": [
             "translation"
           ],
@@ -365,10 +371,10 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "corpustranslations_corpustext_corpustext_id_fk": {
-          "name": "corpustranslations_corpustext_corpustext_id_fk",
+        "corpustranslations_corpustext_corpustexts_id_fk": {
+          "name": "corpustranslations_corpustext_corpustexts_id_fk",
           "tableFrom": "corpustranslations",
-          "tableTo": "corpustext",
+          "tableTo": "corpustexts",
           "columnsFrom": [
             "corpustext"
           ],
@@ -419,10 +425,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "downvotes_translation_translation_id_fk": {
-          "name": "downvotes_translation_translation_id_fk",
+        "downvotes_translation_translations_id_fk": {
+          "name": "downvotes_translation_translations_id_fk",
           "tableFrom": "downvotes",
-          "tableTo": "translation",
+          "tableTo": "translations",
           "columnsFrom": [
             "translation"
           ],
@@ -432,10 +438,10 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "downvotes_voter_user_id_fk": {
-          "name": "downvotes_voter_user_id_fk",
+        "downvotes_voter_users_id_fk": {
+          "name": "downvotes_voter_users_id_fk",
           "tableFrom": "downvotes",
-          "tableTo": "user",
+          "tableTo": "users",
           "columnsFrom": [
             "voter"
           ],
@@ -449,8 +455,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.language": {
-      "name": "language",
+    "public.languages": {
+      "name": "languages",
       "schema": "",
       "columns": {
         "id": {
@@ -459,8 +465,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "text": {
-          "name": "text",
+        "name": {
+          "name": "name",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -508,10 +514,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "session_userId_user_id_fk": {
-          "name": "session_userId_user_id_fk",
+        "session_userId_users_id_fk": {
+          "name": "session_userId_users_id_fk",
           "tableFrom": "session",
-          "tableTo": "user",
+          "tableTo": "users",
           "columnsFrom": [
             "userId"
           ],
@@ -525,8 +531,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.translation": {
-      "name": "translation",
+    "public.translations": {
+      "name": "translations",
       "schema": "",
       "columns": {
         "id": {
@@ -568,10 +574,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "translation_translator_user_id_fk": {
-          "name": "translation_translator_user_id_fk",
-          "tableFrom": "translation",
-          "tableTo": "user",
+        "translations_translator_users_id_fk": {
+          "name": "translations_translator_users_id_fk",
+          "tableFrom": "translations",
+          "tableTo": "users",
           "columnsFrom": [
             "translator"
           ],
@@ -581,10 +587,10 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "translation_language_language_id_fk": {
-          "name": "translation_language_language_id_fk",
-          "tableFrom": "translation",
-          "tableTo": "language",
+        "translations_language_languages_id_fk": {
+          "name": "translations_language_languages_id_fk",
+          "tableFrom": "translations",
+          "tableTo": "languages",
           "columnsFrom": [
             "language"
           ],
@@ -635,10 +641,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "translationscores_translation_translation_id_fk": {
-          "name": "translationscores_translation_translation_id_fk",
+        "translationscores_translation_translations_id_fk": {
+          "name": "translationscores_translation_translations_id_fk",
           "tableFrom": "translationscores",
-          "tableTo": "translation",
+          "tableTo": "translations",
           "columnsFrom": [
             "translation"
           ],
@@ -689,10 +695,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "upvotes_translation_translation_id_fk": {
-          "name": "upvotes_translation_translation_id_fk",
+        "upvotes_translation_translations_id_fk": {
+          "name": "upvotes_translation_translations_id_fk",
           "tableFrom": "upvotes",
-          "tableTo": "translation",
+          "tableTo": "translations",
           "columnsFrom": [
             "translation"
           ],
@@ -702,10 +708,10 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "upvotes_voter_user_id_fk": {
-          "name": "upvotes_voter_user_id_fk",
+        "upvotes_voter_users_id_fk": {
+          "name": "upvotes_voter_users_id_fk",
           "tableFrom": "upvotes",
-          "tableTo": "user",
+          "tableTo": "users",
           "columnsFrom": [
             "voter"
           ],
@@ -719,8 +725,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.user": {
-      "name": "user",
+    "public.users": {
+      "name": "users",
       "schema": "",
       "columns": {
         "id": {
@@ -762,6 +768,60 @@
       },
       "indexes": {},
       "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.userscore": {
+      "name": "userscore",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user": {
+          "name": "user",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "score": {
+          "name": "score",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "userscore_user_users_id_fk": {
+          "name": "userscore_user_users_id_fk",
+          "tableFrom": "userscore",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },

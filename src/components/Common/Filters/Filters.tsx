@@ -8,7 +8,7 @@ import { mdiSwapHorizontal } from "@mdi/js";
 import useCorpus from "@/store/corpus";
 import NextLink from "next/link";
 import { SortType } from "@/types/options";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "@/components/Shared/Link";
 import $ from "jquery";
 
@@ -16,17 +16,20 @@ type TextType = "All" | "Text" | "Document";
 type Language = "Efik" | "English";
 
 const Filters = () => {
+  const navigate = useRouter();
   const searchParams = useSearchParams();
   const sortType = searchParams.get("sort_type");
+  const search = searchParams.get("search");
   const page = searchParams.get("page")
     ? parseInt(searchParams.get("page"))
     : 1;
   const [textType, setTextType] = useState<TextType>("All");
   const [sort, setSort] = useState<SortType>(sortType as SortType);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(search);
   const [from, setFrom] = useState<Language>();
   const [to, setTo] = useState<Language>();
   const selected = useCorpus(s => s.selected);
+  const [hover, setHover] = useState(false);
   const resetSelections = useCorpus(s => s.resetSelections);
 
   const closeMenu = () => {
@@ -62,11 +65,28 @@ const Filters = () => {
                 Text
               </a>
             </li>
-            <li onClick={() => setTextType("Document")}>
-              <a className="flex gap-1">
+            <li
+              className="dropdown"
+              onClick={() => setHover(!hover)}
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
+              //  onClick={() => setTextType("Document")}
+            >
+              <a tabIndex={0} role="button" className="flex gap-1 opacity-60">
                 <FileText width={20} color={"rgb(25,103,210)"} />
                 Document
               </a>
+              {hover && (
+                <div
+                  tabIndex={0}
+                  className="card dropdown-content compact z-[1] w-64 rounded-box bg-base-100 shadow"
+                >
+                  <div tabIndex={0} className="card-body">
+                    <h2 className="card-title">Coming soon...</h2>
+                    <p>This feature is still being worked on.</p>
+                  </div>
+                </div>
+              )}
             </li>
           </ul>
         </div>
@@ -84,13 +104,32 @@ const Filters = () => {
           <TextIcon />
           <span className="text-sm text-accent">Text</span>
         </button>
-        <button
-          onClick={() => setTextType("Document")}
-          className={`hidden h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${textType === "Document" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
-        >
-          <FileText width={20} color={"rgb(25,103,210)"} />
-          <span className="text-sm text-accent">Document</span>
-        </button>
+
+        <div className="dropdown dropdown-end dropdown-hover">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn  btn-ghost btn-xs text-info"
+          >
+            <button
+              disabled
+              onClick={() => setTextType("Document")}
+              className={`mr-3 hidden h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 disabled:opacity-60 tablet-md:flex ${textType === "Document" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
+            >
+              <FileText width={20} color={"rgb(25,103,210)"} />
+              <span className="text-sm text-primary">Document</span>
+            </button>
+          </div>
+          <div
+            tabIndex={0}
+            className="card dropdown-content compact z-[1] w-64 rounded-box bg-base-100 shadow"
+          >
+            <div tabIndex={0} className="card-body">
+              <h2 className="card-title">Coming soon...</h2>
+              <p>This feature is still being worked on.</p>
+            </div>
+          </div>
+        </div>
 
         <div className="dropdown">
           <div
@@ -131,10 +170,18 @@ const Filters = () => {
             tabIndex={0}
             className="rounded menu dropdown-content  z-[1] w-52 border border-divider bg-background p-2 text-tertiary-txt shadow"
           >
-            <li onClick={() => setTo("English")}>
+            <li
+              onClick={() => {
+                if (from) setTo("English");
+              }}
+            >
               <a>English</a>
             </li>
-            <li onClick={() => setTo("Efik")}>
+            <li
+              onClick={() => {
+                if (from) setTo("Efik");
+              }}
+            >
               <a>Efik</a>
             </li>
           </ul>
@@ -172,23 +219,37 @@ const Filters = () => {
         <label className="rounded input flex h-9 items-center gap-2 border-divider bg-transparent !outline-none">
           <input
             type="text"
+            onKeyDown={e => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                navigate.push(
+                  `/?sort_by=Popular&page=${page}&search=${searchTerm}`,
+                );
+              }
+            }}
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
             className="grow text-primary placeholder:text-primary/70"
             placeholder="Search"
           />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="h-4 w-4 opacity-70"
+          <Link
+            title="Search results"
+            href={`/?sort_by=Popular&page=${page}&search=${searchTerm}`}
+            className="btn btn-circle btn-ghost btn-sm flex items-center justify-end"
           >
-            <path
-              fillRule="evenodd"
-              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-              clipRule="evenodd"
-            />
-          </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              className="h-4 w-4 opacity-70"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </Link>
         </label>
 
         <div className="dropdown">
@@ -211,7 +272,7 @@ const Filters = () => {
             >
               <Link
                 title="Popular entries"
-                href={`/?sort_by=Popular&page=${page}`}
+                href={`/?sort_by=Popular&page=${page}&search=${searchTerm}`}
               >
                 Popular
               </Link>
@@ -224,7 +285,7 @@ const Filters = () => {
             >
               <Link
                 title="Recent entries"
-                href={`/?sort_by=Recent&page=${page}`}
+                href={`/?sort_by=Recent&page=${page}&search=${searchTerm}`}
               >
                 Recent
               </Link>
@@ -237,7 +298,7 @@ const Filters = () => {
             >
               <Link
                 title="Easiest entries"
-                href={`/?sort_by=Easiest&page=${page}`}
+                href={`/?sort_by=Easiest&page=${page}&search=${searchTerm}`}
               >
                 Easiest
               </Link>
@@ -250,7 +311,7 @@ const Filters = () => {
             >
               <Link
                 title="Hardest entries"
-                href={`/?sort_by=Hardest&page=${page}`}
+                href={`/?sort_by=Hardest&page=${page}&search=${searchTerm}`}
               >
                 Hardest
               </Link>

@@ -78,7 +78,7 @@ export const corpusTexts = pgTable("corpustexts", {
         .primaryKey()
         .$defaultFn(() => crypto.randomUUID()),
     text: text("text"),
-    entryType: pgEnum('entrytype', ['Text', 'Document'])('entrytype'),
+    entryType: text('entrytype'),
     owner: text("owner")
             .notNull()
         .references(() => users.id, { onUpdate: "cascade", onDelete: "cascade" }),

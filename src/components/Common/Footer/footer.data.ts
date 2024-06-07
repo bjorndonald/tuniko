@@ -13,6 +13,11 @@ export const linksGroups = [
         href: "/updates",
         className: "text-purple",
       },
+      {
+        title: "Support",
+        href: "mailto:bjorndonaldb@gmail.com",
+        className: "text-purple",
+      },
     ],
   },
   {

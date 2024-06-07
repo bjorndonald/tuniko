@@ -13,7 +13,7 @@ import Icon from "@mdi/react";
 import cx from "classnames";
 import useLanguageStore from "@/store/language";
 import { ANONYMOUS_USER_EMAIL, ENGLISH_LANGUAGE_ID } from "@/constants/strings";
-import { EnglishTextArea } from "@/components/Common/Language";
+import { EnglishTextArea, FileInput } from "@/components/Common/Language";
 import { useSession } from "next-auth/react";
 
 const schema = z.object({
@@ -69,62 +69,71 @@ const Input = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(saveCorpus)}
-      className="rounded-lg relative flex min-h-[166px] grow flex-col justify-between border border-divider"
-    >
-      {!!corpus.length && (
-        <button
-          onClick={() => setCorpus("")}
-          className="btn btn-circle btn-ghost absolute right-2 top-2 h-10 !min-h-10 w-10 rounded-full"
+    <>
+      {entryType === "Text" && (
+        <form
+          onSubmit={handleSubmit(saveCorpus)}
+          className="rounded-lg relative flex min-h-[166px] grow flex-col justify-between border border-divider"
         >
-          <X width={24} height={24} color="rgb(95,99,104)" />
-        </button>
-      )}
+          {!!corpus.length && (
+            <button
+              onClick={() => setCorpus("")}
+              className="btn btn-circle btn-ghost absolute right-2 top-2 h-10 !min-h-10 w-10 rounded-full"
+            >
+              <X width={24} height={24} color="rgb(95,99,104)" />
+            </button>
+          )}
 
-      <div className="flex w-full pl-4 pr-[52px] pt-3">
-        {languageFrom === ENGLISH_LANGUAGE_ID ? (
-          <EnglishTextArea
-            value={corpus}
-            setValue={str => {
-              setCorpus(str);
-              setValue("text", str);
-            }}
-            id="corpus"
-          />
-        ) : (
-          <EfikTextArea
-            value={corpus}
-            setValue={str => {
-              setCorpus(str);
-              setValue("text", str);
-            }}
-            id="corpus"
-          />
-        )}
-      </div>
-      <div className="flex items-center justify-between px-4">
-        <button
-          type="submit"
-          disabled={!corpus.length}
-          className={cx(
-            "btn btn-ghost my-2 flex gap-2 text-sm uppercase text-primary",
-            !corpus.length && "!text-black/75",
-          )}
-        >
-          Save Corpus{" "}
-          {loading && (
-            <Icon
-              path={loadingIcon}
-              className={cx("size-5", loading && "animate-spin")}
-            />
-          )}
-        </button>
-        <span className="text-xs/[27px] text-secondary-txt">
-          {corpus.length} / 300
-        </span>
-      </div>
-    </form>
+          <div className="flex w-full pl-4 pr-[52px] pt-3">
+            {entryType === "Text" && (
+              <>
+                {languageFrom === ENGLISH_LANGUAGE_ID ? (
+                  <EnglishTextArea
+                    value={corpus}
+                    setValue={str => {
+                      setCorpus(str);
+                      setValue("text", str);
+                    }}
+                    id="corpus"
+                  />
+                ) : (
+                  <EfikTextArea
+                    value={corpus}
+                    setValue={str => {
+                      setCorpus(str);
+                      setValue("text", str);
+                    }}
+                    id="corpus"
+                  />
+                )}
+              </>
+            )}
+          </div>
+          <div className="flex items-center justify-between px-4">
+            <button
+              type="submit"
+              disabled={!corpus.length}
+              className={cx(
+                "btn btn-ghost my-2 flex gap-2 text-sm uppercase text-primary",
+                !corpus.length && "!text-black/75",
+              )}
+            >
+              Save Corpus{" "}
+              {loading && (
+                <Icon
+                  path={loadingIcon}
+                  className={cx("size-5", loading && "animate-spin")}
+                />
+              )}
+            </button>
+            <span className="text-xs/[27px] text-secondary-txt">
+              {corpus.length} / 300
+            </span>
+          </div>
+        </form>
+      )}
+      {entryType === "Document" && <FileInput />}
+    </>
   );
 };
 

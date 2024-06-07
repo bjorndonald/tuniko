@@ -1,5 +1,5 @@
-export const getTranslationsByCorpusId = async (corpusid: string) => {
-    const res = await fetch(process.env.SERVER_URI + '/translations/' + corpusid, {
+export const getTranslationsByCorpusId = async (corpusid: string, page: number = 1, sort_by: string = "", search: string = "") => {
+    const res = await fetch(process.env.SERVER_URI + '/translations/' + corpusid + `?page=${page}&limit=5&sort_by=${sort_by}&search=${search}`, {
         cache: "reload"
     })
     // The return value is *not* serialized

@@ -13,11 +13,20 @@ import Translation from "@/types/translation";
 
 interface Props {
   params: { id: string };
+  searchParams: { [key: string]: string | undefined };
 }
 
-const TranslationPage = async ({ params: { id } }: Props) => {
+const TranslationPage = async ({ params: { id }, searchParams }: Props) => {
+  const sortBy = searchParams["sort_by"];
+  const search = searchParams["search"];
+  const page = searchParams["page"] ? parseInt(searchParams["page"]) : 1;
   const corpus: CorpusText = await getCorpusById(id);
-  const translations: Translation[] = await getTranslationsByCorpusId(id);
+  const translations: Translation[] = await getTranslationsByCorpusId(
+    id,
+    page,
+    sortBy,
+    search,
+  );
   const languages: Language[] = await getLanguages();
 
   return (

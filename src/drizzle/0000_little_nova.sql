@@ -21,9 +21,10 @@ CREATE TABLE IF NOT EXISTS "chosencorpus" (
 	"updated_at" timestamp
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "corpustext" (
+CREATE TABLE IF NOT EXISTS "corpustexts" (
 	"id" text PRIMARY KEY NOT NULL,
 	"text" text,
+	"entrytype" text,
 	"owner" text NOT NULL,
 	"language_to" text NOT NULL,
 	"language_from" text NOT NULL,
@@ -55,9 +56,9 @@ CREATE TABLE IF NOT EXISTS "downvotes" (
 	"updated_at" timestamp
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "language" (
+CREATE TABLE IF NOT EXISTS "languages" (
 	"id" text PRIMARY KEY NOT NULL,
-	"text" text,
+	"name" text,
 	"created_at" timestamp,
 	"updated_at" timestamp
 );
@@ -68,7 +69,7 @@ CREATE TABLE IF NOT EXISTS "session" (
 	"expires" timestamp NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "translation" (
+CREATE TABLE IF NOT EXISTS "translations" (
 	"id" text PRIMARY KEY NOT NULL,
 	"text" text,
 	"translator" text NOT NULL,
@@ -93,13 +94,21 @@ CREATE TABLE IF NOT EXISTS "upvotes" (
 	"updated_at" timestamp
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "user" (
+CREATE TABLE IF NOT EXISTS "users" (
 	"id" text PRIMARY KEY NOT NULL,
 	"name" text,
 	"password" text,
 	"email" text NOT NULL,
 	"emailVerified" timestamp,
 	"image" text
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "userscore" (
+	"id" text PRIMARY KEY NOT NULL,
+	"user" text NOT NULL,
+	"score" numeric,
+	"created_at" timestamp,
+	"updated_at" timestamp
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verificationToken" (
@@ -110,103 +119,109 @@ CREATE TABLE IF NOT EXISTS "verificationToken" (
 );
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "account" ADD CONSTRAINT "account_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "account" ADD CONSTRAINT "account_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "chosencorpus" ADD CONSTRAINT "chosencorpus_chosen_translation_id_fk" FOREIGN KEY ("chosen") REFERENCES "public"."translation"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "chosencorpus" ADD CONSTRAINT "chosencorpus_chosen_translations_id_fk" FOREIGN KEY ("chosen") REFERENCES "public"."translations"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "chosencorpus" ADD CONSTRAINT "chosencorpus_corpustext_corpustext_id_fk" FOREIGN KEY ("corpustext") REFERENCES "public"."corpustext"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "chosencorpus" ADD CONSTRAINT "chosencorpus_corpustext_corpustexts_id_fk" FOREIGN KEY ("corpustext") REFERENCES "public"."corpustexts"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "corpustext" ADD CONSTRAINT "corpustext_owner_user_id_fk" FOREIGN KEY ("owner") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "corpustexts" ADD CONSTRAINT "corpustexts_owner_users_id_fk" FOREIGN KEY ("owner") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE cascade;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "corpustext" ADD CONSTRAINT "corpustext_language_to_language_id_fk" FOREIGN KEY ("language_to") REFERENCES "public"."language"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "corpustexts" ADD CONSTRAINT "corpustexts_language_to_languages_id_fk" FOREIGN KEY ("language_to") REFERENCES "public"."languages"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "corpustext" ADD CONSTRAINT "corpustext_language_from_language_id_fk" FOREIGN KEY ("language_from") REFERENCES "public"."language"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "corpustexts" ADD CONSTRAINT "corpustexts_language_from_languages_id_fk" FOREIGN KEY ("language_from") REFERENCES "public"."languages"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "corpuscomplexities" ADD CONSTRAINT "corpuscomplexities_corpustext_corpustext_id_fk" FOREIGN KEY ("corpustext") REFERENCES "public"."corpustext"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "corpuscomplexities" ADD CONSTRAINT "corpuscomplexities_corpustext_corpustexts_id_fk" FOREIGN KEY ("corpustext") REFERENCES "public"."corpustexts"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "corpustranslations" ADD CONSTRAINT "corpustranslations_translation_translation_id_fk" FOREIGN KEY ("translation") REFERENCES "public"."translation"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "corpustranslations" ADD CONSTRAINT "corpustranslations_translation_translations_id_fk" FOREIGN KEY ("translation") REFERENCES "public"."translations"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "corpustranslations" ADD CONSTRAINT "corpustranslations_corpustext_corpustext_id_fk" FOREIGN KEY ("corpustext") REFERENCES "public"."corpustext"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "corpustranslations" ADD CONSTRAINT "corpustranslations_corpustext_corpustexts_id_fk" FOREIGN KEY ("corpustext") REFERENCES "public"."corpustexts"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "downvotes" ADD CONSTRAINT "downvotes_translation_translation_id_fk" FOREIGN KEY ("translation") REFERENCES "public"."translation"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "downvotes" ADD CONSTRAINT "downvotes_translation_translations_id_fk" FOREIGN KEY ("translation") REFERENCES "public"."translations"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "downvotes" ADD CONSTRAINT "downvotes_voter_user_id_fk" FOREIGN KEY ("voter") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "downvotes" ADD CONSTRAINT "downvotes_voter_users_id_fk" FOREIGN KEY ("voter") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "session" ADD CONSTRAINT "session_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "session" ADD CONSTRAINT "session_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "translation" ADD CONSTRAINT "translation_translator_user_id_fk" FOREIGN KEY ("translator") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "translations" ADD CONSTRAINT "translations_translator_users_id_fk" FOREIGN KEY ("translator") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "translation" ADD CONSTRAINT "translation_language_language_id_fk" FOREIGN KEY ("language") REFERENCES "public"."language"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "translations" ADD CONSTRAINT "translations_language_languages_id_fk" FOREIGN KEY ("language") REFERENCES "public"."languages"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "translationscores" ADD CONSTRAINT "translationscores_translation_translation_id_fk" FOREIGN KEY ("translation") REFERENCES "public"."translation"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "translationscores" ADD CONSTRAINT "translationscores_translation_translations_id_fk" FOREIGN KEY ("translation") REFERENCES "public"."translations"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "upvotes" ADD CONSTRAINT "upvotes_translation_translation_id_fk" FOREIGN KEY ("translation") REFERENCES "public"."translation"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "upvotes" ADD CONSTRAINT "upvotes_translation_translations_id_fk" FOREIGN KEY ("translation") REFERENCES "public"."translations"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "upvotes" ADD CONSTRAINT "upvotes_voter_user_id_fk" FOREIGN KEY ("voter") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "upvotes" ADD CONSTRAINT "upvotes_voter_users_id_fk" FOREIGN KEY ("voter") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "userscore" ADD CONSTRAINT "userscore_user_users_id_fk" FOREIGN KEY ("user") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

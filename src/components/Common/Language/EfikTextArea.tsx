@@ -130,7 +130,7 @@ const EfikTextArea = (props: Props) => {
         name="corpus"
       />
       {!!currentletter && (
-        <div className="tones  bg-background/65 absolute -top-10 left-1/4 flex h-10 items-center divide-x border border-divider">
+        <div className="tones  absolute -top-[52px] left-0 flex h-10 items-center divide-x border border-divider bg-background">
           {tones[currentletter].map((x, i) => (
             <div
               key={i}

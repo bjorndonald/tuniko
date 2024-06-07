@@ -4,6 +4,6 @@ export default defineConfig({
     schema: "./src/database/schema.ts",
     out: "./src/drizzle",
     dbCredentials: {
-        url: process.env.AUTH_DRIZZLE_URL
-    }
+        url: process.env.AUTH_DRIZZLE_URL + ";sslmode=verify-ca;sslrootcert=ca.pem",
+    },
 });

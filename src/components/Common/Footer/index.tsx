@@ -11,6 +11,7 @@ import Logo from "@/components/Shared/Logo";
 import photo from "@/assets/images/photo.jpg";
 import { linksGroups } from "./footer.data";
 import Image from "next/image";
+import DownloadButton from "./DownloadButton";
 
 const Heart = () => (
   <svg
@@ -107,7 +108,11 @@ const Footer = () => {
                       </li>
                     );
                   })}
-                  {group.title === "Resources" && <></>}
+                  {group.title === "Resources" && (
+                    <li>
+                      <DownloadButton />
+                    </li>
+                  )}
                 </ul>
               </LinksList>
             );

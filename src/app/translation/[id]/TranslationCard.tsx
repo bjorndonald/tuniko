@@ -41,7 +41,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
   const [downvotes, setDownvotes] = useState(translation.downvotes);
   const [vote, setVote] = useState<Vote>();
   const [defaultVote, setDefaultVote] = useState();
-  console.log(owner, session.data.user.email);
+
   useEffect(() => {
     const init = async () => {
       const vote =

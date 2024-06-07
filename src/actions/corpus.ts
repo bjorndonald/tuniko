@@ -12,10 +12,10 @@ export const getCorpusById = async (id: string) => {
     }
 
     return (await res.json()).corpus
-}
+} 
 
-export const getCorpus = async (page: number = 1, sort_by: string = "") => {
-    const res = await fetch(process.env.SERVER_URI + `/corpus?page=${page}&limit=30&sort_by=${sort_by}`, {
+export const getCorpus = async (page: number = 1, sort_by: string = "", search: string = "") => {
+    const res = await fetch(process.env.SERVER_URI + `/corpus?page=${page}&limit=10&sort_by=${sort_by}&search=${search}`, {
         cache: "reload"
     })
     if (!res.ok) {
@@ -76,3 +76,4 @@ export const unchooseTranslation = async (corpus: string, translation: string) =
 
     return (await res.json()).vote
 }
+
