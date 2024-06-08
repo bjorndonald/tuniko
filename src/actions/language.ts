@@ -1,5 +1,7 @@
 export const getLanguages = async () => {
-    const res = await fetch(process.env.SERVER_URI + "/languages")
+    const res = await fetch(process.env.SERVER_URI + "/languages", {
+        cache: "reload"
+    })
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.
 
