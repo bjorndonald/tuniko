@@ -14,7 +14,8 @@ export const getCorpusById = async (id: string) => {
 
 export const getCorpus = async (page: number = 1, sortBy: string = "", search: string = "") => {
     const res = await fetch(process.env.SERVER_URI + `/corpus?page=${page}&limit=10&sort_by=${sortBy}&search=${search}`, {
-        cache: "reload"
+        cache: "no-cache",
+        
     })
     if (!res.ok) {
         throw new Error("Failed to fetch data")

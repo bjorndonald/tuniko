@@ -162,7 +162,7 @@ export const userscore = pgTable("userscore", {
     id: text("id")
         .primaryKey()
         .$defaultFn(() => crypto.randomUUID()),
-    user: text("user")
+    user: text("userid")
         .notNull()
         .references(() => users.id, { onDelete: "cascade" }),
     score: numeric("score"),
