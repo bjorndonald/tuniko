@@ -24,9 +24,12 @@ const DownloadButton = () => {
     }
   };
   return (
-    <DownloadLink onClick={download} className="hocus:text-yellow">
-      <Download width={20} />
-      <span className="hidden tablet-md:block">Download</span> CSV
+    <DownloadLink
+      onClick={download}
+      className="hocus:text-yellow hocus:text-accent-dark inline-flex cursor-pointer items-end gap-1 self-start font-medium text-accent transition-colors"
+    >
+      <Download width={14} />
+      <span className="hidden tablet-md:block">Download </span> CSV
     </DownloadLink>
   );
 };

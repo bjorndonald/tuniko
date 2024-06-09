@@ -20,12 +20,12 @@ import {
   TranslationIsChosen,
   getVoteOfTranslation,
 } from "@/actions/translation";
-import moment from "moment";
 import $ from "jquery";
 import toast from "react-hot-toast";
 import { chooseTranslation, unchooseTranslation } from "@/actions/corpus";
 import { useRouter } from "next/navigation";
 import { doCopyText } from "@/utils/copy";
+import { getDifferenceFromDate } from "@/utils/date";
 interface Props {
   translation: Translation;
   corpusId: string;
@@ -166,9 +166,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
         <div className="flex h-fit items-center gap-2 pl-3">
           <div className="flex items-center gap-2 whitespace-nowrap rounded-full bg-background p-1 pr-2 text-[10px] text-tertiary-txt">
             <Clock size={12} />
-            {moment
-              .duration(moment().diff(moment(translation.created_at)))
-              .humanize()}
+            {getDifferenceFromDate(translation.created_at)}
           </div>
 
           <div className="dropdown ">

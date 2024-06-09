@@ -4,12 +4,12 @@ import { MoreVertical, User, Check, ArrowRight, Clock } from "react-feather";
 import $ from "jquery";
 import useCorpus from "@/store/corpus";
 import cx from "@/utils/cx";
-import moment from "moment";
 import CorpusText from "@/types/corpustext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { doCopyText } from "@/utils/copy";
 import toast from "react-hot-toast";
+import { getDifferenceFromDate } from "@/utils/date";
 
 interface Props {
   corpus: CorpusText;
@@ -57,9 +57,7 @@ const CorpusCard = ({ corpus }: Props) => {
         <div className="flex h-fit items-center gap-2 pl-3">
           <div className="flex items-center gap-2 whitespace-nowrap rounded-full bg-background p-1 pr-2 text-[10px] text-tertiary-txt">
             <Clock size={12} />
-            {moment
-              .duration(moment().diff(moment(corpus.created_at)))
-              .humanize()}
+            {getDifferenceFromDate(corpus.created_at)}
           </div>
 
           <div className="dropdown ">

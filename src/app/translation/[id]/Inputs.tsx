@@ -76,6 +76,12 @@ const Inputs = ({ corpusText }: Props) => {
     return () => {};
   }, []);
 
+  useEffect(() => {
+    setLeftValue("translation", translation);
+
+    return () => {};
+  }, [translation]);
+
   const saveTranslation = async () => {
     toast.loading("Loading...", {
       id: "loading",
@@ -84,6 +90,7 @@ const Inputs = ({ corpusText }: Props) => {
     setLoading(true);
 
     try {
+      console.log(languageTo);
       await axios.post(process.env.NEXT_PUBLIC_SERVER_URI + "/translation", {
         text: translation.trim(),
         translator: {
@@ -102,12 +109,16 @@ const Inputs = ({ corpusText }: Props) => {
       navigate.refresh();
     } catch (error) {
       toast.remove("loading");
-      toast.error("Error");
       setLoading(false);
+
       if (error instanceof AxiosError) {
-        if (error.status === 403) {
-          toast.error(error.response.data);
+        if (error.response.status === 403) {
+          toast.error(error.response.data.error);
+        } else {
+          toast.error("Error");
         }
+      } else {
+        toast.error("Error");
       }
     }
   };
