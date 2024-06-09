@@ -12,5 +12,5 @@ export const getDifferenceFromDate = (date: string) => {
         return Math.ceil(diff/ 60000) + "m"
     else if(diff > 1000)
         return Math.ceil(diff / 1000)+"s"
-    else return '1s'
+    else return "1s"
 }
