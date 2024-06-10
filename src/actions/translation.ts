@@ -1,3 +1,5 @@
+import Translation from "@/types/translation"
+
 export const getTranslationsByCorpusId = async (corpusid: string, page: number = 1, sortBy: string = "", search: string = "") => {
     const res = await fetch(process.env.SERVER_URI + "/translations/" + corpusid + `?page=${page}&limit=5&sort_by=${sortBy}&search=${search}`, {
         cache: "no-cache",
@@ -25,7 +27,7 @@ export const TranslationIsChosen = async (tid: string) => {
         throw new Error("Failed to fetch data")
     }
 
-    return (await res.json()).chosen
+    return (await res.json()).chosen as Translation
 }
 
 export const getVoteOfTranslation = async (tId: string, email: string) => {

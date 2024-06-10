@@ -13,7 +13,7 @@ const TranslationFilters = () => {
   const page = searchParams.get("page")
     ? parseInt(searchParams.get("page"))
     : 1;
-  const [searchTerm, setSearchTerm] = useState(search);
+  const [searchTerm, setSearchTerm] = useState(search ?? "");
   const [sort, setSort] = useState<SortType>(sortType as SortType);
 
   const closeMenu = () => {
@@ -83,7 +83,7 @@ const TranslationFilters = () => {
             >
               <Link
                 title="Popular entries"
-                target="_self"
+                openInNewTab={false}
                 href={`?sort_by=Popular&page=${page}&search=${searchTerm}`}
               >
                 Popular
@@ -97,7 +97,7 @@ const TranslationFilters = () => {
             >
               <Link
                 title="Recent entries"
-                target="_self"
+                openInNewTab={false}
                 href={`?sort_by=Recent&page=${page}&search=${searchTerm}`}
               >
                 Recent

@@ -1,3 +1,4 @@
+import Translation from "@/types/translation"
 
 export const getCorpusById = async (id: string) => {
     const res = await fetch(process.env.SERVER_URI + "/corpus/"+ id)
@@ -14,7 +15,7 @@ export const getCorpusById = async (id: string) => {
 
 export const getCorpus = async (page: number = 1, sortBy: string = "", search: string = "") => {
     const res = await fetch(process.env.SERVER_URI + `/corpus?page=${page}&limit=10&sort_by=${sortBy}&search=${search}`, {
-        cache: "no-cache",
+        cache: "reload",
         
     })
     if (!res.ok) {
@@ -37,13 +38,13 @@ export const getCorpusFile = async () => {
 
 export const getChosen = async (corpusId: string) => {
     const res = await fetch(process.env.SERVER_URI + "/corpus/chosen/" + corpusId,{
-       
+        cache: "reload"
     })
     if (!res.ok) {
         throw new Error("Failed to fetch data")
     }
 
-    return (await res.json()).chosen
+    return (await res.json()).chosen as Translation
 }
 
 export const chooseTranslation = async (corpus: string, translation: string) => {

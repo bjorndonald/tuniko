@@ -25,7 +25,7 @@ export const Meta = () => {
       <link rel={"icon"} sizes={"32x32"} href={"/brand/favicon-32x32.png"} />
       <meta
         name={"msapplication-TileImage"}
-        content={"/media/brand/favicon-32x32.png"}
+        content={"/brand/favicon-32x32.png"}
       />
 
       {/* <link

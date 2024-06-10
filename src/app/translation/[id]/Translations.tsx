@@ -1,11 +1,13 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import TranslationCard from "./TranslationCard";
 import { Pagination } from "@/components/Common/Pagination";
 import Translation from "@/types/translation";
 import { useRouter, useSearchParams } from "next/navigation";
 import EmptyGraphic from "@/components/Shared/empty";
 import NoResults from "@/components/Shared/no-result";
+import useTranslationStore from "@/store/translation";
+import { getChosen } from "@/actions/corpus";
 
 interface Props {
   translations: Translation[];
@@ -21,11 +23,24 @@ const Translations = ({ translations, owner, corpusId }: Props) => {
   const page = searchParams.get("page")
     ? parseInt(searchParams.get("page"))
     : 1;
+  const resetChosen = useTranslationStore(s => s.resetChosen);
+  const setChosen = useTranslationStore(s => s.setChosen);
+
+  useEffect(() => {
+    const init = async () => {
+      const chosen = await getChosen(corpusId);
+      setChosen(chosen.id);
+    };
+    init();
+    return () => {
+      resetChosen();
+    };
+  }, []);
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-6">
+    <div className="mx-auto flex max-w-2xl flex-col gap-2">
       {!!translations.length && (
-        <div>
+        <>
           {translations?.map((x, i) => (
             <TranslationCard
               owner={owner}
@@ -34,7 +49,7 @@ const Translations = ({ translations, owner, corpusId }: Props) => {
               translation={x}
             />
           ))}
-        </div>
+        </>
       )}
 
       {!translations.length && !search && (

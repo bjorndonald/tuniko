@@ -16,16 +16,14 @@ import axios from "axios";
 import { ANONYMOUS_USER_EMAIL } from "@/constants/strings";
 import { useSession } from "next-auth/react";
 import cx from "@/utils/cx";
-import {
-  TranslationIsChosen,
-  getVoteOfTranslation,
-} from "@/actions/translation";
+import { getVoteOfTranslation } from "@/actions/translation";
 import $ from "jquery";
 import toast from "react-hot-toast";
 import { chooseTranslation, unchooseTranslation } from "@/actions/corpus";
 import { useRouter } from "next/navigation";
 import { doCopyText } from "@/utils/copy";
 import { getDifferenceFromDate } from "@/utils/date";
+import useTranslationStore from "@/store/translation";
 interface Props {
   translation: Translation;
   corpusId: string;
@@ -33,14 +31,15 @@ interface Props {
 }
 
 const TranslationCard = ({ translation, owner, corpusId }: Props) => {
-  const navigate = useRouter();
   const session = useSession();
-  const [isChosen, setIsChosen] = useState();
   const setTranslation = useLanguageStore(s => s.setTranslation);
+  const [score, setScore] = useState(translation.score);
   const [upvotes, setUpvotes] = useState(translation.upvotes);
   const [downvotes, setDownvotes] = useState(translation.downvotes);
   const [vote, setVote] = useState<Vote>();
   const [defaultVote, setDefaultVote] = useState();
+  const setChosen = useTranslationStore(s => s.setChosen);
+  const chosen = useTranslationStore(s => s.chosen);
 
   useEffect(() => {
     const init = async () => {
@@ -48,8 +47,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
         session.status === "authenticated"
           ? await getVoteOfTranslation(translation.id, session.data.user.email)
           : "none";
-      const isChosen = await TranslationIsChosen(translation.id);
-      setIsChosen(isChosen);
+
       setVote(vote);
       setDefaultVote(vote);
     };
@@ -62,9 +60,11 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
   const upvote = async () => {
     if (vote === "upvote") {
       setUpvotes(upvotes - 1);
+      setScore(score - 1);
       setVote("none");
     } else {
       setUpvotes(upvotes + 1);
+      setScore(score + 1);
       setDownvotes(translation.downvotes);
       setVote("upvote");
     }
@@ -83,6 +83,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
         },
       );
     } catch (error) {
+      setScore(translation.score);
       setUpvotes(translation.upvotes);
       setVote(defaultVote);
     }
@@ -92,7 +93,9 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
     if (vote === "downvote") {
       setDownvotes(downvotes - 1);
       setVote("none");
+      setScore(score + 1);
     } else {
+      setScore(score - 1);
       setDownvotes(downvotes + 1);
       setUpvotes(translation.upvotes);
       setVote("downvote");
@@ -111,6 +114,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
         },
       );
     } catch (error) {
+      setScore(translation.score);
       setDownvotes(translation.downvotes);
       setVote(defaultVote);
     }
@@ -122,7 +126,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
       await chooseTranslation(corpusId, translation.id);
       toast.success("Chosen");
       toast.remove("loading");
-      navigate.refresh();
+      setChosen(translation.id);
     } catch (error) {
       toast.error("Not done");
       toast.remove("loading");
@@ -135,7 +139,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
       await unchooseTranslation(corpusId, translation.id);
       toast.success("Done");
       toast.remove("loading");
-      navigate.refresh();
+      setChosen("");
     } catch (error) {
       toast.error("Not done");
       toast.remove("loading");
@@ -150,7 +154,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
     <div
       className={cx(
         "translation rounded flex flex-col gap-3 border border-divider px-4 pb-3 pt-3 ",
-        isChosen && "bg-primary/5",
+        chosen === translation.id && "bg-primary/5",
       )}
     >
       <div className="flex w-full grow">
@@ -193,18 +197,18 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
                   Use
                 </a>
               </li>
-              {session.data?.user?.email === owner && (
+              {(session.data?.user?.email === owner || !session.data?.user) && (
                 <li>
                   <a
                     onClick={e => {
-                      if (isChosen) unchoose();
+                      if (chosen === translation.id) unchoose();
                       else choose();
                       closeMenu();
 
                       e.stopPropagation();
                     }}
                   >
-                    {isChosen ? "Remove choice" : "Choose"}
+                    {chosen === translation.id ? "Remove choice" : "Choose"}
                   </a>
                 </li>
               )}
@@ -230,7 +234,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
         <div></div>
 
         <div className="flex items-center gap-3">
-          {isChosen && (
+          {chosen === translation.id && (
             <div className="rounded-3xl flex h-6 items-center gap-1 border-primary bg-primary/15 px-1.5 py-0.5 text-[10px] text-primary">
               <Check size={12} color="rgb(25,103,210)" />
               Chosen
@@ -270,7 +274,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
 
           <div className="flex items-center gap-2 text-lg font-semibold text-tertiary">
             <Icon path={mdiDiamond} size={1} />
-            {translation.score}
+            {score}
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
@@ -297,8 +301,13 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
                 className="card dropdown-content compact z-[1] w-64 rounded-box border border-black bg-white shadow"
               >
                 <div tabIndex={0} className="card-body">
-                  <h2 className="card-title">You needed more info?</h2>
-                  <p>Here is a description!</p>
+                  <h2 className="card-title">How the score is calculated?</h2>
+                  <p>
+                    So this score is calculated based on how close this
+                    translation is to the chosen translation. Upvotes and
+                    downvotes can also have an effect. The similarity value is
+                    calculated using Levenstein distance equation.
+                  </p>
                 </div>
               </div>
             </div>
