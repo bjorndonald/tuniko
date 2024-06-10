@@ -20,7 +20,6 @@ import { getVoteOfTranslation } from "@/actions/translation";
 import $ from "jquery";
 import toast from "react-hot-toast";
 import { chooseTranslation, unchooseTranslation } from "@/actions/corpus";
-import { useRouter } from "next/navigation";
 import { doCopyText } from "@/utils/copy";
 import { getDifferenceFromDate } from "@/utils/date";
 import useTranslationStore from "@/store/translation";
