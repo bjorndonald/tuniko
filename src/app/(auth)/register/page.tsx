@@ -1,8 +1,8 @@
+import { GoogleIcon, AppleIcon } from "@/components/Shared/Icons";
 import React from "react";
 import { Mail } from "react-feather";
-import SocialButtons from "./SocialButtons";
 
-const SignUp = () => {
+const SignupPage = () => {
   return (
     <main className="px-4 pt-4">
       <div className="mb-8 text-center">
@@ -16,7 +16,20 @@ const SignUp = () => {
       </div>
       <div className="card mx-auto mb-8 max-w-xl bg-primary/35">
         <div className="card-body">
-          <SocialButtons />
+          <button
+            aria-label="Sign up with Google"
+            className="hover:bg-gray-100 btn btn-block !border-base-content/20 bg-white text-black hover:text-black "
+          >
+            <GoogleIcon />
+            Sign up with Google
+          </button>
+          <button
+            aria-label="Sign up with Apple"
+            className="btn btn-block border-0 bg-black text-white hover:bg-black/80 hover:text-white "
+          >
+            <AppleIcon />
+            Sign up with Apple
+          </button>
           <div className="divider py-4">
             <span className="opacity-74">OR</span>
           </div>
@@ -49,7 +62,7 @@ const SignUp = () => {
       </div>
       <div className="mb-12 text-center font-medium">
         Already have an account?
-        <a className="link" href="/signin">
+        <a className="link" href="/login">
           Log in
         </a>
       </div>
@@ -57,4 +70,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignupPage;

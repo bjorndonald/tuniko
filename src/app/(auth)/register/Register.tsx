@@ -2,7 +2,7 @@ import React from "react";
 import { Mail } from "react-feather";
 import SocialButtons from "./SocialButtons";
 
-const SignUp = () => {
+const Register = () => {
   return (
     <main className="px-4 pt-4">
       <div className="mb-8 text-center">
@@ -49,7 +49,7 @@ const SignUp = () => {
       </div>
       <div className="mb-12 text-center font-medium">
         Already have an account?
-        <a className="link" href="/signin">
+        <a className="link" href="/login">
           Log in
         </a>
       </div>
@@ -57,4 +57,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;
