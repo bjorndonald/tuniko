@@ -12,9 +12,9 @@ interface ITranslationState {
 const useTranslationStore = create<ITranslationState>((set) => ({
     list: [],
     chosen: "",
-    resetChosen: () => set({chosen: ""}),
+    resetChosen: () => set({ chosen: "" }),
     setChosen(str) {
-        set({chosen: str})
+        set({ chosen: str })
     },
     setList(t) {
         set({
