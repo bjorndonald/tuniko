@@ -9,6 +9,35 @@ import { db } from "./database"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: "jwt" },
+  callbacks: {
+    async session({ token, session }) {
+      if (token) {
+        // @ts-ignore
+        session.user.id = token.id
+        session.user.name = token.name
+        session.user.email = token.email
+        session.user.image = token.picture
+      }
+      return session
+    },
+    async jwt({ token, user }) {
+      const dbUser = await db.query.users.findFirst({
+        where: (users, { eq }) => eq(users.email, String(token.email)),
+      });
+      if (!dbUser) {
+        if (user) {
+          token.id = user?.id
+        }
+        return token
+      }
+      return {
+        id: dbUser.id,
+        name: dbUser.name,
+        email: dbUser.email,
+        picture: dbUser.image,
+      }
+    }
+  },
   adapter: DrizzleAdapter(db, {
     usersTable: users,
     accountsTable: accounts,
@@ -21,7 +50,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       name: "Sign in",
-      id: "credentials", 
+      id: "credentials",
       credentials: {
         email: {
           label: "Email",
@@ -53,7 +82,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           email: user.email,
           name: user.name,
           randomKey: "Well done",
-        }; 
+        };
       },
     }),
     GoogleProvider({
