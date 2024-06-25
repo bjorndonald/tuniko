@@ -32,12 +32,10 @@ const ProfileMenu = ({ session }: Props) => {
       </div>
       <ul
         tabIndex={0}
-        className="menu dropdown-content z-[1] w-52 rounded-box border border-divider bg-background p-2 shadow"
+        className="bg-background menu dropdown-content z-[1] w-52 rounded-box border border-base-300 p-2 shadow"
       >
         <li>
-          <a className="cursor-pointer">
-            <button>Log out</button>
-          </a>
+          <button className="w-full cursor-pointer">Log out</button>
         </li>
       </ul>
     </form>

@@ -4,7 +4,9 @@ import {
     text,
     primaryKey,
     integer,
-    numeric
+    numeric,
+    boolean,
+    varchar
 } from "drizzle-orm/pg-core"
 import type { AdapterAccountType } from "next-auth/adapters"
 
@@ -77,7 +79,7 @@ export const corpusTexts = pgTable("corpustexts", {
         .primaryKey()
         .$defaultFn(() => crypto.randomUUID()),
     text: text("text"),
-    entryType: text("entrytype"),
+    entryType: varchar("entrytype"),
     owner: text("owner")
             .notNull()
         .references(() => users.id, { onUpdate: "cascade", onDelete: "cascade" }),
@@ -102,6 +104,8 @@ export const translations = pgTable("translations", {
     language_to: text("language")
         .notNull()
         .references(() => languages.id, { onDelete: "cascade" }),
+    upvotes: numeric("upvotes"),
+    downvotes: numeric("downvotes"),
     created_at: timestamp("created_at", { mode: "date" }),
     updated_at: timestamp("updated_at", { mode: "date" })
 })
@@ -194,6 +198,49 @@ export const downvotes = pgTable("downvotes", {
     voter: text("voter")
         .notNull()
         .references(() => users.id, { onDelete: "cascade" }),
+    created_at: timestamp("created_at", { mode: "date" }),
+    updated_at: timestamp("updated_at", { mode: "date" })
+})
+
+export const settings = pgTable("settings", {
+    id: text("id")
+        .primaryKey()
+        .$defaultFn(() => crypto.randomUUID()),
+    type: text("type").notNull(),
+    value: text("value").notNull(),
+    action: text("action").notNull(),
+    actor: text("actor")
+        .notNull()
+        .references(() => users.id, { onDelete: "cascade" }),
+    valueId: text("value_id").notNull(),
+    created_at: timestamp("created_at", { mode: "date" }),
+    updated_at: timestamp("updated_at", { mode: "date" })
+})
+
+export const notifications = pgTable("notifications", {
+    id: text("id")
+        .primaryKey()
+        .$defaultFn(() => crypto.randomUUID()),
+    action: text("action").notNull(),
+    type: text("type").notNull(),
+    value: text("value").notNull(),
+    valueId: text("value_id").notNull(),
+    otherId: text("other_id").notNull(),
+    created_at: timestamp("created_at", { mode: "date" }),
+    updated_at: timestamp("updated_at", { mode: "date" })
+})
+
+export const userNotifications = pgTable("usernotifications", {
+    id: text("id")
+        .primaryKey()
+        .$defaultFn(() => crypto.randomUUID()),
+    user: text("user")
+        .notNull()
+        .references(() => users.id, { onDelete: "cascade" }),
+    notifications: text("notifications")
+        .notNull()
+        .references(() => notifications.id, { onDelete: "cascade" }),
+    seen: boolean("seen"),
     created_at: timestamp("created_at", { mode: "date" }),
     updated_at: timestamp("updated_at", { mode: "date" })
 })

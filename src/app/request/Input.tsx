@@ -73,7 +73,7 @@ const Input = () => {
       {entryType === "Text" && (
         <form
           onSubmit={handleSubmit(saveCorpus)}
-          className="rounded-lg relative flex min-h-[166px] grow flex-col justify-between border border-divider"
+          className="rounded-lg relative flex min-h-[166px] grow flex-col justify-between border border-base-300"
         >
           {!!corpus.length && (
             <button
@@ -126,7 +126,7 @@ const Input = () => {
                 />
               )}
             </button>
-            <span className="text-xs/[27px] text-secondary-txt">
+            <span className="text-xs/[27px] text-base-content">
               {corpus.length} / 300
             </span>
           </div>

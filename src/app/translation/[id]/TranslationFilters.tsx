@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import $ from "jquery";
 import Link from "@/components/Shared/Link";
-type SortType = "Popular" | "Recent" | "Easiest" | "Hardest";
+import { SortType } from "@/types/options";
 
 const TranslationFilters = () => {
   const navigate = useRouter();
@@ -27,7 +27,7 @@ const TranslationFilters = () => {
       <h2 className="text-3xl">Translations</h2>
 
       <div className="flex items-center gap-2">
-        <label className="rounded input flex h-9 items-center gap-2 border-divider bg-transparent !outline-none">
+        <label className="rounded input flex h-9 items-center gap-2 border-base-300 bg-transparent !outline-none">
           <input
             type="text"
             value={searchTerm}
@@ -67,13 +67,13 @@ const TranslationFilters = () => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-divider font-normal text-primary hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-primary hover:bg-primary/10"
           >
             {sort ?? "Sort By"}
           </div>
           <ul
             tabIndex={0}
-            className="rounded menu dropdown-content  z-[1] w-52 border border-divider bg-background p-2 text-tertiary-txt shadow"
+            className="rounded bg-background text-tertiary-txt  menu dropdown-content z-[1] w-52 border border-base-300 p-2 shadow"
           >
             <li
               onClick={() => {
@@ -101,6 +101,45 @@ const TranslationFilters = () => {
                 href={`?sort_by=Recent&page=${page}&search=${searchTerm}`}
               >
                 Recent
+              </Link>
+            </li>
+            <li
+              onClick={() => {
+                setSort("This_month");
+                closeMenu();
+              }}
+            >
+              <Link
+                title="This month's entries"
+                href={`?sort_by=This_month&page=${page}&search=${searchTerm}`}
+              >
+                This month
+              </Link>
+            </li>
+            <li
+              onClick={() => {
+                setSort("This_week");
+                closeMenu();
+              }}
+            >
+              <Link
+                title="This week's entries"
+                href={`?sort_by=This_week&page=${page}&search=${searchTerm}`}
+              >
+                This week
+              </Link>
+            </li>
+            <li
+              onClick={() => {
+                setSort("Today");
+                closeMenu();
+              }}
+            >
+              <Link
+                title="Today's entries"
+                href={`?sort_by=Today&page=${page}&search=${searchTerm}`}
+              >
+                Today
               </Link>
             </li>
           </ul>

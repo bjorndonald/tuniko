@@ -1,3 +1,4 @@
+import $ from 'jquery'
 export const range = (start: number, end: number) => {
     const length = end - start + 1;
     /*
@@ -15,3 +16,9 @@ export function removeDuplicates(arr: string[]) {
 export function numberWithCommas(x: number) {
     return x ? x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") : "0"
 }
+
+export const closeMenu = () => {
+    $(".dropdown").removeClass("dropdown-open");
+    const active = document.activeElement as HTMLElement;
+    active.blur();
+};

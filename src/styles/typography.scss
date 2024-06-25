@@ -1,6 +1,6 @@
 html,
 body {
-    @apply font-sans text-secondary-txt font-normal;
+    @apply font-sans text-base-content font-normal;
     @apply leading-normal mobile-lg:leading-relaxed;
 }
 
@@ -14,5 +14,5 @@ h3,
 h4,
 h5,
 h6 {
-    @apply inline-block text-primary-txt font-bold;
+    @apply inline-block text-base-content font-bold;
 }

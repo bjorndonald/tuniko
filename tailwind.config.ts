@@ -4,9 +4,6 @@ import { spacing } from 'tailwindcss/defaultTheme';
 const THEME_COLOR_LIGHT ="#fff"
 const THEME_COLOR_DARK = "#0c121e"
 
-const reduceObjArray = <T>(objs: Array<T>) =>
-  objs.reduce((r, c) => Object.assign(r, c), {});
-
 const extendedSpacing = {
   ...spacing,
   px: '0.0625rem',
@@ -18,30 +15,11 @@ const extendedSpacing = {
   30: '7.5rem',
 };
 
-const colors = [
-  'background',
-  'divider',
-  'hover',
-  'toolbar',
-  'toolbar-highlight',
-  'primary-txt',
-  'secondary-txt',
-  'tertiary-txt',
-  'accent',
-  'accent-dark',
-  'on-accent',
-  'progress'
-]
-
 const fontSize = {
   
   '2xs': '0.875rem', // small
   '3xs': '0.8125rem', // (?)
 };
-
-const mappedColors = colors.map((color) => ({
-  [color]: `var(--color-${color})`
-}))
 
 const breakpoints = {
   'mobile-md': '375px',
@@ -59,7 +37,6 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    
     screens: breakpoints,
     spacing: extendedSpacing,
     borderRadius: {
@@ -88,11 +65,9 @@ const config: Config = {
     extend: {
       fontSize,
       colors: {
-        primary: "#1967D2",
-        secondary: "#131313",
-        tertiary: "#5f6368",
-        accent: "#f3f3f3",
-       
+        "primary": "#0A85F7",
+        "secondary": "#daf0ff",
+        "accent": "#69CFEF",
         brand: {
           DEFAULT: '#0A85F7',
           '50': '#eff9ff',
@@ -109,7 +84,6 @@ const config: Config = {
         },
         light: THEME_COLOR_LIGHT,
         dark: THEME_COLOR_DARK,
-        ...reduceObjArray(mappedColors),
       },
       boxShadow: {
         commandButton: "0 0 0 3px hsl(0 0% 30%)"
@@ -117,19 +91,49 @@ const config: Config = {
       fontFamily: {
         web3: ["Syncopate", "sans-serif"]
       },
-      
     },
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
   daisyui: {
-    themes: false, // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
-    darkTheme: "dark", // name of one of the included themes for dark mode
-    base: true, // applies background color and foreground color for root element by default
-    styled: true, // include daisyUI colors and design decisions for all components
-    utils: true, // adds responsive and modifier utility classes
-    prefix: "", // prefix for daisyUI classnames (components, modifiers and responsive class names. Not colors)
-    logs: true, // Shows info about daisyUI version and used config in the console when building your CSS
-    themeRoot: ":root", // The element that receives theme color CSS variables
+    themes: [{
+      light: {
+        "primary": "#0A85F7",
+        "primary-content": "#ffffff",
+        "secondary": "#daf0ff",
+        "accent": "#69CFEF",
+        "base-100": "#fff",
+        "base-200": "#f4f4f4",
+        "base-300": "#e9e9e9",
+        "base-content": "#424242",
+        "neutral": "#4c4c4c",
+        "neutral-content": "#e1e1e1",
+        "success": "rgba(16, 185, 129)",
+        "success-content": "#ffffff",
+        "error": "rgba(244, 63, 94)",
+        "error-content": "#ffffff",
+        "warning": "rgba(234, 179, 8)",
+        "warning-content": "#ffffff",
+      },
+
+      dark: {
+        "primary": "#0A85F7",
+        "primary-content": "#ffffff",
+        "secondary": "#daf0ff",
+        "accent": "#69CFEF",
+        "base-100": "#0c121e",
+        "base-200": "#373737",
+        "base-300": "#333333",
+        "base-content": "#b8b8b8",
+        "neutral": "#4a4a4a",
+        "neutral-content": "#b8b8b8",
+        "success": "rgba(16, 185, 129)",
+        "success-content": "#ffffff",
+        "error": "rgba(244, 63, 94)",
+        "error-content": "#ffffff",
+        "warning": "rgba(234, 179, 8, 0.3)",
+        "warning-content": "#ffffff",
+      },
+    }]
   },
 }
 export default config

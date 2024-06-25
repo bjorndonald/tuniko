@@ -152,7 +152,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
   return (
     <div
       className={cx(
-        "translation rounded flex flex-col gap-3 border border-divider px-4 pb-3 pt-3 ",
+        "translation rounded flex flex-col gap-3 border border-base-300 px-4 pb-3 pt-3 ",
         chosen === translation.id && "bg-primary/5",
       )}
     >
@@ -167,7 +167,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
           </i>
         </p>
         <div className="flex h-fit items-center gap-2 pl-3">
-          <div className="flex items-center gap-2 whitespace-nowrap rounded-full bg-background p-1 pr-2 text-[10px] text-tertiary-txt">
+          <div className="bg-background text-tertiary-txt flex items-center gap-2 whitespace-nowrap rounded-full p-1 pr-2 text-[10px]">
             <Clock size={12} />
             {getDifferenceFromDate(translation.created_at)}
           </div>
@@ -183,7 +183,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
             </div>
             <ul
               tabIndex={0}
-              className="rounded menu dropdown-content  z-[1] w-28 border border-divider bg-background p-2 text-tertiary-txt shadow"
+              className="rounded bg-background text-tertiary-txt  menu dropdown-content z-[1] w-28 border border-base-300 p-2 shadow"
             >
               <li>
                 <a
@@ -246,7 +246,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
                 "rounded-xl btn btn-sm flex items-center gap-2 text-[10px] font-medium ",
                 vote === "upvote"
                   ? "btn-primary text-light"
-                  : "btn-ghost text-tertiary-txt",
+                  : "text-tertiary-txt btn-ghost",
               )}
             >
               <ThumbsUp size={14} />
@@ -262,7 +262,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
                 "rounded-xl btn btn-sm flex items-center gap-2 text-[10px] font-medium ",
                 vote === "downvote"
                   ? "btn-primary text-light"
-                  : "btn-ghost text-tertiary-txt",
+                  : "text-tertiary-txt btn-ghost",
               )}
             >
               <ThumbsDown size={14} />
@@ -271,7 +271,7 @@ const TranslationCard = ({ translation, owner, corpusId }: Props) => {
           )}
           {!vote && <div className="skeleton h-8 w-14 rounded-2"></div>}
 
-          <div className="flex items-center gap-2 text-lg font-semibold text-tertiary">
+          <div className="text-tertiary flex items-center gap-2 text-lg font-semibold">
             <Icon path={mdiDiamond} size={1} />
             {score}
             <div className="dropdown dropdown-end">

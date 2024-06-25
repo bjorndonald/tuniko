@@ -55,7 +55,7 @@ const Translations = ({ translations, owner, corpusId }: Props) => {
       {!translations.length && !search && (
         <div className="flex flex-col items-center justify-center gap-5 py-4 tablet-md:py-10 [&>svg]:w-30 tablet-md:[&>svg]:w-60">
           <EmptyGraphic />
-          <h1 className="text-lg text-secondary-txt tablet-md:text-2xl">
+          <h1 className="text-lg text-base-content tablet-md:text-2xl">
             No translations available
           </h1>
         </div>
@@ -64,7 +64,7 @@ const Translations = ({ translations, owner, corpusId }: Props) => {
       {!translations.length && !!search && (
         <div className="flex flex-col items-center justify-center gap-5 py-4 tablet-md:py-10 [&>svg]:w-30 tablet-md:[&>svg]:w-60">
           <NoResults />
-          <h1 className="text-lg text-secondary-txt tablet-md:text-2xl">
+          <h1 className="text-lg text-base-content tablet-md:text-2xl">
             No search results found
           </h1>
         </div>

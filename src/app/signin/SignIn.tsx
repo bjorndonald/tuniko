@@ -1,8 +1,22 @@
-import React, { Suspense } from "react";
+"use client";
+import React, { Suspense, useEffect } from "react";
 import SigninForm from "./SigninForm";
 import Link from "@/components/Shared/Link";
+import { useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 const SignIn = async () => {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const error = searchParams.get("error");
+    if (error === "OAuthAccountNotLinked")
+      toast.error("Email is used with another social link", { id: "error" });
+    return () => {
+      toast.remove("error");
+    };
+  }, []);
+
   return (
     <div className="pt-20">
       <div className="mb-8 flex flex-col items-center">

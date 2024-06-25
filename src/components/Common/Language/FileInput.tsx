@@ -40,7 +40,7 @@ const FileInput = () => {
   return (
     <div
       {...getRootProps()}
-      className="relative flex h-[280px] w-full flex-col items-center justify-center gap-2 overflow-y-auto border-1 border-dashed border-divider text-tertiary-txt"
+      className="text-tertiary-txt relative flex h-[280px] w-full flex-col items-center justify-center gap-2 overflow-y-auto border-1 border-dashed border-base-300"
     >
       <input
         className="absolute left-0 top-0 hidden h-full w-full opacity-0"
@@ -49,27 +49,27 @@ const FileInput = () => {
       {isDragActive && (
         <>
           <Download size={40} />
-          <h3 className="text-xl text-tertiary-txt">Drop here..</h3>
+          <h3 className="text-tertiary-txt text-xl">Drop here..</h3>
         </>
       )}
       {!file && !isDragActive && (
         <>
           <CloudIcon />
-          <p className="text-lg text-tertiary-txt">Drag or drop</p>
-          <p className="text-lg text-tertiary-txt">Or</p>
+          <p className="text-tertiary-txt text-lg">Drag or drop</p>
+          <p className="text-tertiary-txt text-lg">Or</p>
           <button onClick={open} className="btn btn-primary btn-sm text-white">
             Upload
           </button>
-          <p className="text-lg text-tertiary-txt">Pdf, Text, Doc files</p>
+          <p className="text-tertiary-txt text-lg">Pdf, Text, Doc files</p>
         </>
       )}
       {!!file && (
         <div className="flex h-full w-full flex-col gap-3 p-6">
-          <div className="flex items-center gap-2 text-lg text-tertiary-txt">
+          <div className="text-tertiary-txt flex items-center gap-2 text-lg">
             <DocType type={file.type} />
             {file.name}
           </div>
-          <p className="text-lg text-tertiary-txt"></p>
+          <p className="text-tertiary-txt text-lg"></p>
         </div>
       )}
     </div>

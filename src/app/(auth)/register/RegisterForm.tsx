@@ -97,17 +97,19 @@ const RegisterForm = () => {
         )}
       </div>
       <div className="form-group">
-        <label htmlFor="password" className="label">
+        <div className="label">
           <span className="label-text">Password</span>
-        </label>
-        <div className="relative">
+        </div>
+        <label
+          htmlFor="password"
+          className="input input-bordered flex w-full items-center gap-2"
+        >
           <input
             name="password"
             {...register("password")}
             type={passwordVisible ? "text" : "password"}
-            placeholder="Enter Password"
             autoComplete="current-password"
-            className="form-control input input-bordered w-full "
+            className=" grow"
             value=""
           />
           <span
@@ -116,7 +118,7 @@ const RegisterForm = () => {
           >
             {passwordVisible ? <Eye /> : <EyeOff />}
           </span>
-        </div>
+        </label>
         {errors["password"] && (
           <span className="block pt-1 text-xs text-red-500">
             {errors["password"]?.message as string}
@@ -124,15 +126,19 @@ const RegisterForm = () => {
         )}
       </div>
       <div className="form-group">
-        <label htmlFor="password" className="label">
+        <div className="label">
           <span className="label-text">Confirm Password</span>
-        </label>
-        <div className="relative">
+        </div>
+        <label
+          htmlFor="password"
+          className="input input-bordered flex w-full items-center gap-2"
+        >
           <input
+            name="passwordConfirm"
             {...register("passwordConfirm")}
-            type={confirmVisible ? "text" : "password"}
-            placeholder="Confirm Password"
-            className="form-control input input-bordered w-full"
+            type={passwordVisible ? "text" : "password"}
+            className=" grow"
+            value=""
           />
           <span
             onClick={() => setConfirmVisible(!confirmVisible)}
@@ -140,7 +146,7 @@ const RegisterForm = () => {
           >
             {confirmVisible ? <Eye /> : <EyeOff />}
           </span>
-        </div>
+        </label>
         {errors["passwordConfirm"] && (
           <span className="block pt-1 text-xs text-red-500">
             {errors["passwordConfirm"]?.message as string}
@@ -151,7 +157,7 @@ const RegisterForm = () => {
         <button
           type="submit"
           className={cx(
-            "rounded inline-block w-full bg-primary px-7 py-4 text-sm font-medium uppercase leading-snug text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg",
+            "rounded btn inline-flex  w-full items-center gap-2 bg-primary px-7 text-sm font-medium uppercase leading-snug text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg",
             submitting && "!bg-gray-500",
           )}
           disabled={submitting}

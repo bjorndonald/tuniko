@@ -24,7 +24,7 @@ const UserScore = ({ session }: Props) => {
       {score != null && (
         <div className="flex items-center gap-2 tablet-md:ml-4">
           <progress
-            className="progress progress-primary hidden w-28 bg-progress tablet-md:block"
+            className="bg-progress progress progress-primary hidden w-28 tablet-md:block"
             value={(score - Math.floor(score)) * 100}
             max={"100"}
           ></progress>

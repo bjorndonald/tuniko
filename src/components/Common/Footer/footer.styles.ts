@@ -44,7 +44,7 @@ export const FooterLink = twc(Link)`
   font-semibold
   transition-colors
   text-tertiary-txt
-  hocus:text-secondary-txt
+  hocus:text-base-content
   hocus:saturate-125
   hocus:dark:saturate-150
   hocus:decoration-current
@@ -56,7 +56,7 @@ export const DownloadLink = twc.button`
   font-semibold
   transition-colors
   text-tertiary-txt
-  hocus:text-secondary-txt
+  hocus:text-base-content
   hocus:saturate-125
   hocus:dark:saturate-150
   hocus:decoration-current

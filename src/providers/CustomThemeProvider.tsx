@@ -44,6 +44,7 @@ export const CustomThemeProvider = (props: PropsWithChildren) => {
                     ),
                 );
         });
+        document.documentElement.setAttribute("data-theme", resolvedTheme)
     }, [resolvedTheme]);
 
     return (

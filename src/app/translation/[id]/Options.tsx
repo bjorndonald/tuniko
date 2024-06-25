@@ -33,7 +33,7 @@ const Options = () => {
                 <button
                   disabled
                   onClick={() => setEntryType("Document")}
-                  className={`mr-3 hidden h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 disabled:opacity-60 tablet-md:flex ${entryType === "Document" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
+                  className={`mr-3 hidden h-9 items-center gap-1.5 border border-base-300 pl-[11px] pr-[15px] transition hover:bg-primary/10 disabled:opacity-60 tablet-md:flex ${entryType === "Document" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
                 >
                   <FileText width={20} color={"rgb(25,103,210)"} />
                   <span className="text-sm text-primary">Document</span>

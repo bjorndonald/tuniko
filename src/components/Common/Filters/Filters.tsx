@@ -51,7 +51,7 @@ const Filters = () => {
           </div>
           <ul
             tabIndex={0}
-            className="rounded menu dropdown-content  z-[1] w-52 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+            className="rounded text-tertiary menu  dropdown-content z-[1] w-52 border border-[rgb(218,220,224)] bg-white/65 p-2 shadow"
           >
             <li onClick={() => setTextType("All")}>
               <a className="flex gap-1">
@@ -92,14 +92,14 @@ const Filters = () => {
         </div>
         <button
           onClick={() => setTextType("All")}
-          className={`hidden h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${textType === "All" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
+          className={`hidden h-9 items-center gap-1.5 border border-base-300 pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${textType === "All" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
         >
           <Logo width={20} />
           <span className="text-sm text-accent">All</span>
         </button>
         <button
           onClick={() => setTextType("Text")}
-          className={`hidden h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${textType === "Text" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
+          className={`hidden h-9 items-center gap-1.5 border border-base-300 pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${textType === "Text" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
         >
           <TextIcon />
           <span className="text-sm text-accent">Text</span>
@@ -114,7 +114,7 @@ const Filters = () => {
             <button
               disabled
               onClick={() => setTextType("Document")}
-              className={`mr-3 hidden h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 disabled:opacity-60 tablet-md:flex ${textType === "Document" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
+              className={`mr-3 hidden h-9 items-center gap-1.5 border border-base-300 pl-[11px] pr-[15px] transition hover:bg-primary/10 disabled:opacity-60 tablet-md:flex ${textType === "Document" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
             >
               <FileText width={20} color={"rgb(25,103,210)"} />
               <span className="text-sm text-primary">Document</span>
@@ -135,13 +135,13 @@ const Filters = () => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-divider font-normal text-accent hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-accent hover:bg-primary/10"
           >
             {from || "All"}
           </div>
           <ul
             tabIndex={0}
-            className="rounded menu dropdown-content  z-[1] w-52 border border-divider bg-background p-2 text-tertiary-txt shadow"
+            className="rounded bg-background text-tertiary-txt  menu dropdown-content z-[1] w-52 border border-base-300 p-2 shadow"
           >
             <li onClick={() => setFrom("English")}>
               <a>English</a>
@@ -162,13 +162,13 @@ const Filters = () => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-divider font-normal text-accent hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-accent hover:bg-primary/10"
           >
             {to || "All"}
           </div>
           <ul
             tabIndex={0}
-            className="rounded menu dropdown-content  z-[1] w-52 border border-divider bg-background p-2 text-tertiary-txt shadow"
+            className="rounded bg-background text-tertiary-txt  menu dropdown-content z-[1] w-52 border border-base-300 p-2 shadow"
           >
             <li
               onClick={() => {
@@ -216,7 +216,7 @@ const Filters = () => {
       </div>
 
       <div className="flex items-center gap-2">
-        <label className="rounded input flex h-9 items-center gap-2 border-divider bg-transparent !outline-none">
+        <label className="rounded input flex h-9 items-center gap-2 border-base-300 bg-transparent !outline-none">
           <input
             type="text"
             onKeyDown={e => {
@@ -256,13 +256,13 @@ const Filters = () => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-divider font-normal text-primary hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-primary hover:bg-primary/10"
           >
             {sort ?? "Sort By"}
           </div>
           <ul
             tabIndex={0}
-            className="rounded menu dropdown-content  z-[1] w-52 border border-divider bg-background p-2 text-tertiary-txt shadow"
+            className="rounded bg-background text-tertiary-txt  menu dropdown-content z-[1] w-52 border border-base-300 p-2 shadow"
           >
             <li
               onClick={() => {
@@ -272,7 +272,7 @@ const Filters = () => {
             >
               <Link
                 title="Popular entries"
-                href={`/?sort_by=Popular&page=${page}&search=${searchTerm}`}
+                href={`/?sort_by=Popular&page=${page}&search=${searchTerm ?? ""}`}
               >
                 Popular
               </Link>
@@ -285,7 +285,7 @@ const Filters = () => {
             >
               <Link
                 title="Recent entries"
-                href={`/?sort_by=Recent&page=${page}&search=${searchTerm}`}
+                href={`/?sort_by=Recent&page=${page}&search=${searchTerm ?? ""}`}
               >
                 Recent
               </Link>
@@ -298,7 +298,7 @@ const Filters = () => {
             >
               <Link
                 title="Easiest entries"
-                href={`/?sort_by=Easiest&page=${page}&search=${searchTerm}`}
+                href={`/?sort_by=Easiest&page=${page}&search=${searchTerm ?? ""}`}
               >
                 Easiest
               </Link>
@@ -311,9 +311,48 @@ const Filters = () => {
             >
               <Link
                 title="Hardest entries"
-                href={`/?sort_by=Hardest&page=${page}&search=${searchTerm}`}
+                href={`/?sort_by=Hardest&page=${page}&search=${searchTerm ?? ""}`}
               >
                 Hardest
+              </Link>
+            </li>
+            <li
+              onClick={() => {
+                setSort("This_month");
+                closeMenu();
+              }}
+            >
+              <Link
+                title="This month's entries"
+                href={`/?sort_by=This_month&page=${page}&search=${searchTerm ?? ""}`}
+              >
+                This month
+              </Link>
+            </li>
+            <li
+              onClick={() => {
+                setSort("This_week");
+                closeMenu();
+              }}
+            >
+              <Link
+                title="This week's entries"
+                href={`/?sort_by=This_week&page=${page}&search=${searchTerm ?? ""}`}
+              >
+                This week
+              </Link>
+            </li>
+            <li
+              onClick={() => {
+                setSort("Today");
+                closeMenu();
+              }}
+            >
+              <Link
+                title="Today's entries"
+                href={`/?sort_by=Today&page=${page}&search=${searchTerm ?? ""}`}
+              >
+                Today
               </Link>
             </li>
           </ul>

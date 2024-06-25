@@ -25,6 +25,22 @@ export const getCorpus = async (page: number = 1, sortBy: string = "", search: s
     return (await res.json()).list
 }
 
+export const postCorpusSuggestions = async (email: string, search: string) => {
+    const res = await fetch(process.env.SERVER_URI + `/corpus/email`, {
+        cache: "reload",
+        method: "POST",
+        body: JSON.stringify({
+            email,
+            search
+        })
+    })
+    if (!res.ok) {
+        throw new Error("Failed to fetch data")
+    }
+
+    return (await res.json()).list
+}
+
 export const getCorpusFile = async () => {
     const res = await fetch(process.env.SERVER_URI + "/download", {
         cache: "reload"

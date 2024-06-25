@@ -39,7 +39,7 @@ const CorpusCard = ({ corpus }: Props) => {
         }
       }}
       className={cx(
-        `corpus rounded relative mb-4 flex min-h-[166px] w-full flex-col justify-between border border-divider
+        `corpus rounded relative mb-4 flex min-h-[166px] w-full flex-col justify-between border border-base-300
     px-4 pb-3 pt-3 ${selected.includes(corpus.id) ? "bg-gray-200" : ""}`,
         "tablet-md:w-[calc((100%-16px)/2)] desktop-lg:w-[410px]",
       )}
@@ -50,12 +50,12 @@ const CorpusCard = ({ corpus }: Props) => {
             navigate.push("/translation/" + corpus.id);
             e.stopPropagation();
           }}
-          className="z-0 h-fit grow cursor-pointer whitespace-pre-wrap text-2xl/8 text-secondary-txt hover:underline"
+          className="z-0 h-fit grow cursor-pointer whitespace-pre-wrap text-2xl/8 text-base-content hover:underline"
         >
           {corpus.text}
         </p>
         <div className="flex h-fit items-center gap-2 pl-3">
-          <div className="flex items-center gap-2 whitespace-nowrap rounded-full bg-background p-1 pr-2 text-[10px] text-tertiary-txt">
+          <div className="bg-background text-tertiary-txt flex items-center gap-2 whitespace-nowrap rounded-full p-1 pr-2 text-[10px]">
             <Clock size={12} />
             {getDifferenceFromDate(corpus.created_at)}
           </div>
@@ -71,7 +71,7 @@ const CorpusCard = ({ corpus }: Props) => {
             </div>
             <ul
               tabIndex={0}
-              className="rounded menu dropdown-content  z-[1] w-28 border border-divider bg-background p-2 text-tertiary-txt shadow"
+              className="rounded bg-background text-tertiary-txt  menu dropdown-content z-[1] w-28 border border-base-300 p-2 shadow"
             >
               <li>
                 <Link href={"/request"} onClick={e => e.stopPropagation()}>
@@ -128,7 +128,7 @@ const CorpusCard = ({ corpus }: Props) => {
             </div>
           )}
           {corpus.complexity > 33 && corpus.complexity < 67 && (
-            <div className="rounded-3xl flex items-center gap-1 border-red-500/30 bg-red-500/30 px-1.5 py-1 text-[10px] font-medium text-red-500">
+            <div className="rounded-3xl flex items-center gap-1 border-yellow-500/30 bg-yellow-500/30 px-1.5 py-1 text-[10px] font-medium text-yellow-500">
               Medium
             </div>
           )}
@@ -139,13 +139,13 @@ const CorpusCard = ({ corpus }: Props) => {
           )}
 
           <div className="flex items-center">
-            <span className="text-[10px] text-tertiary">
+            <span className="text-tertiary text-[10px]">
               {corpus.language_from.name}
             </span>
             <span className=" flex h-5 w-5 cursor-pointer items-center justify-center rounded-full">
               <ArrowRight size={12} />
             </span>
-            <span className="text-[10px] text-tertiary">
+            <span className="text-tertiary text-[10px]">
               {corpus.language_to.name}
             </span>
           </div>

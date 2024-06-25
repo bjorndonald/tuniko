@@ -30,7 +30,7 @@ const Heart = () => (
 
 const Footer = () => {
   return (
-    <div className="w-screen border-t border-divider pb-12">
+    <div className="w-screen border-t border-base-300 pb-12">
       <StyledFooter>
         <Details>
           <FooterLink
@@ -82,7 +82,7 @@ const Footer = () => {
               <LinksList key={group.title}>
                 <div
                   className={
-                    "font-manrope select-none text-3xs font-bold uppercase tracking-wider text-tertiary-txt"
+                    "font-manrope text-tertiary-txt select-none text-3xs font-bold uppercase tracking-wider"
                   }
                 >
                   {group.title}

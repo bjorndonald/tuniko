@@ -12,7 +12,7 @@ const PageModal = ({ show, children }: Props) => {
   const navigation = useRouter();
   return (
     <dialog id="my_modal_3" className={cx("modal", show && "modal-open")}>
-      <div className="modal-box bg-background">
+      <div className="bg-background modal-box">
         <form method="dialog">
           {/* if there is a button in form, it will close the modal */}
           <button

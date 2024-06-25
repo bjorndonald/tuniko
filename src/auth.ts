@@ -10,33 +10,33 @@ import { db } from "./database"
 export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: "jwt" },
   callbacks: {
-    async session({ token, session }) {
-      if (token) {
-        // @ts-ignore
-        session.user.id = token.id
-        session.user.name = token.name
-        session.user.email = token.email
-        session.user.image = token.picture
-      }
-      return session
-    },
-    async jwt({ token, user }) {
-      const dbUser = await db.query.users.findFirst({
-        where: (users, { eq }) => eq(users.email, String(token.email)),
-      });
-      if (!dbUser) {
-        if (user) {
-          token.id = user?.id
-        }
-        return token
-      }
-      return {
-        id: dbUser.id,
-        name: dbUser.name,
-        email: dbUser.email,
-        picture: dbUser.image,
-      }
-    }
+    // async session({ token, session }) {
+    //   if (token) {
+    //     // @ts-ignore
+    //     session.user.id = token.id
+    //     session.user.name = token.name
+    //     session.user.email = token.email
+    //     session.user.image = token.picture
+    //   }
+    //   return session
+    // },
+    // async jwt({ token, user }) {
+    //   const dbUser = await db.query.users.findFirst({
+    //     where: (users, { eq }) => eq(users.email, String(token.email)),
+    //   });
+    //   if (!dbUser) {
+    //     if (user) {
+    //       token.id = user?.id 
+    //     }
+    //     return token
+    //   }
+    //   return {
+    //     id: dbUser.id,
+    //     name: dbUser.name,
+    //     email: dbUser.email,
+    //     picture: dbUser.image,
+    //   }
+    // }
   },
   adapter: DrizzleAdapter(db, {
     usersTable: users,
@@ -59,8 +59,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
         password: { label: "Password", type: "password" },
       },
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
+      
       authorize: async (credentials) => {
         if (!credentials?.email || !credentials.password) {
           return null;
@@ -70,7 +69,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           where: (users, { eq }) => eq(users.email, String(credentials.email)),
         });
 
-        if (
+        if ( 
           !user ||
           !(await bcrypt.compare(String(credentials.password), user.password!))
         ) {

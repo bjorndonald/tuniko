@@ -8,6 +8,7 @@ interface Props {
   siblingCount?: number;
   currentPage: number;
   pageSize: number;
+  size?: "sm" | "md";
 }
 
 const Pagination = (props: Props) => {
@@ -17,6 +18,7 @@ const Pagination = (props: Props) => {
     siblingCount = 1,
     currentPage,
     pageSize,
+    size = "md",
   } = props;
 
   const paginationRange = usePagination({
@@ -41,19 +43,37 @@ const Pagination = (props: Props) => {
 
   const lastPage = paginationRange![paginationRange!.length - 1];
   return (
-    <div className="hstack join  justify-center gap-8 px-[41px]">
+    <div
+      className={cx(
+        "join flex justify-center",
+        size === "sm" && "gap-4 ",
+        size === "md" && "gap-8 ",
+      )}
+    >
       {/* Left navigation arrow */}
       {/* <button
                 onClick={onPrevious}
                 disabled={currentPage === 1}
                 className={` text-lg font-semibold py-3 px-3.5 
                 ${currentPage === 1 ? 'text-[#bcbcbc]' : 'text-[#111] dark:text-white'}`}>Prev</button> */}
-      <div className="flex gap-3.5">
+      <div
+        className={cx(
+          "flex",
+          size === "sm" && "gap-2",
+          size === "md" && "gap-3.5",
+        )}
+      >
         {paginationRange!.map((pageNumber: number, index: number) => {
           // If the pageItem is a DOT, render the DOTS unicode character
           if (pageNumber === DOTS) {
             return (
-              <button key={index} className="btn btn-ghost bg-transparent">
+              <button
+                key={index}
+                className={cx(
+                  "btn btn-ghost bg-transparent",
+                  size === "sm" && "btn-sm",
+                )}
+              >
                 ...
               </button>
             );
@@ -65,6 +85,7 @@ const Pagination = (props: Props) => {
               onClick={() => onPageChange(pageNumber)}
               className={cx(
                 "btn ",
+                size === "sm" && "btn-sm",
                 currentPage === pageNumber && "btn-primary text-white",
                 currentPage !== pageNumber && "btn-outline ",
               )}
@@ -79,7 +100,10 @@ const Pagination = (props: Props) => {
       <button
         disabled={currentPage === lastPage}
         onClick={onNext}
-        className={`btn btn-outline ${currentPage === lastPage ? "btn-disabled" : ""}`}
+        className={cx(
+          `btn btn-outline ${currentPage === lastPage ? "btn-disabled" : ""}`,
+          size === "sm" && "btn-sm",
+        )}
       >
         Next
       </button>

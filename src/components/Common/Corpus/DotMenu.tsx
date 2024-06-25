@@ -15,7 +15,7 @@ const DotMenu = ({ id }: { id: string }) => {
       </div>
       <ul
         tabIndex={0}
-        className="rounded menu dropdown-content  z-[1] w-28 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+        className="rounded text-tertiary menu  dropdown-content z-[1] w-28 border border-[rgb(218,220,224)] bg-white/65 p-2 shadow"
       >
         <li>
           <a onClick={() => addSelected(id)}>Select</a>

@@ -131,11 +131,18 @@ const Inputs = ({ corpusText }: Props) => {
     setLoading(true);
 
     try {
-      const res = await axios.post(
+      const res = await axios.put(
         process.env.NEXT_PUBLIC_SERVER_URI + "/corpus",
         {
+          id: corpusText.id,
           text: corpus,
-          owner_id: 1,
+          owner: {
+            email:
+              session.status === "authenticated"
+                ? session.data.user.email
+                : ANONYMOUS_USER_EMAIL,
+          },
+          entry_type: corpusText.entry_type,
           language_from_id: languageFrom,
           language_to_id: languageTo,
         },
@@ -157,7 +164,7 @@ const Inputs = ({ corpusText }: Props) => {
         {loading && <></>}
         <form
           onSubmit={handleLeftSubmit(saveTranslation)}
-          className="rounded-lg relative flex min-h-[166px] grow flex-col justify-between border border-divider"
+          className="rounded-lg relative flex min-h-[166px] grow flex-col justify-between border border-base-300"
         >
           {!!corpus.length && (
             <button className="btn btn-circle btn-ghost absolute right-2 top-2 h-10 !min-h-10 w-10 rounded-full">
@@ -201,7 +208,7 @@ const Inputs = ({ corpusText }: Props) => {
 
         <form
           onSubmit={handleRightSubmit(saveCorpus)}
-          className="rounded-lg relative flex grow flex-col justify-between border border-divider bg-toolbar"
+          className="rounded-lg bg-toolbar relative flex grow flex-col justify-between border border-base-300"
         >
           <button
             onClick={() => {
@@ -279,7 +286,7 @@ const Inputs = ({ corpusText }: Props) => {
       {!!chosen && (
         <div className="flex w-full gap-2">
           <div className="hidden tablet-md:block tablet-md:w-[calc(50%)]"></div>
-          <div className="translation rounded flex w-full gap-3 border border-divider bg-primary/5 px-4 pb-3 pt-3 tablet-md:w-[calc(50%)] ">
+          <div className="translation rounded flex w-full gap-3 border border-base-300 bg-primary/5 px-4 pb-3 pt-3 tablet-md:w-[calc(50%)] ">
             <p
               onClick={() => setTranslation(chosen.text)}
               className="text-tertiary-tx group z-0 flex h-fit grow cursor-pointer whitespace-pre-wrap text-2xl/8"

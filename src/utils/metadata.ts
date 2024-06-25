@@ -18,7 +18,7 @@ export const createMetadata = (data: {
         openGraph: {
             title,
             description,
-            url: exactUrl || "https://tuniko.com",
+            url: exactUrl || "https://tuniko.info",
             siteName: title,
             locale: "en_US",
             type: "website",
@@ -33,7 +33,7 @@ export const createMetadata = (data: {
         verification: {
             google: "",
         },
-        metadataBase: new URL("https://tuniko.com"),
+        metadataBase: new URL("https://tuniko.info"),
     };
     if (imageURL && Boolean(imageURL)) {
         const image = {

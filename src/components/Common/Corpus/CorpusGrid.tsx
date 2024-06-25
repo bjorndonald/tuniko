@@ -60,7 +60,7 @@ const CorpusGrid = ({ corpusList }: Props) => {
       )}
       {!corpusList.length && !search && (
         <div className="flex flex-col items-center justify-center gap-5 py-14 [&>svg]:w-32 tablet-md:[&>svg]:w-96">
-          <h1 className="text-xl text-secondary-txt tablet-md:text-4xl">
+          <h1 className="text-xl text-base-content tablet-md:text-4xl">
             No corpus available
           </h1>
           <EmptyGraphic />
@@ -69,7 +69,7 @@ const CorpusGrid = ({ corpusList }: Props) => {
 
       {!corpusList.length && !!search && (
         <div className="flex flex-col items-center justify-center gap-5 py-14 [&>svg]:w-32 tablet-md:[&>svg]:w-96">
-          <h1 className="text-xl text-secondary-txt tablet-md:text-4xl">
+          <h1 className="text-xl text-base-content tablet-md:text-4xl">
             No search results found
           </h1>
           <NoResults />

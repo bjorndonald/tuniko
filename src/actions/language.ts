@@ -1,5 +1,7 @@
-export const getLanguages = async () => {
-    const res = await fetch(process.env.SERVER_URI + "/languages", {
+import Language from "@/types/language"
+
+export const getLanguages = async (page: number = 1, search: string = "") => {
+    const res = await fetch(process.env.SERVER_URI + `/languages?search=${search}&limit=10`, {
         cache: "reload"
     })
     // The return value is *not* serialized
@@ -10,5 +12,5 @@ export const getLanguages = async () => {
         throw new Error("Failed to fetch data")
     }
 
-    return (await res.json()).languages
+    return (await res.json()).languages as Language[]
 }

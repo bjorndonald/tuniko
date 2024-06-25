@@ -42,7 +42,7 @@ const Languages = ({ corpus, languages }: Props) => {
         </div>
         <ul
           tabIndex={0}
-          className="rounded menu dropdown-content  z-[1] w-full border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+          className="rounded text-tertiary menu  dropdown-content z-[1] w-full border border-[rgb(218,220,224)] bg-white/65 p-2 shadow"
         >
           {languages.map((x, i) => (
             <li key={i} onClick={() => setLanguageTo(x.id)}>
@@ -58,7 +58,7 @@ const Languages = ({ corpus, languages }: Props) => {
             swap();
           }}
           className={cx(
-            "tab h-12 px-2 text-sm font-medium text-tertiary transition-colors hover:text-black",
+            "text-tertiary tab h-12 px-2 text-sm font-medium transition-colors hover:text-black",
             languageTo === ENGLISH_LANGUAGE_ID &&
               "tab-active !border-b-primary !text-primary",
           )}
@@ -72,7 +72,7 @@ const Languages = ({ corpus, languages }: Props) => {
               setLanguageTo(corpus.language_from.id);
             }}
             className={cx(
-              "tab h-12 px-2 text-sm font-medium text-tertiary transition-colors hover:text-black",
+              "text-tertiary tab h-12 px-2 text-sm font-medium transition-colors hover:text-black",
               languageTo === corpus.language_from.id &&
                 "tab-active !border-b-primary !text-primary",
             )}
@@ -104,7 +104,7 @@ const Languages = ({ corpus, languages }: Props) => {
         </div>
         <ul
           tabIndex={0}
-          className="rounded menu dropdown-content  z-[1] w-full border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+          className="rounded text-tertiary menu  dropdown-content z-[1] w-full border border-[rgb(218,220,224)] bg-white/65 p-2 shadow"
         >
           {languages.map((x, i) => (
             <li key={i} onClick={() => setLanguageFrom(x.id)}>
@@ -120,7 +120,7 @@ const Languages = ({ corpus, languages }: Props) => {
             setLanguageFrom(corpus.language_from.id);
           }}
           className={cx(
-            "tab h-12 px-2 text-sm font-medium text-tertiary transition-colors hover:text-black",
+            "text-tertiary tab h-12 px-2 text-sm font-medium transition-colors hover:text-black",
             languageFrom === corpus.language_from.id &&
               "tab-active !border-b-primary !text-primary",
           )}
@@ -134,7 +134,7 @@ const Languages = ({ corpus, languages }: Props) => {
               swap();
             }}
             className={cx(
-              "tab h-12 px-2 text-sm font-medium text-tertiary transition-colors hover:text-black",
+              "text-tertiary tab h-12 px-2 text-sm font-medium transition-colors hover:text-black",
               languageFrom === ENGLISH_LANGUAGE_ID &&
                 "tab-active !border-b-primary !text-primary",
             )}

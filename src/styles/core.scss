@@ -16,8 +16,8 @@ button {
 
 a {
     @apply transition-colors cursor-pointer;
-    @apply underline decoration-divider;
-    @apply focus:decoration-accent-dark hover:decoration-accent-dark;
+    @apply underline decoration-base-300;
+    @apply focus:decoration-accent hover:decoration-accent;
 }
 
 a,
@@ -47,20 +47,20 @@ input[type='checkbox'] {
 }
 
 ::placeholder {
-    @apply text-tertiary-txt opacity-100;
+    @apply text-base-300 opacity-100;
 }
 
 :-ms-input-placeholder {
-    @apply text-tertiary-txt opacity-100;
+    @apply text-base-300 opacity-100;
 }
 
 ::-ms-input-placeholder {
-    @apply text-tertiary-txt opacity-100;
+    @apply text-base-300 opacity-100;
 }
 
 html,
 body {
-    @apply motion-safe:scroll-smooth bg-background accent-accent;
+    @apply motion-safe:scroll-smooth bg-base-100 accent-accent;
 }
 
 body main,
@@ -71,7 +71,7 @@ body article [id] {
 }
 
 span[role='img'][aria-label] {
-    @apply text-primary-txt;
+    @apply text-base-content;
 }
 
 html{

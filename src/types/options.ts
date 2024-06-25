@@ -1,1 +1,1 @@
-export type SortType = "Popular" | "Recent" | "Easiest" | "Hardest";
+export type SortType = "Popular" | "Recent" | "Easiest" | "Hardest" | "This_month"| "This_week" |"Today";

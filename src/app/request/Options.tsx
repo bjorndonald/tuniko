@@ -44,7 +44,7 @@ const Options = ({ languages }: Props) => {
           </div>
           <ul
             tabIndex={0}
-            className="rounded menu dropdown-content  z-[1] w-52 border border-[rgb(218,220,224)] bg-white/65 p-2 text-tertiary shadow"
+            className="rounded text-tertiary menu  dropdown-content z-[1] w-52 border border-[rgb(218,220,224)] bg-white/65 p-2 shadow"
           >
             <li onClick={() => setEntryType("Text")}>
               <a className="flex gap-1">
@@ -78,7 +78,7 @@ const Options = ({ languages }: Props) => {
         </div>
         <button
           onClick={() => setEntryType("Text")}
-          className={`hidden h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${entryType === "Text" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
+          className={`hidden h-9 items-center gap-1.5 border border-base-300 pl-[11px] pr-[15px] transition hover:bg-primary/10 tablet-md:flex ${entryType === "Text" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
         >
           <TextIcon />
           <span className="text-sm text-primary">Text</span>
@@ -89,7 +89,7 @@ const Options = ({ languages }: Props) => {
             <button
               disabled
               onClick={() => setEntryType("Document")}
-              className={`mr-3 hidden h-9 items-center gap-1.5 border border-divider pl-[11px] pr-[15px] transition hover:bg-primary/10 disabled:opacity-60 tablet-md:flex ${entryType === "Document" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
+              className={`mr-3 hidden h-9 items-center gap-1.5 border border-base-300 pl-[11px] pr-[15px] transition hover:bg-primary/10 disabled:opacity-60 tablet-md:flex ${entryType === "Document" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
             >
               <FileText width={20} color={"rgb(25,103,210)"} />
               <span className="text-sm text-primary">Document</span>
@@ -111,13 +111,13 @@ const Options = ({ languages }: Props) => {
             <div
               tabIndex={0}
               role="button"
-              className="rounded hover:bg-background/10 btn btn-outline m-1 h-9 min-h-9 border-divider font-normal text-secondary-txt"
+              className="rounded hover:bg-background/10 btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-base-content"
             >
               {languages.find(x => x.id === languageFrom)?.name || "Select"}
             </div>
             <ul
               tabIndex={0}
-              className="rounded menu dropdown-content  z-[1] w-52 border border-secondary-txt bg-background p-2 text-secondary-txt shadow"
+              className="rounded border-secondary-txt bg-background  menu dropdown-content z-[1] w-52 border p-2 text-base-content shadow"
             >
               {languages.map((x, i) => (
                 <li
@@ -139,7 +139,7 @@ const Options = ({ languages }: Props) => {
 
           <button
             onClick={swap}
-            className="mx-1 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-divider p-2 hover:bg-black/10"
+            className="mx-1 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-base-300 p-2 hover:bg-black/10"
           >
             <Icon path={mdiSwapHorizontal} size={24} />
           </button>
@@ -150,13 +150,13 @@ const Options = ({ languages }: Props) => {
             <div
               tabIndex={0}
               role="button"
-              className="rounded btn btn-outline m-1 h-9 min-h-9 border-divider font-normal text-secondary-txt hover:bg-primary/10"
+              className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-base-content hover:bg-primary/10"
             >
               {languages.find(x => x.id === languageTo)?.name || "Select"}
             </div>
             <ul
               tabIndex={0}
-              className="rounded menu dropdown-content  z-[1] w-52 border border-secondary-txt bg-background p-2 text-secondary-txt shadow"
+              className="rounded border-secondary-txt bg-background  menu dropdown-content z-[1] w-52 border p-2 text-base-content shadow"
             >
               <li
                 onClick={() => {

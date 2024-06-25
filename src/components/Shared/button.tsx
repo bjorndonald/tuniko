@@ -51,14 +51,14 @@ export const Button = twc.button.attrs<ButtonProps>(p => ({
 
 export const OutlinedButton = twc(Button)`
     bg-brand-200/5
-    text-secondary-txt
+    text-base-content
     transition
     ring-divider
     hocus:ring-divider
     dark:ring-divider
     dark:hocus:ring-divider
     hocus:shadow
-    hocus:text-primary-txt
+    hocus:text-base-content
     hocus:bg-brand-200/10
     dark:bg-brand-200/10
     dark:hocus:bg-brand-200/15
