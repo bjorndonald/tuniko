@@ -78,11 +78,11 @@ const TrackTranslation = (props: Props) => {
                 display: (
                   <div className="flex flex-col">
                     <p className="text-base font-semibold">
-                      {x.translation.text}
+                      {x.translation.text} - <small className="text-sm  text-base-content/75">
+                        {x.corpustext.text}
+                      </small>
                     </p>
-                    <small className="text-sm  text-base-content/75">
-                      {x.corpustext.text}
-                    </small>
+                    
                   </div>
                 ),
                 other: x.corpustext.text,
@@ -141,11 +141,11 @@ const TrackTranslation = (props: Props) => {
                   <h5 className="text-sm">
                     <div className="flex flex-col">
                       <p className="text-base font-semibold">
-                        {x.value_obj.translation.text}
+                        {x.value_obj.translation.text} - <small className="text-sm text-base-content/75">
+                          {x.value_obj.corpustext.text}
+                        </small>
                       </p>
-                      <small className="text-sm text-base-content/75">
-                        {x.value_obj.corpustext.text}
-                      </small>
+                      
                     </div>
                   </h5>
                   <div className="dropdown">
