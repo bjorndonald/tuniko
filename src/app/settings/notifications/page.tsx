@@ -6,16 +6,23 @@ import TrackCorpusText from "./TrackCorpusText";
 import TrackLanguage from "./TrackLanguage";
 import TrackTranslations from "./TrackTranslations";
 import { redirect } from "next/navigation";
-import { getSettings, getUpdateSetting } from "@/actions/settings";
+import {
+  getCorpusSettings,
+  getLanguageSettings,
+  getTranslationSettings,
+  getUpdateSetting,
+} from "@/actions/settings";
 
 const NotificationsPage = async () => {
   const session = await auth();
   const languages = await getLanguages();
   if (!session.user) redirect("/");
   const updateSettings = await getUpdateSetting(session.user.email);
-  const settings = await getSettings(session.user.email, 1);
-  const languageSettings = settings.filter(
-    x => x.type === "notifications" && x.value === "language",
+  const languageSettings = await getLanguageSettings(session.user.email, 1);
+  const corpusSettings = await getCorpusSettings(session.user.email, 1);
+  const translationSettings = await getTranslationSettings(
+    session.user.email,
+    1,
   );
   return (
     <div className="min-h-full w-full px-8 py-4">
@@ -32,8 +39,14 @@ const NotificationsPage = async () => {
         email={session.user.email}
         languageSettings={languageSettings}
       />
-      <TrackCorpusText languages={languages} />
-      <TrackTranslations languages={languages} />
+      <TrackCorpusText
+        corpusSettings={corpusSettings}
+        email={session.user.email}
+      />
+      <TrackTranslations
+        translationSettings={translationSettings}
+        email={session.user.email}
+      />
     </div>
   );
 };

@@ -222,7 +222,6 @@ export const notifications = pgTable("notifications", {
         .primaryKey()
         .$defaultFn(() => crypto.randomUUID()),
     action: text("action").notNull(),
-    type: text("type").notNull(),
     value: text("value").notNull(),
     valueId: text("value_id").notNull(),
     otherId: text("other_id").notNull(),

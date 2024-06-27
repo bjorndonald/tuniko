@@ -1,3 +1,4 @@
+import CorpusText from "@/types/corpustext"
 import Translation from "@/types/translation"
 
 export const getTranslationsByCorpusId = async (corpusid: string, page: number = 1, sortBy: string = "", search: string = "") => {
@@ -13,6 +14,21 @@ export const getTranslationsByCorpusId = async (corpusid: string, page: number =
     }
 
     return (await res.json()).translations
+}
+
+export const getTranslationsByUser = async (email: string, page: number = 1,  search: string = "") => {
+    const res = await fetch(process.env.SERVER_URI + "/translations/user/" + email + `?page=${page}&limit=5&search=${search}`, {
+        cache: "no-cache",
+    })
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
+
+    if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error("Failed to fetch data")
+    }
+
+    return (await res.json()).translations as {corpustext: CorpusText, translation: Translation, id: string}[]
 }
 
 export const TranslationIsChosen = async (tid: string) => {

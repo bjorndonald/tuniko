@@ -30,7 +30,7 @@ const UpdatesForm = (props: Props) => {
       toast.error("There was an issue.");
     }
   };
-  action
+  action;
 
   return (
     <form action={handleSubmit} {...rest} className="mb-5 flex flex-col">

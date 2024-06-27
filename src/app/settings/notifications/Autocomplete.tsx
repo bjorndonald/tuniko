@@ -1,10 +1,19 @@
 import cx from "@/utils/cx";
-import React, { ComponentProps, useState } from "react";
+import React, { ComponentProps, ReactNode, useState } from "react";
 import { Search } from "react-feather";
 
 interface Props extends ComponentProps<"input"> {
-  chooseSuggestion: (suggestion: { id: string; text: string }) => void;
-  getSuggestions: (search: string) => Promise<{ id: string; text: string }[]>;
+  chooseSuggestion: (suggestion: {
+    id: string;
+    text: string;
+    display?: string | ReactNode;
+    other?: string;
+  }) => void;
+  getSuggestions: (
+    search: string,
+  ) => Promise<
+    { id: string; text: string; display?: string | ReactNode; other?: string }[]
+  >;
 }
 
 const Autocomplete = (props: Props) => {
@@ -12,7 +21,7 @@ const Autocomplete = (props: Props) => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState<
-    { id: string; text: string }[]
+    { id: string; text: string; display?: string | ReactNode; other?: string }[]
   >([]);
   return (
     <div
@@ -47,11 +56,12 @@ const Autocomplete = (props: Props) => {
             <li key={i}>
               <a
                 onClick={() => {
+                  setSearch("");
                   chooseSuggestion(x);
                   setSuggestions([]);
                 }}
               >
-                {x.text}
+                {x.display || x.text}
               </a>
             </li>
           ))}
