@@ -2,7 +2,7 @@ import React from "react";
 
 const PolicyPage = () => {
   return (
-    <main className="w-scr een min-h-screen py-[65px]">
+    <main className="min-h-screen w-screen py-[65px]">
       <div className="mx-auto px-4 transition-all tablet-md:max-w-[1320px] tablet-md:px-12">
         <h1 className="pb-6 text-4xl font-extrabold  tracking-tight">
           Policy Policy
