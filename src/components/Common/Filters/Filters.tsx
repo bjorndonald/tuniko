@@ -227,7 +227,7 @@ const Filters = () => {
                 );
               }
             }}
-            value={searchTerm}
+            value={searchTerm || ""}
             onChange={e => setSearchTerm(e.target.value)}
             className="grow text-primary placeholder:text-primary/70"
             placeholder="Search"

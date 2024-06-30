@@ -8,6 +8,7 @@ import { createMetadata } from "@/utils/metadata";
 import { Meta } from "./meta";
 import Script from "next/script";
 import ThemeProvider from "@/providers/ThemeProvider";
+// import FCMToken from "./fcmtoken";
 
 const ptSans = ptsans({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -34,6 +35,11 @@ export default async function RootLayout({
       <head>
         <Meta />
         <Script
+          src={"/sw.js"}
+          data-domains={"tuniko.com"}
+          strategy={"lazyOnload"}
+        />
+        <Script
           src={"https://umami.tuniko.com/script.js"}
           data-website-id={umamiWebsiteId}
           data-domains={"tuniko.com"}
@@ -43,6 +49,7 @@ export default async function RootLayout({
       <body className={ptSans.className}>
         <ThemeProvider>
           <SessionProvider>
+            {/* <FCMToken /> */}
             <Header />
             {children}
             {auth}

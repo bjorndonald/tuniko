@@ -73,7 +73,9 @@ const Inputs = ({ corpusText }: Props) => {
       } catch (error) {}
     };
     init();
-    return () => {};
+    return () => {
+      setTranslation("");
+    };
   }, []);
 
   useEffect(() => {
@@ -90,7 +92,6 @@ const Inputs = ({ corpusText }: Props) => {
     setLoading(true);
 
     try {
-      console.log(languageTo);
       await axios.post(process.env.NEXT_PUBLIC_SERVER_URI + "/translation", {
         text: translation.trim(),
         translator: {

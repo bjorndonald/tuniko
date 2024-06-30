@@ -2,19 +2,16 @@
 import React, { useState } from "react";
 import { X } from "react-feather";
 import EfikTextArea from "../../components/Common/Language/EfikTextArea";
-import axios from "axios";
 import toast from "react-hot-toast";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { loading as loadingIcon } from "@/components/icons";
 import Icon from "@mdi/react";
 import cx from "classnames";
 import useLanguageStore from "@/store/language";
-import { ANONYMOUS_USER_EMAIL, ENGLISH_LANGUAGE_ID } from "@/constants/strings";
+import { ENGLISH_LANGUAGE_ID } from "@/constants/strings";
 import { EnglishTextArea, FileInput } from "@/components/Common/Language";
-import { useSession } from "next-auth/react";
 
 const schema = z.object({
   text: z.string(),
@@ -23,13 +20,12 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const Input = () => {
-  const navigate = useRouter();
-  const session = useSession();
+  // const session = useSession();
   const entryType = useLanguageStore(s => s.entryType);
   const [loading, setLoading] = useState(false);
   const [corpus, setCorpus] = useState("");
   const languageFrom = useLanguageStore(s => s.languageFrom);
-  const languageTo = useLanguageStore(s => s.languageTo);
+  // const languageTo = useLanguageStore(s => s.languageTo);
   const { handleSubmit, setValue } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
@@ -42,25 +38,10 @@ const Input = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post(
-        process.env.NEXT_PUBLIC_SERVER_URI + "/corpus",
-        {
-          text: corpus,
-          owner: {
-            email:
-              session.status === "authenticated"
-                ? session.data.user.email
-                : ANONYMOUS_USER_EMAIL,
-          },
-          entry_type: entryType,
-          language_from_id: languageFrom,
-          language_to_id: languageTo,
-        },
-      );
       toast.remove("loading");
       toast.success("Saved");
       setLoading(false);
-      navigate.push("/translation/" + res.data.id);
+      // navigate.push("/translation/" + res.data.id);
     } catch (error) {
       toast.remove("loading");
       toast.error("Error");

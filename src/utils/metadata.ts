@@ -11,6 +11,7 @@ export const createMetadata = (data: {
 }): Metadata => {
     const { title, description, keywords, exactUrl, image: imageURL } = data;
     const metadata: Metadata = {
+        manifest: "/manifest.json",
         title,
         description,
         keywords,
