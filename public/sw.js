@@ -9,7 +9,6 @@ const setUpMessage = async () => {
    
     if (typeof Notification === "undefined") return
     const permission = await Notification.requestPermission()
-    console.log(permission)
     if (permission === "denied") return
 
     const resp = await fetch(`${baseApiUrl}/auth/session`, {
@@ -26,7 +25,6 @@ const setUpMessage = async () => {
         if (json?.user) {
             // save and return user
             const user = json.user
-            console.log(user)
             const resp = await fetch(`${backendApiUrl}/user/${user.email}`, {
                 method: "GET",
                 credentials: "include",
@@ -49,7 +47,6 @@ const setUpMessage = async () => {
 
 const sendAlert = (e, id) => {
     const message = JSON.parse(e.data)
-    console.log(message)
     // let title = "JavaScript Jeep";
 
     let icon = '/brand/logo.png';
@@ -164,27 +161,6 @@ class CustomPushEvent extends Event {
         this.custom = true;
     }
 }
-
-
-const messaging = firebase.messaging();
-
-messaging.onBackgroundMessage((payload) => {
-    // console.log('[firebase-messaging-sw.js] Received background message ', payload);
-
-    const { title, body, image, icon, ...restPayload } = payload.data;
-    const notificationOptions = {
-        body,
-        // icon: image, // path to your "fallback" firebase notification logo
-        data: restPayload,
-    };
-    console.log(title)
-    return self.registration.showNotification(title, notificationOptions);
-});
-
-messaging.onMessage(messaging, (payload) => {
-    console.log('Message received. ', payload);
-    // ...
-});
 
 self.addEventListener('notificationclick', (event) => {
     if (event?.notification?.data && event?.notification?.data?.link) {

@@ -18,6 +18,8 @@ const CorpusGrid = ({ corpusList }: Props) => {
   const shareModal = useCorpus(s => s.shareModal);
   const searchParams = useSearchParams();
   const search = searchParams.get("search");
+  const from = searchParams.get("from");
+  const to = searchParams.get("to");
   const sortType = searchParams.get("sort_type");
   const page = searchParams.get("page")
     ? parseInt(searchParams.get("page"))
@@ -82,7 +84,9 @@ const CorpusGrid = ({ corpusList }: Props) => {
           currentPage={page}
           pageSize={10}
           onPageChange={p =>
-            navigate.push(`/?page=${p}&sort_type=${sortType}&search=${search}`)
+            navigate.push(
+              `/?page=${p}&sort_type=${sortType}&search=${search}&from=${from ?? ""}&to=${to ?? ""}`,
+            )
           }
         />
       )}

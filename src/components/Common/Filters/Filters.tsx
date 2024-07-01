@@ -20,6 +20,8 @@ const Filters = () => {
   const searchParams = useSearchParams();
   const sortType = searchParams.get("sort_type");
   const search = searchParams.get("search");
+  const fromParam = searchParams.get("from");
+  const toParam = searchParams.get("to");
   const page = searchParams.get("page")
     ? parseInt(searchParams.get("page"))
     : 1;
@@ -33,6 +35,7 @@ const Filters = () => {
   const resetSelections = useCorpus(s => s.resetSelections);
 
   const closeMenu = () => {
+    to;
     $(".dropdown").removeClass("dropdown-open");
     const active = document.activeElement as HTMLElement;
     active.blur();
@@ -135,18 +138,32 @@ const Filters = () => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-accent hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-accent hover:bg-primary/10 hover:dark:text-white"
           >
-            {from || "All"}
+            {fromParam || "All"}
           </div>
           <ul
             tabIndex={0}
             className="rounded bg-background text-tertiary-txt  menu dropdown-content z-[1] w-52 border border-base-300 p-2 shadow"
           >
-            <li onClick={() => setFrom("English")}>
+            <li
+              onClick={() => {
+                setFrom("English");
+                navigate.push(
+                  `/?sort_by=Popular&page=${page}&search=${searchTerm || ""}&from=English&to=${toParam ?? "All"}`,
+                );
+              }}
+            >
               <a>English</a>
             </li>
-            <li onClick={() => setFrom("Efik")}>
+            <li
+              onClick={() => {
+                setFrom("Efik");
+                navigate.push(
+                  `/?sort_by=Popular&page=${page}&search=${searchTerm || ""}&from=Efik&to=${toParam ?? "All"}`,
+                );
+              }}
+            >
               <a>Efik</a>
             </li>
           </ul>
@@ -162,9 +179,9 @@ const Filters = () => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-accent hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-accent hover:bg-primary/10 hover:dark:text-white"
           >
-            {to || "All"}
+            {toParam || "All"}
           </div>
           <ul
             tabIndex={0}
@@ -172,14 +189,24 @@ const Filters = () => {
           >
             <li
               onClick={() => {
-                if (from) setTo("English");
+                if (from) {
+                  setTo("English");
+                  navigate.push(
+                    `/?sort_by=Popular&page=${page}&search=${searchTerm ?? ""}&from=${fromParam ?? "All"}&to=English`,
+                  );
+                }
               }}
             >
               <a>English</a>
             </li>
             <li
               onClick={() => {
-                if (from) setTo("Efik");
+                if (from) {
+                  setTo("Efik");
+                  navigate.push(
+                    `/?sort_by=Popular&page=${page}&search=${searchTerm ?? ""}&from=${fromParam ?? "All"}&to=Efik`,
+                  );
+                }
               }}
             >
               <a>Efik</a>

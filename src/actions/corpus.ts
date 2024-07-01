@@ -13,8 +13,8 @@ export const getCorpusById = async (id: string) => {
     return (await res.json()).corpus
 } 
 
-export const getCorpus = async (page: number = 1, sortBy: string = "", search: string = "", limit: number = 10) => {
-    const res = await fetch(process.env.SERVER_URI + `/corpus?page=${page}&limit=${limit}&sort_by=${sortBy}&search=${search}`, {
+export const getCorpus = async (page: number = 1, sortBy: string = "", search: string = "", from: string = "All", to: string = "All", limit: number = 10) => {
+    const res = await fetch(process.env.SERVER_URI + `/corpus?page=${page}&limit=${limit}&sort_by=${sortBy}&search=${search}&from=${from}&to=${to}`, {
         cache: "default",
         
     })

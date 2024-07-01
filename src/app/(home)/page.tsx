@@ -9,8 +9,10 @@ interface Props {
 export default async function HomePage({ searchParams }: Props) {
   const sortBy = searchParams["sort_by"];
   const search = searchParams["search"];
+  const from = searchParams["from"];
+  const to = searchParams["to"];
   const page = searchParams["page"] ? parseInt(searchParams["page"]) : 1;
-  const corpusList = await getCorpus(page, sortBy, search);
+  const corpusList = await getCorpus(page, sortBy, search, from, to);
 
   return (
     <main className="min-h-screen pt-[65px]">

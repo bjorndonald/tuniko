@@ -130,7 +130,7 @@ const EfikTextArea = (props: Props) => {
         name="corpus"
       />
       {!!currentletter && (
-        <div className="tones  bg-background absolute -top-[52px] left-0 flex h-10 items-center divide-x border border-base-300">
+        <div className="tones absolute -top-[52px] left-0 flex h-10 items-center divide-x border border-base-300 bg-base-100">
           {tones[currentletter].map((x, i) => (
             <div
               key={i}
@@ -139,7 +139,7 @@ const EfikTextArea = (props: Props) => {
                 setCurrentletter("");
                 setSelectedTone(0);
               }}
-              className={`hover:bg-hover flex h-full w-10 cursor-pointer items-center justify-center ${selectedTone === i ? "bg-hover text-base-content" : ""}`}
+              className={`flex h-full w-10 cursor-pointer items-center justify-center text-lg hover:bg-base-200 ${selectedTone === i ? "bg-base-200 text-base-content" : ""}`}
             >
               {x}
             </div>
