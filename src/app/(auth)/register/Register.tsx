@@ -1,8 +1,9 @@
+'use client';
 import React from "react";
 import { Linkedin, Mail } from "react-feather";
 import RegisterForm from "./RegisterForm";
 import { GoogleIcon } from "@/components/Shared/Icons";
-import { signIn } from "@/auth";
+import { signIn } from "next-auth/react";
 
 const Register = () => {
   return (
@@ -54,11 +55,11 @@ const Register = () => {
           </div>
           <div className="mt-3 text-center text-xs opacity-75">
             By signing up, you agree to our{" "}
-            <a className="link" href="/tos">
+            <a className="link" href="/terms">
               TOS
             </a>{" "}
             &{" "}
-            <a className="link" href="/privacy-policy">
+            <a className="link" href="/policy">
               Privacy Policy
             </a>{" "}
           </div>
