@@ -1,8 +1,7 @@
-import { settings } from "@/database/schema"
 import Setting from "@/types/setting"
 
 export const postCorpusSuggestions = async (email: string, value: "None" | "Hourly" | "Daily" | "Weekly") => {
-    const res = await fetch(process.env.SERVER_URI + `/settings/update`, {
+    const res = await fetch(process.env.SERVER_URI + "/settings/update", {
         method: "POST",
         body: JSON.stringify({
             email,
@@ -26,7 +25,7 @@ export const getUpdateSetting = async (email: string) => {
 }
 
 export const postUpdateSetting = async (email: string, value: string) => {
-    const res = await fetch(process.env.SERVER_URI + `/settings/update`, {
+    const res = await fetch(process.env.SERVER_URI + "/settings/update", {
         method: "POST",
         body: JSON.stringify({
             email,
@@ -77,7 +76,7 @@ export const getTranslationSettings = async (email: string, page: number) => {
 }
 
 export const postSetting = async (email: string, value: string, settings:Setting[]) => {
-    const res = await fetch(process.env.SERVER_URI + `/settings`, {
+    const res = await fetch(process.env.SERVER_URI + "/settings", {
         method: "POST",
         body: JSON.stringify({
             email,

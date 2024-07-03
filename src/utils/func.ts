@@ -1,4 +1,4 @@
-import $ from 'jquery'
+import $ from "jquery"
 export const range = (start: number, end: number) => {
     const length = end - start + 1;
     /*

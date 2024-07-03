@@ -1,10 +1,7 @@
 'use server';
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { v4 as uuidv4 } from "uuid";
-import { hash } from "bcryptjs";
 import { z } from 'zod'
-import { auth } from "@/auth";
-import { ApiError } from "next/dist/server/api-utils";
 import axios, { AxiosError } from "axios";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -27,7 +24,7 @@ const ProfileSchema = z.object({
     name: z.string(),
     email: z.string().email(),
     image: z.any()
-        .refine((file) => !file || file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
+        .refine((file) => !file || file?.size <= MAX_FILE_SIZE, "Max image size is 5MB.")
         .refine(
             (file) => !file || [ACCEPTED_IMAGE_TYPES].includes(file?.type),
             "Only .jpg, .jpeg, .png and .webp formats are supported."
@@ -61,7 +58,7 @@ export const saveProfile = async (
             return {
                 status: "Error",
                 errors: validatedFields.error.flatten().fieldErrors,
-                message: 'Missing Fields. Failed to save profile.',
+                message: "Missing Fields. Failed to save profile.",
             };
         }
         
@@ -102,16 +99,16 @@ export const saveProfile = async (
             saveNameData.image = `https://tuniko-bucket.s3.amazonaws.com/${fileName}`
         }
         
-       await axios.post(process.env.SERVER_URI + `/users`, saveNameData)
-        revalidatePath('/settings/profile');
-        redirect('/settings/profile');
+       await axios.post(process.env.SERVER_URI + "/users", saveNameData)
+        revalidatePath("/settings/profile");
+        redirect("/settings/profile");
     } catch (error) {
         if (error instanceof AxiosError) {
             switch (error.response.status) {
                 case 400:
                     return {
                         status: "Error",
-                        message: 'Invalid paramaters.'
+                        message: "Invalid paramaters."
                      };
                 default:
                     return { 
@@ -149,7 +146,7 @@ export const changePassword = async (
             return {
                 status: "Error",
                 errors: validatedFields.error.flatten().fieldErrors,
-                message: 'Missing Fields. Failed to change password.',
+                message: "Missing Fields. Failed to change password.",
             };
         }
 
@@ -158,24 +155,22 @@ export const changePassword = async (
             email,
             password
         }
-        await axios.post(process.env.SERVER_URI + `/change-password`, changePasswordData)
-        revalidatePath('/settings/profile');
-        redirect('/settings/profile');
+        await axios.post(process.env.SERVER_URI + "/change-password", changePasswordData)
+        revalidatePath("/settings/profile");
+        redirect("/settings/profile");
     } catch (error) {
         if (error instanceof AxiosError) {
             switch (error.response.status) {
                 case 400:
                     return {
                         status: "Error",
-                        message: 'Invalid paramaters.' };
+                        message: "Invalid paramaters." };
                 default:
                     return {
                         status: "Error",
-                        message: 'Network error' };
+                        message: "Network error" };
             }
         }
        throw error
     }
-
-    
 }

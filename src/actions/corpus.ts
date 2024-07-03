@@ -26,7 +26,7 @@ export const getCorpus = async (page: number = 1, sortBy: string = "", search: s
 }
 
 export const postCorpusSuggestions = async (email: string, search: string) => {
-    const res = await fetch(process.env.SERVER_URI + `/corpus/email`, {
+    const res = await fetch(process.env.SERVER_URI + "/corpus/email", {
         cache: "reload",
         method: "POST",
         body: JSON.stringify({
