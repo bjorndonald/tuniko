@@ -22,7 +22,7 @@ const Options = ({ languages }: Props) => {
   const setEntryType = useLanguageStore(s => s.setEntryType);
   const reset = useLanguageStore(s => s.reset);
   const swap = useLanguageStore(s => s.swap);
-  console.log(languages, languageTo);
+  console.log(languages, languages[0]?.id, ENGLISH_LANGUAGE_ID, ALL_LANGUAGE_ID);
   useEffect(() => {
     setLanguageFrom(languages[0].id);
 
@@ -158,13 +158,6 @@ const Options = ({ languages }: Props) => {
               tabIndex={0}
               className="rounded border-secondary-txt bg-background  menu dropdown-content z-[1] w-52 border p-2 text-base-content shadow"
             >
-              <li
-                onClick={() => {
-                  setLanguageTo(ALL_LANGUAGE_ID);
-                }}
-              >
-                <a>All</a>
-              </li>
               {languages.map((x, i) => (
                 <li
                   key={i}
