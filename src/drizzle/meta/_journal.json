@@ -5,57 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1717776585968,
-      "tag": "0000_little_nova",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1718357855986,
-      "tag": "0001_worried_nighthawk",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1718358352889,
-      "tag": "0002_silent_shriek",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1718358416302,
-      "tag": "0003_free_blackheart",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "6",
-      "when": 1718903164500,
-      "tag": "0004_tired_sasquatch",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "6",
-      "when": 1718903191141,
-      "tag": "0005_glorious_fallen_one",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "6",
-      "when": 1719335993855,
-      "tag": "0006_yielding_ben_grimm",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "6",
-      "when": 1719468957814,
-      "tag": "0007_swift_forgotten_one",
+      "when": 1719999573868,
+      "tag": "0000_little_magneto",
       "breakpoints": true
     }
   ]

@@ -62,7 +62,14 @@ const TrackCorpusText = (props: Props) => {
         <div className="flex gap-4">
           <Autocomplete
             getSuggestions={async (str: string) => {
-              const suggestions = await getCorpus(1, "Recent", str,"All","All", 6);
+              const suggestions = await getCorpus(
+                1,
+                "Recent",
+                str,
+                "All",
+                "All",
+                6,
+              );
               return suggestions.map(x => ({ id: x.id, text: x.text }));
             }}
             chooseSuggestion={x => setCorpus(x)}

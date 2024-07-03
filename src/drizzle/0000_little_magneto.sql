@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS "chosencorpus" (
 CREATE TABLE IF NOT EXISTS "corpustexts" (
 	"id" text PRIMARY KEY NOT NULL,
 	"text" text,
-	"entrytype" text,
+	"entrytype" varchar,
 	"owner" text NOT NULL,
 	"language_to" text NOT NULL,
 	"language_from" text NOT NULL,
@@ -63,10 +63,31 @@ CREATE TABLE IF NOT EXISTS "languages" (
 	"updated_at" timestamp
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "notifications" (
+	"id" text PRIMARY KEY NOT NULL,
+	"action" text NOT NULL,
+	"value" text NOT NULL,
+	"value_id" text NOT NULL,
+	"other_id" text NOT NULL,
+	"created_at" timestamp,
+	"updated_at" timestamp
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
 	"sessionToken" text PRIMARY KEY NOT NULL,
 	"userId" text NOT NULL,
 	"expires" timestamp NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "settings" (
+	"id" text PRIMARY KEY NOT NULL,
+	"type" text NOT NULL,
+	"value" text NOT NULL,
+	"action" text NOT NULL,
+	"actor" text NOT NULL,
+	"value_id" text NOT NULL,
+	"created_at" timestamp,
+	"updated_at" timestamp
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "translations" (
@@ -74,6 +95,8 @@ CREATE TABLE IF NOT EXISTS "translations" (
 	"text" text,
 	"translator" text NOT NULL,
 	"language" text NOT NULL,
+	"upvotes" numeric,
+	"downvotes" numeric,
 	"created_at" timestamp,
 	"updated_at" timestamp
 );
@@ -94,6 +117,15 @@ CREATE TABLE IF NOT EXISTS "upvotes" (
 	"updated_at" timestamp
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "usernotifications" (
+	"id" text PRIMARY KEY NOT NULL,
+	"user" text NOT NULL,
+	"notification" text NOT NULL,
+	"seen" boolean,
+	"created_at" timestamp,
+	"updated_at" timestamp
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
 	"id" text PRIMARY KEY NOT NULL,
 	"name" text,
@@ -105,7 +137,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "userscore" (
 	"id" text PRIMARY KEY NOT NULL,
-	"user" text NOT NULL,
+	"userid" text NOT NULL,
 	"score" numeric,
 	"created_at" timestamp,
 	"updated_at" timestamp
@@ -191,6 +223,12 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "settings" ADD CONSTRAINT "settings_actor_users_id_fk" FOREIGN KEY ("actor") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "translations" ADD CONSTRAINT "translations_translator_users_id_fk" FOREIGN KEY ("translator") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -221,7 +259,19 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "userscore" ADD CONSTRAINT "userscore_user_users_id_fk" FOREIGN KEY ("user") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "usernotifications" ADD CONSTRAINT "usernotifications_user_users_id_fk" FOREIGN KEY ("user") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "usernotifications" ADD CONSTRAINT "usernotifications_notification_notifications_id_fk" FOREIGN KEY ("notification") REFERENCES "public"."notifications"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "userscore" ADD CONSTRAINT "userscore_userid_users_id_fk" FOREIGN KEY ("userid") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
