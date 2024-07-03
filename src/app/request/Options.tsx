@@ -22,7 +22,7 @@ const Options = ({ languages }: Props) => {
   const setEntryType = useLanguageStore(s => s.setEntryType);
   const reset = useLanguageStore(s => s.reset);
   const swap = useLanguageStore(s => s.swap);
-  console.log(languages)
+  console.log(languages, languageTo);
   useEffect(() => {
     setLanguageFrom(languages[0].id);
 
