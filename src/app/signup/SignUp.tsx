@@ -4,11 +4,8 @@ import { Linkedin, Mail } from "react-feather";
 import { signIn } from "next-auth/react";
 import { GoogleIcon } from "@/components/Shared/Icons";
 import SignUpForm from "./SignUpForm";
-import { useSearchParams } from "next/navigation";
 
 const SignUp = () => {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
   return (
     <main className="px-4 pt-20">
       <div className="mb-8 text-center">
@@ -23,14 +20,14 @@ const SignUp = () => {
         <div className="card-body">
           <button
             aria-label="Sign up with Google"
-            onClick={() => signIn("google", { callbackUrl })}
+            onClick={() => signIn("google", { callbackUrl: "/" })}
             className="btn btn-block !border-base-content/20 bg-white text-black hover:bg-primary hover:text-white "
           >
             <GoogleIcon /> Sign up with Google
           </button>
           <button
             aria-label="Sign up with Linkedin"
-            onClick={() => signIn("linkedin", { callbackUrl })}
+            onClick={() => signIn("linkedin", { callbackUrl: "/" })}
             className="btn btn-block border-0 bg-black text-white hover:bg-black/80 hover:text-white "
           >
             <Linkedin /> Sign up with LinkedIn
