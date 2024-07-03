@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from "react";
 import { Linkedin, Mail } from "react-feather";
 import RegisterForm from "./RegisterForm";
