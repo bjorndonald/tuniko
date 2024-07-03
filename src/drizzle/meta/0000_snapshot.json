@@ -1,5 +1,5 @@
 {
-  "id": "97337d13-b36a-49a1-abef-8cc281f136a4",
+  "id": "00743300-101a-4c88-9917-60f76065a083",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
@@ -187,7 +187,7 @@
         },
         "entrytype": {
           "name": "entrytype",
-          "type": "text",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -489,6 +489,58 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "public.notifications": {
+      "name": "notifications",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "action": {
+          "name": "action",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "value": {
+          "name": "value",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "value_id": {
+          "name": "value_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "other_id": {
+          "name": "other_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.session": {
       "name": "session",
       "schema": "",
@@ -531,6 +583,78 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "public.settings": {
+      "name": "settings",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "value": {
+          "name": "value",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "action": {
+          "name": "action",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "actor": {
+          "name": "actor",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "value_id": {
+          "name": "value_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "settings_actor_users_id_fk": {
+          "name": "settings_actor_users_id_fk",
+          "tableFrom": "settings",
+          "tableTo": "users",
+          "columnsFrom": [
+            "actor"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.translations": {
       "name": "translations",
       "schema": "",
@@ -558,6 +682,18 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "upvotes": {
+          "name": "upvotes",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "downvotes": {
+          "name": "downvotes",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -725,6 +861,79 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "public.usernotifications": {
+      "name": "usernotifications",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user": {
+          "name": "user",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "notification": {
+          "name": "notification",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "seen": {
+          "name": "seen",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "usernotifications_user_users_id_fk": {
+          "name": "usernotifications_user_users_id_fk",
+          "tableFrom": "usernotifications",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "usernotifications_notification_notifications_id_fk": {
+          "name": "usernotifications_notification_notifications_id_fk",
+          "tableFrom": "usernotifications",
+          "tableTo": "notifications",
+          "columnsFrom": [
+            "notification"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.users": {
       "name": "users",
       "schema": "",
@@ -781,8 +990,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "user": {
-          "name": "user",
+        "userid": {
+          "name": "userid",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -808,12 +1017,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "userscore_user_users_id_fk": {
-          "name": "userscore_user_users_id_fk",
+        "userscore_userid_users_id_fk": {
+          "name": "userscore_userid_users_id_fk",
           "tableFrom": "userscore",
           "tableTo": "users",
           "columnsFrom": [
-            "user"
+            "userid"
           ],
           "columnsTo": [
             "id"
