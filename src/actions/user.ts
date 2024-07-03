@@ -1,7 +1,7 @@
-'use server';
+"use server";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { v4 as uuidv4 } from "uuid";
-import { z } from 'zod'
+import { z } from "zod"
 import axios, { AxiosError } from "axios";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -113,7 +113,7 @@ export const saveProfile = async (
                 default:
                     return { 
                         status: "Error", 
-                        message: 'Network error' 
+                        message: "Network error" 
                 };
             }
         }
