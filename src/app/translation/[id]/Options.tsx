@@ -14,7 +14,7 @@ const Options = () => {
           <>
             <button
               onClick={() => setEntryType("Text")}
-              className={`flex h-9 items-center gap-1.5 border border-[rgb(218,220,224)] pl-[11px] pr-[15px] transition hover:bg-primary/10 ${entryType === "Text" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
+              className={`flex h-9 items-center gap-1.5 border border-base-300 pl-[11px] pr-[15px] transition hover:bg-primary/10 ${entryType === "Text" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
             >
               <TextIcon />
               <span className="text-sm text-primary">Text</span>
