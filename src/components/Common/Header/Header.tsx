@@ -29,9 +29,20 @@ const Header = async () => {
 
           {!!session?.user && <ProfileMenu session={session} />}
           {!session?.user && (
-            <Link href={"/signin"} className="btn btn-ghost ml-2 text-primary">
-              LOGIN TO TRACK PROGRESS
-            </Link>
+            <>
+              <Link
+                href={"/signin"}
+                className="btn btn-ghost ml-2 hidden text-primary tablet-md:block"
+              >
+                LOGIN TO TRACK PROGRESS
+              </Link>
+              <Link
+                href={"/signin"}
+                className="btn btn-ghost ml-2 text-primary tablet-md:hidden"
+              >
+                LOGIN
+              </Link>
+            </>
           )}
         </div>
       </div>

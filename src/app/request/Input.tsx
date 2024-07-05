@@ -60,8 +60,10 @@ const Input = () => {
       toast.remove("loading");
       toast.success("Saved");
       setLoading(false);
+
       navigate.push("/translation/" + res.data.id);
     } catch (error) {
+      console.log(error);
       toast.remove("loading");
       toast.error("Error");
       setLoading(false);

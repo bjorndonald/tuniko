@@ -1,5 +1,6 @@
 "use client";
 import cx from "classnames";
+import TextareaAutosize from "react-textarea-autosize";
 import React, { useEffect, useState } from "react";
 
 interface Props {
@@ -59,7 +60,7 @@ const EfikTextArea = (props: Props) => {
 
   return (
     <div className="efik-editor relative grow">
-      <textarea
+      <TextareaAutosize
         disabled={disabled}
         placeholder={placeholder}
         id={id}

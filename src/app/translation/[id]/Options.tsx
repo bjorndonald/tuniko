@@ -28,7 +28,7 @@ const Options = () => {
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost  text-info"
+                className="btn btn-ghost !h-fit text-info"
               >
                 <button
                   disabled

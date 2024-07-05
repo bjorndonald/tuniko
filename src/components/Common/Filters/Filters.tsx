@@ -108,16 +108,16 @@ const Filters = () => {
           <span className="text-sm text-accent">Text</span>
         </button>
 
-        <div className="dropdown dropdown-end dropdown-hover">
+        <div className="dropdown dropdown-end dropdown-hover mr-3">
           <div
             tabIndex={0}
             role="button"
-            className="btn  btn-ghost btn-xs text-info"
+            className="btn  btn-ghost !h-fit !w-fit p-0 text-info"
           >
             <button
               disabled
               onClick={() => setTextType("Document")}
-              className={`mr-3 hidden h-9 items-center gap-1.5 border border-base-300 pl-[11px] pr-[15px] transition hover:bg-primary/10 disabled:opacity-60 tablet-md:flex ${textType === "Document" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
+              className={` hidden h-9 items-center gap-1.5 border border-base-300 pl-[11px] pr-[15px] transition hover:bg-primary/10 disabled:opacity-60 tablet-md:flex ${textType === "Document" ? "!bg-primary/10" : ""} rounded cursor-pointer`}
             >
               <FileText width={20} color={"rgb(25,103,210)"} />
               <span className="text-sm text-primary">Document</span>

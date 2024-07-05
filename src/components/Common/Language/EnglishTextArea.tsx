@@ -1,5 +1,6 @@
 import React from "react";
 import cx from "classnames";
+import TextareaAutosize from "react-textarea-autosize";
 
 interface Props {
   id: string;
@@ -20,7 +21,7 @@ const EnglishTextArea = (props: Props) => {
     id,
   } = props;
   return (
-    <textarea
+    <TextareaAutosize
       id={id}
       value={value}
       disabled={disabled}
@@ -39,7 +40,7 @@ const EnglishTextArea = (props: Props) => {
       rows={1}
       spellCheck={false}
       name={id}
-    ></textarea>
+    ></TextareaAutosize>
   );
 };
 
