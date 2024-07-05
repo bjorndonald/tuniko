@@ -24,6 +24,7 @@ import { useSession } from "next-auth/react";
 import Translation from "@/types/translation";
 import { getChosen } from "@/actions/corpus";
 import { doCopyText } from "@/utils/copy";
+import { postSetting } from "@/actions/settings";
 
 interface Props {
   corpusText: CorpusText;
@@ -124,6 +125,41 @@ const Inputs = ({ corpusText }: Props) => {
     }
   };
 
+  const createCorpus = async () => {
+    toast.loading("Loading...", {
+      id: "loading",
+      duration: 2000,
+    });
+    setLoading(true);
+
+    try {
+      const res = await axios.post(
+        process.env.NEXT_PUBLIC_SERVER_URI + "/corpus",
+        {
+          text: corpus,
+          owner: {
+            email:
+              session.status === "authenticated"
+                ? session.data.user.email
+                : ANONYMOUS_USER_EMAIL,
+          },
+          entry_type: corpusText.entry_type,
+          language_from_id: languageFrom,
+          language_to_id: languageTo,
+        },
+      );
+      toast.remove("loading");
+      toast.success("Saved");
+      setLoading(false);
+
+      navigate.push("/translation/" + res.data.id);
+    } catch (error) {
+      toast.remove("loading");
+      toast.error("Error");
+      setLoading(false);
+    }
+  };
+
   const saveCorpus = async () => {
     toast.loading("Loading...", {
       id: "loading",
@@ -156,6 +192,90 @@ const Inputs = ({ corpusText }: Props) => {
       toast.remove("loading");
       toast.error("Error");
       setLoading(false);
+    }
+  };
+
+  const trackCorpus = async e => {
+    e.preventDefault();
+    try {
+      toast.loading("Loading...", { id: "loading" });
+      await postSetting(session.data.user.email, "corpus", [
+        {
+        action: "translate",
+        actor: session.data.user.email,
+        type: "notification",
+        value: "corpus",
+        value_id: corpusText.id,
+      },
+        {
+          action: "update",
+          actor: session.data.user.email,
+          type: "notification",
+          value: "corpus",
+          value_id: corpusText.id,
+        },  
+    ]);
+      toast.remove("loading");
+      toast.success("Setting saved.");
+    } catch (error) {
+      toast.remove("loading");
+      toast.error("Failed to save data");
+    }
+  };
+
+  const trackLanguageFrom = async e => {
+    e.preventDefault();
+    try {
+      toast.loading("Loading...", { id: "loading" });
+      await postSetting(session.data.user.email, "language", [
+        {
+          action: "translate",
+          actor: session.data.user.email,
+          type: "notification",
+          value: "language",
+          value_id: corpusText.language_from.id,
+        },
+        {
+          action: "insert",
+          actor: session.data.user.email,
+          type: "notification",
+          value: "language",
+          value_id: corpusText.language_from.id,
+        },
+      ]);
+      toast.remove("loading");
+      toast.success("Setting saved.");
+    } catch (error) {
+      toast.remove("loading");
+      toast.error("Failed to save data");
+    }
+  };
+
+  const trackLanguageTo = async e => {
+    e.preventDefault();
+    try {
+      toast.loading("Loading...", { id: "loading" });
+      await postSetting(session.data.user.email, "language", [
+        {
+          action: "translate",
+          actor: session.data.user.email,
+          type: "notification",
+          value: "language",
+          value_id: corpusText.language_to.id,
+        },
+        {
+          action: "insert",
+          actor: session.data.user.email,
+          type: "notification",
+          value: "language",
+          value_id: corpusText.language_to.id,
+        },
+      ]);
+      toast.remove("loading");
+      toast.success("Setting saved.");
+    } catch (error) {
+      toast.remove("loading");
+      toast.error("Failed to save data");
     }
   };
 
@@ -260,8 +380,9 @@ const Inputs = ({ corpusText }: Props) => {
               <button className="btn btn-circle btn-ghost my-2 h-10 !min-h-10 w-10 rounded-full p-2">
                 <Share color="rgb(95,99,104)" />
               </button>
-              {isEditing && (
+              {corpusText.owner.email !== session.data.user.email && isEditing && (
                 <button
+                  onSubmit={handleRightSubmit(createCorpus)}
                   disabled={corpusText.text === corpus}
                   className={cx(
                     "btn btn-ghost my-2 text-sm uppercase text-primary",
@@ -272,7 +393,20 @@ const Inputs = ({ corpusText }: Props) => {
                 </button>
               )}
 
-              {!isEditing && (
+              {corpusText.owner.email === session.data.user.email && isEditing && (
+                <button
+                onSubmit={handleRightSubmit(saveCorpus)}
+                  disabled={corpusText.text === corpus}
+                  className={cx(
+                    "btn btn-ghost my-2 text-sm uppercase text-primary",
+                    corpusText.text === corpus && " !text-black/50",
+                  )}
+                >
+                  Save Corpus
+                </button>
+              )}
+
+              { !isEditing && (
                 <button
                   onClick={() => setIsEditing(true)}
                   className="btn btn-ghost my-2 text-sm uppercase"
@@ -284,9 +418,20 @@ const Inputs = ({ corpusText }: Props) => {
           </div>
         </form>
       </div>
-      {!!chosen && (
+      
         <div className="flex w-full gap-2">
-          <div className="hidden tablet-md:block tablet-md:w-[calc(50%)]"></div>
+          <div className="tablet-md:w-[calc(50%)] flex gap-3">
+            <button onClick={trackCorpus} className="btn btn-outline btn-primary">
+              Track Corpus
+            </button>
+          <button onClick={trackLanguageFrom} className="btn btn-outline btn-primary">
+            Track {corpusText.language_from.name} language
+          </button>
+          <button onClick={trackLanguageTo} className="btn btn-outline btn-primary">
+            Track {corpusText.language_to.name} language
+          </button>
+          </div>
+        {!!chosen && (
           <div className="translation rounded flex w-full gap-3 border border-base-300 bg-primary/5 px-4 pb-3 pt-3 tablet-md:w-[calc(50%)] ">
             <p
               onClick={() => setTranslation(chosen.text)}
@@ -301,8 +446,9 @@ const Inputs = ({ corpusText }: Props) => {
               <CheckCircle />
             </i>
           </div>
+        )}
         </div>
-      )}
+     
     </div>
   );
 };
