@@ -49,7 +49,7 @@ export const getLanguageSettings = async (email: string, page: number) => {
 }
 
 export const isValueTracked = async (id: string, email: string, value: string) => {
-    const res = await fetch(process.env.SERVER_URI + `/settings/tracked`, {
+    const res = await fetch(process.env.SERVER_URI + "/settings/tracked", {
         method: "POST",
         body: JSON.stringify({
             id, email, value

@@ -340,9 +340,13 @@ const Inputs = ({ corpusText }: Props) => {
 
       <div className="flex w-full gap-2">
         <div className="flex gap-3 tablet-md:w-[calc(50%)]">
-          <TrackCorpusText corpusId={corpusText.id} />
-          <TrackLanguage language={corpusText.language_from} />
-          <TrackLanguage language={corpusText.language_to} />
+          {session.data.user.email !== ANONYMOUS_USER_EMAIL && (
+            <>
+              <TrackCorpusText corpusId={corpusText.id} />
+              <TrackLanguage language={corpusText.language_from} />
+              <TrackLanguage language={corpusText.language_to} />
+            </>
+          )}
         </div>
         {!!chosen && (
           <div className="translation rounded flex w-full gap-3 border border-base-300 bg-primary/5 px-4 pb-3 pt-3 tablet-md:w-[calc(50%)] ">
