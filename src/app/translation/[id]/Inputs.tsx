@@ -340,7 +340,7 @@ const Inputs = ({ corpusText }: Props) => {
 
       <div className="flex w-full gap-2">
         <div className="flex gap-3 tablet-md:w-[calc(50%)]">
-          {session.data.user.email !== ANONYMOUS_USER_EMAIL && (
+          {session.data?.user?.email !== ANONYMOUS_USER_EMAIL && (
             <>
               <TrackCorpusText corpusId={corpusText.id} />
               <TrackLanguage language={corpusText.language_from} />
