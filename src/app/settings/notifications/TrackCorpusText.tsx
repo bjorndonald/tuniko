@@ -48,7 +48,7 @@ const TrackCorpusText = (props: Props) => {
       toast.loading("Loading...", { id: "loading" });
       await postSetting(email, "corpus", settings);
       toast.remove("loading");
-      toast.success("Settings saved."); 
+      toast.success("Settings saved.");
     } catch (error) {
       toast.remove("loading");
       toast.error("Failed to save data");

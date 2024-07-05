@@ -48,6 +48,20 @@ export const getLanguageSettings = async (email: string, page: number) => {
     return (await res.json()).settings as Setting[]
 }
 
+export const isValueTracked = async (id: string, email: string, value: string) => {
+    const res = await fetch(process.env.SERVER_URI + `/settings/tracked`, {
+        method: "POST",
+        body: JSON.stringify({
+            id, email, value
+        })
+    })
+    if (!res.ok) {
+        throw new Error("Failed to fetch data")
+    }
+
+    return (await res.json()).isTracked as boolean
+}
+
 export const getSettings = async (email: string, page: number) => {
     const res = await fetch(process.env.SERVER_URI + `/settings/${email}?page=${page}&limit=6`)
     if (!res.ok) {
@@ -74,6 +88,8 @@ export const getTranslationSettings = async (email: string, page: number) => {
 
     return (await res.json()).settings as Setting[]
 }
+
+
 
 export const postSetting = async (email: string, value: string, settings:Setting[]) => {
     const res = await fetch(process.env.SERVER_URI + "/settings", {

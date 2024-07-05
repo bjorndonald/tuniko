@@ -24,7 +24,8 @@ import { useSession } from "next-auth/react";
 import Translation from "@/types/translation";
 import { getChosen } from "@/actions/corpus";
 import { doCopyText } from "@/utils/copy";
-import { postSetting } from "@/actions/settings";
+import TrackCorpusText from "./TrackCorpusText";
+import TrackLanguage from "./TrackLanguage";
 
 interface Props {
   corpusText: CorpusText;
@@ -195,90 +196,6 @@ const Inputs = ({ corpusText }: Props) => {
     }
   };
 
-  const trackCorpus = async e => {
-    e.preventDefault();
-    try {
-      toast.loading("Loading...", { id: "loading" });
-      await postSetting(session.data.user.email, "corpus", [
-        {
-        action: "translate",
-        actor: session.data.user.email,
-        type: "notification",
-        value: "corpus",
-        value_id: corpusText.id,
-      },
-        {
-          action: "update",
-          actor: session.data.user.email,
-          type: "notification",
-          value: "corpus",
-          value_id: corpusText.id,
-        },  
-    ]);
-      toast.remove("loading");
-      toast.success("Setting saved.");
-    } catch (error) {
-      toast.remove("loading");
-      toast.error("Failed to save data");
-    }
-  };
-
-  const trackLanguageFrom = async e => {
-    e.preventDefault();
-    try {
-      toast.loading("Loading...", { id: "loading" });
-      await postSetting(session.data.user.email, "language", [
-        {
-          action: "translate",
-          actor: session.data.user.email,
-          type: "notification",
-          value: "language",
-          value_id: corpusText.language_from.id,
-        },
-        {
-          action: "insert",
-          actor: session.data.user.email,
-          type: "notification",
-          value: "language",
-          value_id: corpusText.language_from.id,
-        },
-      ]);
-      toast.remove("loading");
-      toast.success("Setting saved.");
-    } catch (error) {
-      toast.remove("loading");
-      toast.error("Failed to save data");
-    }
-  };
-
-  const trackLanguageTo = async e => {
-    e.preventDefault();
-    try {
-      toast.loading("Loading...", { id: "loading" });
-      await postSetting(session.data.user.email, "language", [
-        {
-          action: "translate",
-          actor: session.data.user.email,
-          type: "notification",
-          value: "language",
-          value_id: corpusText.language_to.id,
-        },
-        {
-          action: "insert",
-          actor: session.data.user.email,
-          type: "notification",
-          value: "language",
-          value_id: corpusText.language_to.id,
-        },
-      ]);
-      toast.remove("loading");
-      toast.success("Setting saved.");
-    } catch (error) {
-      toast.remove("loading");
-      toast.error("Failed to save data");
-    }
-  };
-
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-1 flex-col flex-nowrap gap-2 tablet-md:flex-row">
@@ -380,33 +297,35 @@ const Inputs = ({ corpusText }: Props) => {
               <button className="btn btn-circle btn-ghost my-2 h-10 !min-h-10 w-10 rounded-full p-2">
                 <Share color="rgb(95,99,104)" />
               </button>
-              {corpusText.owner.email !== session.data.user.email && isEditing && (
-                <button
-                  onSubmit={handleRightSubmit(createCorpus)}
-                  disabled={corpusText.text === corpus}
-                  className={cx(
-                    "btn btn-ghost my-2 text-sm uppercase text-primary",
-                    corpusText.text === corpus && " !text-black/50",
-                  )}
-                >
-                  Make Corpus
-                </button>
-              )}
+              {corpusText.owner.email !== session.data.user.email &&
+                isEditing && (
+                  <button
+                    onSubmit={handleRightSubmit(createCorpus)}
+                    disabled={corpusText.text === corpus}
+                    className={cx(
+                      "btn btn-ghost my-2 text-sm uppercase text-primary",
+                      corpusText.text === corpus && " !text-black/50",
+                    )}
+                  >
+                    Make Corpus
+                  </button>
+                )}
 
-              {corpusText.owner.email === session.data.user.email && isEditing && (
-                <button
-                onSubmit={handleRightSubmit(saveCorpus)}
-                  disabled={corpusText.text === corpus}
-                  className={cx(
-                    "btn btn-ghost my-2 text-sm uppercase text-primary",
-                    corpusText.text === corpus && " !text-black/50",
-                  )}
-                >
-                  Save Corpus
-                </button>
-              )}
+              {corpusText.owner.email === session.data.user.email &&
+                isEditing && (
+                  <button
+                    onSubmit={handleRightSubmit(saveCorpus)}
+                    disabled={corpusText.text === corpus}
+                    className={cx(
+                      "btn btn-ghost my-2 text-sm uppercase text-primary",
+                      corpusText.text === corpus && " !text-black/50",
+                    )}
+                  >
+                    Save Corpus
+                  </button>
+                )}
 
-              { !isEditing && (
+              {!isEditing && (
                 <button
                   onClick={() => setIsEditing(true)}
                   className="btn btn-ghost my-2 text-sm uppercase"
@@ -418,19 +337,13 @@ const Inputs = ({ corpusText }: Props) => {
           </div>
         </form>
       </div>
-      
-        <div className="flex w-full gap-2">
-          <div className="tablet-md:w-[calc(50%)] flex gap-3">
-            <button onClick={trackCorpus} className="btn btn-outline btn-primary">
-              Track Corpus
-            </button>
-          <button onClick={trackLanguageFrom} className="btn btn-outline btn-primary">
-            Track {corpusText.language_from.name} language
-          </button>
-          <button onClick={trackLanguageTo} className="btn btn-outline btn-primary">
-            Track {corpusText.language_to.name} language
-          </button>
-          </div>
+
+      <div className="flex w-full gap-2">
+        <div className="flex gap-3 tablet-md:w-[calc(50%)]">
+          <TrackCorpusText corpusId={corpusText.id} />
+          <TrackLanguage language={corpusText.language_from} />
+          <TrackLanguage language={corpusText.language_to} />
+        </div>
         {!!chosen && (
           <div className="translation rounded flex w-full gap-3 border border-base-300 bg-primary/5 px-4 pb-3 pt-3 tablet-md:w-[calc(50%)] ">
             <p
@@ -447,8 +360,7 @@ const Inputs = ({ corpusText }: Props) => {
             </i>
           </div>
         )}
-        </div>
-     
+      </div>
     </div>
   );
 };
