@@ -99,7 +99,7 @@ const Inputs = ({ corpusText }: Props) => {
         translator: {
           email:
             session.status === "authenticated"
-              ? session.data.user.email
+              ? session.data?.user?.email
               : ANONYMOUS_USER_EMAIL,
         },
         corpus: corpusText.id,
@@ -141,7 +141,7 @@ const Inputs = ({ corpusText }: Props) => {
           owner: {
             email:
               session.status === "authenticated"
-                ? session.data.user.email
+                ? session.data?.user?.email
                 : ANONYMOUS_USER_EMAIL,
           },
           entry_type: corpusText.entry_type,
@@ -297,7 +297,7 @@ const Inputs = ({ corpusText }: Props) => {
               <button className="btn btn-circle btn-ghost my-2 h-10 !min-h-10 w-10 rounded-full p-2">
                 <Share color="rgb(95,99,104)" />
               </button>
-              {corpusText.owner.email !== session.data.user.email &&
+              {corpusText.owner.email !== session.data?.user?.email &&
                 isEditing && (
                   <button
                     onSubmit={handleRightSubmit(createCorpus)}
@@ -311,7 +311,7 @@ const Inputs = ({ corpusText }: Props) => {
                   </button>
                 )}
 
-              {corpusText.owner.email === session.data.user.email &&
+              {corpusText.owner.email === session.data?.user?.email &&
                 isEditing && (
                   <button
                     onSubmit={handleRightSubmit(saveCorpus)}
