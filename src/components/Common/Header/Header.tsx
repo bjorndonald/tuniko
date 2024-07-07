@@ -32,7 +32,7 @@ const Header = async () => {
             <>
               <Link
                 href={"/signin"}
-                className="btn btn-ghost ml-2 hidden text-primary tablet-md:block"
+                className="btn btn-ghost  justify-center ml-2 hidden text-primary tablet-md:flex"
               >
                 LOGIN TO TRACK PROGRESS
               </Link>
