@@ -1,7 +1,7 @@
 "use client";
 import Modal from "@/components/Common/Modal";
 import React from "react";
-import { Facebook, Instagram, Link as LinkIcon, Twitter } from "react-feather";
+import { Facebook, Link as LinkIcon, Twitter } from "react-feather";
 import WhatsappIcon from "./Whatsapp.icon";
 import TelegramIcon from "./Telegram.icon";
 import useCorpus from "@/store/corpus";
@@ -22,19 +22,35 @@ const ShareModal = () => {
         <p className="text-sm">Share this link via</p>
 
         <div className="my-4 flex justify-around">
-          <Link href={`https://www.facebook.com/share.php?u=Help Us Translate\n${shareLink}`} className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-blue-200 fill-[#1877f2] shadow-xl hover:bg-[#1877f2] hover:fill-white hover:shadow-blue-500/50">
+          <Link
+            target="_blank"
+            href={`https://www.facebook.com/share.php?u=Help Us Translate\n${shareLink}`}
+            className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-blue-200 fill-[#1877f2] shadow-xl hover:bg-[#1877f2] hover:fill-white hover:shadow-blue-500/50"
+          >
             <Facebook />
           </Link>
 
-          <Link href={`https://twitter.com/intent/tweet?text=Help Us Translate! \n${shareLink}`} className="hover:shadow-sky-500/50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-blue-200 fill-[#1d9bf0] shadow-xl hover:bg-[#1d9bf0] hover:fill-white">
+          <Link
+            target="_blank"
+            href={`https://twitter.com/intent/tweet?text=Help Us Translate! \n${shareLink}`}
+            className="hover:shadow-sky-500/50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-blue-200 fill-[#1d9bf0] shadow-xl hover:bg-[#1d9bf0] hover:fill-white"
+          >
             <Twitter />
           </Link>
 
-          <Link href={`whatsapp://send?text=Help us Translate \n${shareLink}`} className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-green-200 fill-[#25D366] shadow-xl hover:bg-[#25D366] hover:fill-white hover:shadow-green-500/50">
+          <Link
+          target="_blank"
+            href={`whatsapp://send?text=Help us Translate \n${shareLink}`}
+            className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-green-200 fill-[#25D366] shadow-xl hover:bg-[#25D366] hover:fill-white hover:shadow-green-500/50"
+          >
             <WhatsappIcon />
           </Link>
 
-          <Link href={`https://telegram.me/share/url?url=${shareLink}&text=${"Help Us Translate!"}`} className="border-sky-200 hover:shadow-sky-500/50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border fill-[#229ED9] shadow-xl hover:bg-[#229ED9] hover:fill-white">
+          <Link
+            target="_blank"
+            href={`https://telegram.me/share/url?url=${shareLink}&text=${"Help Us Translate!"}`}
+            className="border-sky-200 hover:shadow-sky-500/50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border fill-[#229ED9] shadow-xl hover:bg-[#229ED9] hover:fill-white"
+          >
             <TelegramIcon />
           </Link>
         </div>
