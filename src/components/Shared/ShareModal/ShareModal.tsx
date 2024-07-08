@@ -39,7 +39,7 @@ const ShareModal = () => {
           </Link>
 
           <Link
-          target="_blank"
+            target="_blank"
             href={`whatsapp://send?text=Help us Translate \n${shareLink}`}
             className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-green-200 fill-[#25D366] shadow-xl hover:bg-[#25D366] hover:fill-white hover:shadow-green-500/50"
           >

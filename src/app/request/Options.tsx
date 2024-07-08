@@ -1,6 +1,6 @@
 "use client";
 import { TextIcon } from "@/components/Shared/Icons";
-import { ALL_LANGUAGE_ID, ENGLISH_LANGUAGE_ID } from "@/constants/strings";
+import { ENGLISH_LANGUAGE_ID } from "@/constants/strings";
 import useLanguageStore from "@/store/language";
 import Language from "@/types/language";
 import { mdiSwapHorizontal } from "@mdi/js";
@@ -22,12 +22,7 @@ const Options = ({ languages }: Props) => {
   const setEntryType = useLanguageStore(s => s.setEntryType);
   const reset = useLanguageStore(s => s.reset);
   const swap = useLanguageStore(s => s.swap);
-  console.log(
-    languages,
-    languages[0]?.id,
-    ENGLISH_LANGUAGE_ID,
-    ALL_LANGUAGE_ID,
-  );
+
   useEffect(() => {
     setLanguageFrom(languages[0].id);
 

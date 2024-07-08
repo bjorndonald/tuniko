@@ -5,7 +5,7 @@ import { MoreVertical } from "react-feather";
 const DotMenu = ({ id }: { id: string }) => {
   const addSelected = useCorpus(s => s.addSelected);
   return (
-    <div className="dropdown">
+    <div className="dropdown max-mobile-lg:dropdown-end">
       <div
         tabIndex={0}
         role="button"

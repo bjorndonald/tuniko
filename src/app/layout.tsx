@@ -46,7 +46,7 @@ export default async function RootLayout({
           strategy={"lazyOnload"}
         />
       </head>
-      <body className={ptSans.className}>
+      <body className={`${ptSans.className} min-h-screen`}>
         <ThemeProvider>
           <SessionProvider>
             {/* <FCMToken /> */}
