@@ -50,6 +50,10 @@ export const Meta = () => {
         content={THEME_COLOR_DARK}
       />
       <meta name={"view-transition"} content={"same-origin"} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="twitter:image:width" content="1200" />
+      <meta property="twitter:image:height" content="630" />
     </>
   );
 };
