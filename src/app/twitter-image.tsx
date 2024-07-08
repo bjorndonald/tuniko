@@ -40,13 +40,13 @@ export default async function Image() {
           style={{
             color: "#0A85F7",
             fill: "#0A85F7",
-            width: 32,
-            height: 32,
+            width: 256,
+            height: 256,
           }}
         />
         <h1
           style={{
-            fontSize: 24,
+            fontSize: 128,
           }}
         >
           Tuniko - Help Us Translate
