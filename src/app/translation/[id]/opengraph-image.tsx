@@ -20,7 +20,7 @@ export const contentType = "image/png";
 export default async function Image({ params }: { params: { id: string } }) {
   // Font
   const interSemiBold = fetch(
-    new URL("./../assets/fonts/Inter-SemiBold.ttf", import.meta.url),
+    new URL("@/assets/fonts/Inter-SemiBold.ttf", import.meta.url),
   ).then(res => res.arrayBuffer());
   const translation = await getTranslationById(params.id);
   const corpus = await getCorpusById(translation.corpus);
