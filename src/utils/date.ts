@@ -2,8 +2,7 @@ import moment from "moment"
 
 export const getDifferenceFromDate = (date: string) => {
     const now = moment()
-    const diff = moment(date).diff(now)
-
+    const diff = now.diff(moment(date))
     if (diff > 86400000)
         return Math.ceil(diff / 86400000) + " days"
     else if (diff > 3600000)

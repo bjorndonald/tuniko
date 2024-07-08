@@ -22,8 +22,8 @@ export default async function Image({ params }: { params: { id: string } }) {
   const interSemiBold = fetch(
     new URL("./../assets/fonts/Inter-SemiBold.ttf", import.meta.url),
   ).then(res => res.arrayBuffer());
-  const translation = await getTranslationById(params.id)
-  const corpus = await getCorpusById(translation.corpus)
+  const translation = await getTranslationById(params.id);
+  const corpus = await getCorpusById(translation.corpus);
   return new ImageResponse(
     (
       // ImageResponse JSX element
@@ -53,14 +53,18 @@ export default async function Image({ params }: { params: { id: string } }) {
         >
           Tuniko - Help Us Translate
         </h1>
-        <span style={{
-          fontSize: 16
-        }}>
+        <span
+          style={{
+            fontSize: 16,
+          }}
+        >
           {corpus.language_from.name} - {corpus.language_to.name}
         </span>
-        <h4 style={{
-          fontSize: 18
-        }}>
+        <h4
+          style={{
+            fontSize: 18,
+          }}
+        >
           {translation.text}
         </h4>
       </div>
