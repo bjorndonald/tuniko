@@ -1,3 +1,4 @@
+import CorpusText from "@/types/corpustext"
 import Translation from "@/types/translation"
 
 export const getCorpusById = async (id: string) => {
@@ -10,7 +11,7 @@ export const getCorpusById = async (id: string) => {
         throw new Error("Failed to fetch data")
     }
 
-    return (await res.json()).corpus
+    return (await res.json()).corpus as CorpusText
 } 
 
 export const getCorpus = async (page: number = 1, sortBy: string = "", search: string = "", from: string = "All", to: string = "All", limit: number = 10) => {

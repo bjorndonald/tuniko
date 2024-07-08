@@ -1,3 +1,5 @@
+import { getCorpusById } from "@/actions/corpus";
+import { getTranslationById } from "@/actions/translation";
 import Logo from "@/components/Shared/Logo";
 import { ImageResponse } from "next/og";
 
@@ -15,12 +17,13 @@ export const size = {
 export const contentType = "image/png";
 
 // Image generation
-export default async function Image() {
+export default async function Image({ params }: { params: { id: string } }) {
   // Font
   const interSemiBold = fetch(
     new URL("./../assets/fonts/Inter-SemiBold.ttf", import.meta.url),
   ).then(res => res.arrayBuffer());
-
+  const translation = await getTranslationById(params.id)
+  const corpus = await getCorpusById(translation.corpus)
   return new ImageResponse(
     (
       // ImageResponse JSX element
@@ -50,6 +53,16 @@ export default async function Image() {
         >
           Tuniko - Help Us Translate
         </h1>
+        <span style={{
+          fontSize: 16
+        }}>
+          {corpus.language_from.name} - {corpus.language_to.name}
+        </span>
+        <h4 style={{
+          fontSize: 18
+        }}>
+          {translation.text}
+        </h4>
       </div>
     ),
     // ImageResponse options

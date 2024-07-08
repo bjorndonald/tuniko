@@ -16,6 +16,21 @@ export const getTranslationsByCorpusId = async (corpusid: string, page: number =
     return (await res.json()).translations
 }
 
+export const getTranslationById = async (id: string) => {
+    const res = await fetch(process.env.SERVER_URI + "/translation/" + id, {
+        cache: "no-cache",
+    })
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
+
+    if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error("Failed to fetch data")
+    }
+
+    return (await res.json()).translation as Translation
+}
+
 export const getTranslationsByUser = async (email: string, page: number = 1,  search: string = "") => {
     const res = await fetch(process.env.SERVER_URI + "/translations/user/" + email + `?page=${page}&limit=5&search=${search}`, {
         cache: "no-cache",
