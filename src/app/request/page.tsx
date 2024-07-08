@@ -11,7 +11,7 @@ const RequestPage = async () => {
     <main className="min-h-screen w-screen py-[65px]">
       <div className="container mx-auto px-4 transition-all tablet-md:max-w-[635px] tablet-md:px-12">
         <Options languages={languages} />
-        <Input />
+        <Input languages={languages} />
       </div>
     </main>
   );

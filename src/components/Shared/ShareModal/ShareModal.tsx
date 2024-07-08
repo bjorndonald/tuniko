@@ -24,7 +24,7 @@ const ShareModal = () => {
         <div className="my-4 flex justify-around">
           <Link
             target="_blank"
-            href={`https://www.facebook.com/share.php?u=Help Us Translate\n${shareLink}`}
+            href={`https://www.facebook.com/share.php?u=Help Me Translate\n${shareLink}`}
             className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-blue-200 fill-[#1877f2] shadow-xl hover:bg-[#1877f2] hover:fill-white hover:shadow-blue-500/50"
           >
             <Facebook />
@@ -32,7 +32,7 @@ const ShareModal = () => {
 
           <Link
             target="_blank"
-            href={`https://twitter.com/intent/tweet?text=Help Us Translate! \n${shareLink}`}
+            href={`https://twitter.com/intent/tweet?text=Help Me Translate! \n${shareLink}`}
             className="hover:shadow-sky-500/50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-blue-200 fill-[#1d9bf0] shadow-xl hover:bg-[#1d9bf0] hover:fill-white"
           >
             <Twitter />
@@ -40,7 +40,7 @@ const ShareModal = () => {
 
           <Link
             target="_blank"
-            href={`whatsapp://send?text=Help us Translate \n${shareLink}`}
+            href={`whatsapp://send?text=Help Me Translate \n${shareLink}`}
             className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-green-200 fill-[#25D366] shadow-xl hover:bg-[#25D366] hover:fill-white hover:shadow-green-500/50"
           >
             <WhatsappIcon />
@@ -48,7 +48,7 @@ const ShareModal = () => {
 
           <Link
             target="_blank"
-            href={`https://telegram.me/share/url?url=${shareLink}&text=${"Help Us Translate!"}`}
+            href={`https://telegram.me/share/url?url=${shareLink}&text=${"Help Me Translate!"}`}
             className="border-sky-200 hover:shadow-sky-500/50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border fill-[#229ED9] shadow-xl hover:bg-[#229ED9] hover:fill-white"
           >
             <TelegramIcon />

@@ -1,6 +1,6 @@
 "use client";
 import cx from "classnames";
-import { EfikTextArea, EnglishTextArea } from "@/components/Common/Language";
+import { EfikTextArea, EnglishTextArea, IgboTextArea } from "@/components/Common/Language";
 import useLanguageStore from "@/store/language";
 import CorpusText from "@/types/corpustext";
 import Language from "@/types/language";
@@ -43,7 +43,7 @@ const rightSchema = z.object({
 type LeftFormData = z.infer<typeof leftSchema>;
 type RightFormData = z.infer<typeof rightSchema>;
 
-const Inputs = ({ corpusText }: Props) => {
+const Inputs = ({ corpusText, languages }: Props) => {
   const navigate = useRouter();
   const session = useSession();
   const [chosen, setChosen] = useState<Translation>();
@@ -211,25 +211,36 @@ const Inputs = ({ corpusText }: Props) => {
           )}
 
           <div className="flex w-full pl-4 pr-[52px] pt-3">
-            {languageTo !== ENGLISH_LANGUAGE_ID ? (
-              <EfikTextArea
-                value={translation}
-                setValue={str => {
-                  setTranslation(str);
-                  setLeftValue("translation", str);
-                }}
-                id="translation"
-              />
-            ) : (
+            {languageFrom === ENGLISH_LANGUAGE_ID ? (
               <EnglishTextArea
-                value={translation}
+                value={corpus}
                 setValue={str => {
                   setTranslation(str);
                   setLeftValue("translation", str);
                 }}
-                id="translation"
+                id="corpus"
               />
-            )}
+            ) : languages.find(x => x.id === languageFrom)?.name ===
+              "Efik" ? (
+              <EfikTextArea
+                value={corpus}
+                setValue={str => {
+                  setTranslation(str);
+                  setLeftValue("translation", str);
+                }}
+                id="corpus"
+              />
+            ) : languages.find(x => x.id === languageFrom)?.name ===
+              "Igbo" ? (
+              <IgboTextArea
+                value={corpus}
+                setValue={str => {
+                  setTranslation(str);
+                  setLeftValue("translation", str);
+                }}
+                id="corpus"
+              />
+            ) : null}
           </div>
           <div className="flex items-center justify-between px-4">
             <button

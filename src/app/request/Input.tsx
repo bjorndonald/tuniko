@@ -13,8 +13,13 @@ import Icon from "@mdi/react";
 import cx from "classnames";
 import useLanguageStore from "@/store/language";
 import { ANONYMOUS_USER_EMAIL, ENGLISH_LANGUAGE_ID } from "@/constants/strings";
-import { EnglishTextArea, FileInput } from "@/components/Common/Language";
+import {
+  EnglishTextArea,
+  FileInput,
+  IgboTextArea,
+} from "@/components/Common/Language";
 import { useSession } from "next-auth/react";
+import Language from "@/types/language";
 
 const schema = z.object({
   text: z.string(),
@@ -22,7 +27,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const Input = () => {
+const Input = ({ languages }: { languages: Language[] }) => {
   const navigate = useRouter();
   const session = useSession();
   const entryType = useLanguageStore(s => s.entryType);
@@ -98,7 +103,8 @@ const Input = () => {
                     }}
                     id="corpus"
                   />
-                ) : (
+                ) : languages.find(x => x.id === languageFrom)?.name ===
+                  "Efik" ? (
                   <EfikTextArea
                     value={corpus}
                     setValue={str => {
@@ -107,7 +113,17 @@ const Input = () => {
                     }}
                     id="corpus"
                   />
-                )}
+                ) : languages.find(x => x.id === languageFrom)?.name ===
+                  "Igbo" ? (
+                  <IgboTextArea
+                    value={corpus}
+                    setValue={str => {
+                      setCorpus(str);
+                      setValue("text", str);
+                    }}
+                    id="corpus"
+                  />
+                ) : null}
               </>
             )}
           </div>
