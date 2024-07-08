@@ -46,7 +46,7 @@ export default async function Image() {
         />
         <h1
           style={{
-            fontSize: 128,
+            fontSize: 72,
           }}
         >
           Tuniko - Help Us Translate

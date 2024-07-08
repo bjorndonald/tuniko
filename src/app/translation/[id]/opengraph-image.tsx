@@ -44,20 +44,20 @@ export default async function Image({ params }: { params: { id: string } }) {
           style={{
             color: "#0A85F7",
             fill: "#0A85F7",
-            width: 256,
-            height: 256,
+            width: 196,
+            height: 196,
           }}
         />
         <h1
           style={{
-            fontSize: 128,
+            fontSize: 72,
           }}
         >
           Tuniko - Help Us Translate
         </h1>
         <span
           style={{
-            fontSize: 88,
+            fontSize: 32,
           }}
         >
           {corpus.language_from.name} - {corpus.language_to.name}
@@ -67,7 +67,7 @@ export default async function Image({ params }: { params: { id: string } }) {
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
-            fontSize: 112,
+            fontSize: 56,
           }}
         >
           {translation.text}
