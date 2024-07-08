@@ -27,7 +27,7 @@ export default async function Image() {
       <div
         style={{
           gap: 12,
-          background: "white",
+          background: "#0c121e",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -46,7 +46,8 @@ export default async function Image() {
         />
         <h1
           style={{
-            fontSize: 128,
+            color: "white",
+            fontSize: 64,
           }}
         >
           Tuniko - Help Us Translate
