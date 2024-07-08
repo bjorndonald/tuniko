@@ -18,7 +18,7 @@ export const metadata = {
     title: "Tuniko | Help Us Translate",
     description:
       "This is a platform that allows users to help each other with translations for languages not supported digitally",
-    
+
     keywords: ["translations", "community", "efik", "translate", "web"],
   }),
 };
