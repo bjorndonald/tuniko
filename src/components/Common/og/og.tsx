@@ -10,8 +10,8 @@ const baseUrl =
     : process.env.VERCEL_ENV === "preview"
       ? process.env.VERCEL_URL
         ? `https://${process.env.VERCEL_URL}`
-        : "https://bjorncode.dev"
-      : "https://bjorncode.dev";
+        : "https://tuniko.info"
+      : "https://tuniko.info";
 
 interface OgImageProps {
   path?: PathName;
