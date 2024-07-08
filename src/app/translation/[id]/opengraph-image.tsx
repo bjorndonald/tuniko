@@ -1,5 +1,4 @@
 import { getCorpusById } from "@/actions/corpus";
-import { getTranslationById } from "@/actions/translation";
 import Logo from "@/components/Shared/Logo";
 import { ImageResponse } from "next/og";
 
@@ -22,8 +21,7 @@ export default async function Image({ params }: { params: { id: string } }) {
   const interSemiBold = fetch(
     new URL("@/assets/fonts/Inter-SemiBold.ttf", import.meta.url),
   ).then(res => res.arrayBuffer());
-  const translation = await getTranslationById(params.id);
-  const corpus = await getCorpusById(translation.corpus);
+  const corpus = await getCorpusById(params.id);
   return new ImageResponse(
     (
       // ImageResponse JSX element
@@ -70,7 +68,7 @@ export default async function Image({ params }: { params: { id: string } }) {
             fontSize: 56,
           }}
         >
-          {translation.text}
+          {corpus.text}
         </h4>
       </div>
     ),
