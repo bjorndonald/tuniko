@@ -38,15 +38,15 @@ export default async function Image() {
       >
         <Logo
           style={{
-            width: 32,
-            height: 32,
             color: "#0A85F7",
             fill: "#0A85F7",
+            width: 256,
+            height: 256,
           }}
         />
         <h1
           style={{
-            fontSize: 24,
+            fontSize: 128,
           }}
         >
           Tuniko - Help Us Translate

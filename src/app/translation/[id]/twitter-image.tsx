@@ -30,6 +30,7 @@ export default async function Image({ params }: { params: { id: string } }) {
       <div
         style={{
           gap: 12,
+          padding: 24,
           background: "white",
           width: "100%",
           height: "100%",
@@ -41,28 +42,32 @@ export default async function Image({ params }: { params: { id: string } }) {
       >
         <Logo
           style={{
-            width: 32,
-            height: 32,
-            filter: "saturate(1.5)",
+            color: "#0A85F7",
+            fill: "#0A85F7",
+            width: 256,
+            height: 256,
           }}
         />
         <h1
           style={{
-            fontSize: 24,
+            fontSize: 128,
           }}
         >
           Tuniko - Help Us Translate
         </h1>
         <span
           style={{
-            fontSize: 16,
+            fontSize: 88,
           }}
         >
           {corpus.language_from.name} - {corpus.language_to.name}
         </span>
         <h4
           style={{
-            fontSize: 18,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            fontSize: 112,
           }}
         >
           {translation.text}
