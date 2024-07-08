@@ -40,9 +40,8 @@ export default async function Image() {
           style={{
             width: 32,
             height: 32,
-            color: '#0A85F7',
-            fill: '#0A85F7',
-            
+            color: "#0A85F7",
+            fill: "#0A85F7",
           }}
         />
         <h1

@@ -38,11 +38,10 @@ export default async function Image() {
       >
         <Logo
           style={{
-            color: '#0A85F7',
-            fill: '#0A85F7',
+            color: "#0A85F7",
+            fill: "#0A85F7",
             width: 32,
             height: 32,
-           
           }}
         />
         <h1

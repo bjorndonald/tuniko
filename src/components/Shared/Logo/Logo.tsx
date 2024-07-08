@@ -3,7 +3,7 @@ import React, { ComponentProps } from "react";
 const Logo = ({ width, style }: ComponentProps<"svg">) => {
   return (
     <svg
-    style={style}
+      style={style}
       width={`${width}`}
       className={"h-auto"}
       viewBox="0 0 61 70"
