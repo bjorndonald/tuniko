@@ -29,7 +29,7 @@ export default async function Image({ params }: { params: { id: string } }) {
         style={{
           gap: 12,
           padding: 24,
-          background: "white",
+          background: "#0c121e",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -48,6 +48,7 @@ export default async function Image({ params }: { params: { id: string } }) {
         />
         <h1
           style={{
+            color: "white",
             fontSize: 72,
           }}
         >
@@ -55,6 +56,7 @@ export default async function Image({ params }: { params: { id: string } }) {
         </h1>
         <span
           style={{
+            color: "white",
             fontSize: 32,
           }}
         >
@@ -62,6 +64,7 @@ export default async function Image({ params }: { params: { id: string } }) {
         </span>
         <h4
           style={{
+            color: "white",
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",

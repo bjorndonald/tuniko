@@ -27,7 +27,7 @@ export default async function Image() {
       <div
         style={{
           gap: 12,
-          background: "white",
+          background: "#0c121e",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -46,6 +46,7 @@ export default async function Image() {
         />
         <h1
           style={{
+            color: "white",
             fontSize: 72,
           }}
         >
