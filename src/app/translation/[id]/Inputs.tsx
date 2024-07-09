@@ -217,7 +217,7 @@ const Inputs = ({ corpusText, languages }: Props) => {
           <div className="flex w-full pl-4 pr-[52px] pt-3">
             {languageFrom === ENGLISH_LANGUAGE_ID ? (
               <EnglishTextArea
-                value={corpus}
+                value={translation}
                 setValue={str => {
                   setTranslation(str);
                   setLeftValue("translation", str);
@@ -226,7 +226,7 @@ const Inputs = ({ corpusText, languages }: Props) => {
               />
             ) : languages.find(x => x.id === languageFrom)?.name === "Efik" ? (
               <EfikTextArea
-                value={corpus}
+                  value={translation}
                 setValue={str => {
                   setTranslation(str);
                   setLeftValue("translation", str);
@@ -235,7 +235,7 @@ const Inputs = ({ corpusText, languages }: Props) => {
               />
             ) : languages.find(x => x.id === languageFrom)?.name === "Igbo" ? (
               <IgboTextArea
-                value={corpus}
+                    value={translation}
                 setValue={str => {
                   setTranslation(str);
                   setLeftValue("translation", str);
