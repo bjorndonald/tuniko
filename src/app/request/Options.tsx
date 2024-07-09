@@ -119,21 +119,23 @@ const Options = ({ languages }: Props) => {
               tabIndex={0}
               className="rounded border-secondary-txt bg-background  menu dropdown-content z-[1] w-52 border p-2 text-base-content shadow"
             >
-              {languages.map((x, i) => (
-                <li
-                  key={i}
-                  onClick={() => {
-                    setLanguageFrom(x.id);
-                    // setLanguageTo(
-                    //   x.id === ENGLISH_LANGUAGE_ID
-                    //     ? languages[0].id
-                    //     : ENGLISH_LANGUAGE_ID,
-                    // );
-                  }}
-                >
-                  <a>{x.name}</a>
-                </li>
-              ))}
+              {languages
+                .filter(x => x.name != "All")
+                .map((x, i) => (
+                  <li
+                    key={i}
+                    onClick={() => {
+                      setLanguageFrom(x.id);
+                      // setLanguageTo(
+                      //   x.id === ENGLISH_LANGUAGE_ID
+                      //     ? languages[0].id
+                      //     : ENGLISH_LANGUAGE_ID,
+                      // );
+                    }}
+                  >
+                    <a>{x.name}</a>
+                  </li>
+                ))}
             </ul>
           </div>
 

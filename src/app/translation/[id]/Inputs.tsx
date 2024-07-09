@@ -30,6 +30,8 @@ import { getChosen } from "@/actions/corpus";
 import { doCopyText } from "@/utils/copy";
 import TrackCorpusText from "./TrackCorpusText";
 import TrackLanguage from "./TrackLanguage";
+import useCorpus from "@/store/corpus";
+import ShareModal from "@/components/Shared/ShareModal";
 
 interface Props {
   corpusText: CorpusText;
@@ -50,6 +52,8 @@ type RightFormData = z.infer<typeof rightSchema>;
 const Inputs = ({ corpusText, languages }: Props) => {
   const navigate = useRouter();
   const session = useSession();
+  const shareModal = useCorpus(s => s.shareModal);
+  const showShareModal = useCorpus(s => s.showShareModal);
   const [chosen, setChosen] = useState<Translation>();
   const [loading, setLoading] = useState(false);
   const isEditing = useLanguageStore(s => s.isEditing);
@@ -202,6 +206,7 @@ const Inputs = ({ corpusText, languages }: Props) => {
 
   return (
     <div className="flex flex-col gap-2">
+      {!!shareModal && <ShareModal />}
       <div className="flex flex-1 flex-col flex-nowrap gap-2 tablet-md:flex-row">
         {loading && <></>}
         <form
@@ -215,7 +220,7 @@ const Inputs = ({ corpusText, languages }: Props) => {
           )}
 
           <div className="flex w-full pl-4 pr-[52px] pt-3">
-            {languageFrom === ENGLISH_LANGUAGE_ID ? (
+            {languageTo === ENGLISH_LANGUAGE_ID ? (
               <EnglishTextArea
                 value={translation}
                 setValue={str => {
@@ -224,18 +229,18 @@ const Inputs = ({ corpusText, languages }: Props) => {
                 }}
                 id="corpus"
               />
-            ) : languages.find(x => x.id === languageFrom)?.name === "Efik" ? (
+            ) : languages.find(x => x.id === languageTo)?.name === "Efik" ? (
               <EfikTextArea
-                  value={translation}
+                value={translation}
                 setValue={str => {
                   setTranslation(str);
                   setLeftValue("translation", str);
                 }}
                 id="corpus"
               />
-            ) : languages.find(x => x.id === languageFrom)?.name === "Igbo" ? (
+            ) : languages.find(x => x.id === languageTo)?.name === "Igbo" ? (
               <IgboTextArea
-                    value={translation}
+                value={translation}
                 setValue={str => {
                   setTranslation(str);
                   setLeftValue("translation", str);
@@ -264,7 +269,6 @@ const Inputs = ({ corpusText, languages }: Props) => {
           <button
             onClick={() => {
               doCopyText(corpus);
-              toast.success("Copied.");
             }}
             className="btn btn-circle btn-ghost absolute right-2 top-2 h-10 !min-h-10 w-10 rounded-full"
           >
@@ -272,7 +276,7 @@ const Inputs = ({ corpusText, languages }: Props) => {
           </button>
 
           <div className="flex pl-4 pr-[52px] pt-3">
-            {languageTo !== ENGLISH_LANGUAGE_ID ? (
+            {languageFrom !== ENGLISH_LANGUAGE_ID ? (
               <EfikTextArea
                 disabled={!isEditing}
                 value={corpus}
@@ -307,7 +311,12 @@ const Inputs = ({ corpusText, languages }: Props) => {
             </div>
 
             <div className="flex items-center">
-              <button className="btn btn-circle btn-ghost my-2 h-10 !min-h-10 w-10 rounded-full p-2">
+              <button
+                onClick={() => {
+                  showShareModal(corpusText.id);
+                }}
+                className="btn btn-circle btn-ghost my-3 h-10 !min-h-10 w-10 rounded-full p-2"
+              >
                 <Share color="rgb(95,99,104)" />
               </button>
               {corpusText.owner.email !== session.data?.user?.email &&
@@ -338,7 +347,7 @@ const Inputs = ({ corpusText, languages }: Props) => {
                   </button>
                 )}
 
-              {!isEditing && (
+              {!isEditing && corpusText.owner.email == ANONYMOUS_USER_EMAIL && (
                 <button
                   onClick={() => setIsEditing(true)}
                   className="btn btn-ghost my-2 text-sm uppercase"

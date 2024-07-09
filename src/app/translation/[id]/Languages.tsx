@@ -5,25 +5,27 @@ import Icon from "@mdi/react";
 import cx from "classnames";
 import CorpusText from "@/types/corpustext";
 import useLanguageStore from "@/store/language";
-import { ENGLISH_LANGUAGE_ID } from "@/constants/strings";
+// import { ENGLISH_LANGUAGE_ID } from "@/constants/strings";
 import Language from "@/types/language";
+import { closeMenu } from "@/utils/func";
 
 interface Props {
   corpus: CorpusText;
   languages: Language[];
 }
 
-const Languages = ({ corpus }: Props) => {
+const Languages = ({ corpus, languages }: Props) => {
   const isEditing = useLanguageStore(s => s.isEditing);
-  // const setLanguageTo = useLanguageStore(s => s.setLanguageTo);
+  const setLanguageTo = useLanguageStore(s => s.setLanguageTo);
   const setLanguageFrom = useLanguageStore(s => s.setLanguageFrom);
-  const languageFrom = useLanguageStore(s => s.languageFrom);
+  // const languageFrom = useLanguageStore(s => s.languageFrom);
   const languageTo = useLanguageStore(s => s.languageTo);
   const reset = useLanguageStore(s => s.reset);
   const swap = useLanguageStore(s => s.swap);
 
   useEffect(() => {
     setLanguageFrom(corpus.language_from.id);
+    setLanguageTo(corpus.language_to.id);
 
     return () => {
       reset();
@@ -52,7 +54,38 @@ const Languages = ({ corpus }: Props) => {
         </ul>
       </div> */}
       <div className="tabs tabs-bordered  flex-1 px-2 ">
-        <a
+        <div className="dropdown">
+          <div
+            tabIndex={0}
+            role="button"
+            className={cx(
+              "text-tertiary tab tab-active h-12 w-fit border-b-[2px] border-primary px-2 text-sm font-medium transition-colors hover:text-black",
+
+              "tab-active !border-b-primary !text-primary",
+            )}
+          >
+            {languages.find(x => x.id === languageTo)?.name || "Select"}
+          </div>
+          <ul
+            tabIndex={0}
+            className="rounded border-secondary-txt bg-background  menu dropdown-content z-[1] w-52 border p-2 text-base-content shadow"
+          >
+            {languages
+              .filter(x => x.name != "All")
+              .map((x, i) => (
+                <li
+                  key={i}
+                  onClick={() => {
+                    setLanguageTo(x.id);
+                    closeMenu();
+                  }}
+                >
+                  <a>{x.name}</a>
+                </li>
+              ))}
+          </ul>
+        </div>
+        {/* <a
           role="tab"
           onClick={() => {
             swap();
@@ -64,7 +97,7 @@ const Languages = ({ corpus }: Props) => {
           )}
         >
           {corpus.language_to.name}
-        </a>
+        </a> */}
         {/* {isEditing && (
           <a
             role="tab"
@@ -114,19 +147,17 @@ const Languages = ({ corpus }: Props) => {
         </ul>
       </div> */}
       <div className="tabs tabs-bordered flex-1 px-2">
-        <a
+        <div
           role="tab"
           onClick={() => {
             setLanguageFrom(corpus.language_from.id);
           }}
           className={cx(
-            "text-tertiary tab h-12 w-fit px-2 text-sm font-medium transition-colors hover:text-black",
-            languageFrom === corpus.language_from.id &&
-              "tab-active !border-b-primary !text-primary",
+            "text-tertiary tab tab-active h-12 w-fit !border-b-primary px-2 text-sm font-medium !text-primary transition-colors hover:text-black",
           )}
         >
           {corpus.language_from.name}
-        </a>
+        </div>
         {/* {isEditing && (
           <a
             role="tab"

@@ -1,7 +1,7 @@
 navigator.serviceWorker.register("sw.js");
 
-const baseUrl = "http://localhost:3000"
-const backendApiUrl = "http://localhost:8080"
+const baseUrl = "https://tuniko.info"
+const backendApiUrl = "https://tuniko.alwaysdata.net"
 
 const baseApiUrl = `${baseUrl}/api`
 
