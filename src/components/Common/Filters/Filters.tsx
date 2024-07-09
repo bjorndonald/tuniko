@@ -150,7 +150,7 @@ const Filters = () => {
               onClick={() => {
                 setFrom("English");
                 navigate.push(
-                  `/?sort_by=Popular&page=${page}&search=${searchTerm || ""}&from=English&to=${toParam ?? "All"}`,
+                  `/?sort_by=${sortType}&page=${page}&search=${searchTerm || ""}&from=English&to=${toParam ?? "All"}`,
                 );
               }}
             >
@@ -160,7 +160,7 @@ const Filters = () => {
               onClick={() => {
                 setFrom("Efik");
                 navigate.push(
-                  `/?sort_by=Popular&page=${page}&search=${searchTerm || ""}&from=Efik&to=${toParam ?? "All"}`,
+                  `/?sort_by=${sortType}&page=${page}&search=${searchTerm || ""}&from=Efik&to=${toParam ?? "All"}`,
                 );
               }}
             >
@@ -250,7 +250,7 @@ const Filters = () => {
               if (e.key === "Enter") {
                 e.preventDefault();
                 navigate.push(
-                  `/?sort_by=Popular&page=${page}&search=${searchTerm}`,
+                  `/?sort_by=${sortType}&page=${page}&search=${searchTerm}`,
                 );
               }
             }}
@@ -261,7 +261,7 @@ const Filters = () => {
           />
           <Link
             title="Search results"
-            href={`/?sort_by=Popular&page=${page}&search=${searchTerm}`}
+            href={`/?sort_by=${sortType}&page=${page}&search=${searchTerm}`}
             className="btn btn-circle btn-ghost btn-sm flex items-center justify-end"
           >
             <svg
