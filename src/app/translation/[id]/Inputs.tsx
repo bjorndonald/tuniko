@@ -1,6 +1,10 @@
 "use client";
 import cx from "classnames";
-import { EfikTextArea, EnglishTextArea, IgboTextArea } from "@/components/Common/Language";
+import {
+  EfikTextArea,
+  EnglishTextArea,
+  IgboTextArea,
+} from "@/components/Common/Language";
 import useLanguageStore from "@/store/language";
 import CorpusText from "@/types/corpustext";
 import Language from "@/types/language";
@@ -220,8 +224,7 @@ const Inputs = ({ corpusText, languages }: Props) => {
                 }}
                 id="corpus"
               />
-            ) : languages.find(x => x.id === languageFrom)?.name ===
-              "Efik" ? (
+            ) : languages.find(x => x.id === languageFrom)?.name === "Efik" ? (
               <EfikTextArea
                 value={corpus}
                 setValue={str => {
@@ -230,8 +233,7 @@ const Inputs = ({ corpusText, languages }: Props) => {
                 }}
                 id="corpus"
               />
-            ) : languages.find(x => x.id === languageFrom)?.name ===
-              "Igbo" ? (
+            ) : languages.find(x => x.id === languageFrom)?.name === "Igbo" ? (
               <IgboTextArea
                 value={corpus}
                 setValue={str => {

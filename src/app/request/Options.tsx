@@ -1,6 +1,6 @@
 "use client";
 import { TextIcon } from "@/components/Shared/Icons";
-import { ENGLISH_LANGUAGE_ID } from "@/constants/strings";
+// import { ENGLISH_LANGUAGE_ID } from "@/constants/strings";
 import useLanguageStore from "@/store/language";
 import Language from "@/types/language";
 import { mdiSwapHorizontal } from "@mdi/js";
@@ -124,11 +124,11 @@ const Options = ({ languages }: Props) => {
                   key={i}
                   onClick={() => {
                     setLanguageFrom(x.id);
-                    setLanguageTo(
-                      x.id === ENGLISH_LANGUAGE_ID
-                        ? languages[0].id
-                        : ENGLISH_LANGUAGE_ID,
-                    );
+                    // setLanguageTo(
+                    //   x.id === ENGLISH_LANGUAGE_ID
+                    //     ? languages[0].id
+                    //     : ENGLISH_LANGUAGE_ID,
+                    // );
                   }}
                 >
                   <a>{x.name}</a>
@@ -163,11 +163,11 @@ const Options = ({ languages }: Props) => {
                   key={i}
                   onClick={() => {
                     setLanguageTo(x.id);
-                    setLanguageFrom(
-                      x.id === ENGLISH_LANGUAGE_ID
-                        ? languages[0].id
-                        : ENGLISH_LANGUAGE_ID,
-                    );
+                    // setLanguageFrom(
+                    //   x.id === ENGLISH_LANGUAGE_ID
+                    //     ? languages[0].id
+                    //     : ENGLISH_LANGUAGE_ID,
+                    // );
                   }}
                 >
                   <a>{x.name}</a>

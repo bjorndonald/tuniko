@@ -13,9 +13,9 @@ interface Props {
   languages: Language[];
 }
 
-const Languages = ({ corpus, languages }: Props) => {
+const Languages = ({ corpus }: Props) => {
   const isEditing = useLanguageStore(s => s.isEditing);
-  const setLanguageTo = useLanguageStore(s => s.setLanguageTo);
+  // const setLanguageTo = useLanguageStore(s => s.setLanguageTo);
   const setLanguageFrom = useLanguageStore(s => s.setLanguageFrom);
   const languageFrom = useLanguageStore(s => s.languageFrom);
   const languageTo = useLanguageStore(s => s.languageTo);
@@ -32,7 +32,7 @@ const Languages = ({ corpus, languages }: Props) => {
 
   return (
     <div className=" flex items-center">
-      <div className="dropdown flex-1 tablet-md:hidden">
+      {/* <div className="dropdown flex-1 tablet-md:hidden">
         <div
           tabIndex={0}
           role="button"
@@ -50,22 +50,22 @@ const Languages = ({ corpus, languages }: Props) => {
             </li>
           ))}
         </ul>
-      </div>
-      <div className="tabs tabs-bordered hidden flex-1 px-2 tablet-md:flex">
+      </div> */}
+      <div className="tabs tabs-bordered  flex-1 px-2 ">
         <a
           role="tab"
           onClick={() => {
             swap();
           }}
           className={cx(
-            "text-tertiary tab h-12 px-2 text-sm font-medium transition-colors hover:text-black",
+            "text-tertiary tab h-12 w-fit px-2 text-sm font-medium transition-colors hover:text-black",
             languageTo === ENGLISH_LANGUAGE_ID &&
               "tab-active !border-b-primary !text-primary",
           )}
         >
-          English
+          {corpus.language_to.name}
         </a>
-        {isEditing && (
+        {/* {isEditing && (
           <a
             role="tab"
             onClick={() => {
@@ -79,7 +79,7 @@ const Languages = ({ corpus, languages }: Props) => {
           >
             {corpus.language_from.name}
           </a>
-        )}
+        )} */}
       </div>
       <button
         onClick={swap}
@@ -94,7 +94,7 @@ const Languages = ({ corpus, languages }: Props) => {
           size={1}
         />
       </button>
-      <div className="dropdown flex-1 tablet-md:hidden">
+      {/* <div className="dropdown flex-1 tablet-md:hidden">
         <div
           tabIndex={0}
           role="button"
@@ -112,22 +112,22 @@ const Languages = ({ corpus, languages }: Props) => {
             </li>
           ))}
         </ul>
-      </div>
-      <div className="tabs tabs-bordered hidden flex-1 px-2 tablet-md:flex">
+      </div> */}
+      <div className="tabs tabs-bordered flex-1 px-2">
         <a
           role="tab"
           onClick={() => {
             setLanguageFrom(corpus.language_from.id);
           }}
           className={cx(
-            "text-tertiary tab h-12 px-2 text-sm font-medium transition-colors hover:text-black",
+            "text-tertiary tab h-12 w-fit px-2 text-sm font-medium transition-colors hover:text-black",
             languageFrom === corpus.language_from.id &&
               "tab-active !border-b-primary !text-primary",
           )}
         >
           {corpus.language_from.name}
         </a>
-        {isEditing && (
+        {/* {isEditing && (
           <a
             role="tab"
             onClick={() => {
@@ -141,7 +141,7 @@ const Languages = ({ corpus, languages }: Props) => {
           >
             English
           </a>
-        )}
+        )} */}
       </div>
     </div>
   );
