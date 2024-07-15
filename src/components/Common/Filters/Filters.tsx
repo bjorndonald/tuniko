@@ -11,11 +11,12 @@ import { SortType } from "@/types/options";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "@/components/Shared/Link";
 import $ from "jquery";
+import Language from "@/types/language";
 
 type TextType = "All" | "Text" | "Document";
-type Language = "Efik" | "English";
 
-const Filters = () => {
+
+const Filters = ({languages}: {languages: Language[]}) => {
   const navigate = useRouter();
   const searchParams = useSearchParams();
   const sortType = searchParams.get("sort_type");
@@ -146,26 +147,19 @@ const Filters = () => {
             tabIndex={0}
             className="rounded bg-background text-tertiary-txt  menu dropdown-content z-[1] w-52 border border-base-300 p-2 shadow"
           >
-            <li
-              onClick={() => {
-                setFrom("English");
-                navigate.push(
-                  `/?sort_by=${sortType}&page=${page}&search=${searchTerm || ""}&from=English&to=${toParam ?? "All"}`,
-                );
-              }}
-            >
-              <a>English</a>
-            </li>
-            <li
-              onClick={() => {
-                setFrom("Efik");
-                navigate.push(
-                  `/?sort_by=${sortType}&page=${page}&search=${searchTerm || ""}&from=Efik&to=${toParam ?? "All"}`,
-                );
-              }}
-            >
-              <a>Efik</a>
-            </li>
+            {languages.map((language, index) => (
+              <li
+              key={index}
+                onClick={() => {
+                  setFrom(language);
+                  navigate.push(
+                    `/?sort_by=${sortType}&page=${page}&search=${searchTerm || ""}&from=${language.name}&to=${toParam ?? "All"}`,
+                  );
+                }}
+              >
+                <a>{language.name}</a>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -187,30 +181,21 @@ const Filters = () => {
             tabIndex={0}
             className="rounded bg-background text-tertiary-txt  menu dropdown-content z-[1] w-52 border border-base-300 p-2 shadow"
           >
+            {languages.map((language, index) => (
             <li
+            key={index}
               onClick={() => {
                 if (from) {
-                  setTo("English");
+                  setTo(language);
                   navigate.push(
-                    `/?sort_by=Popular&page=${page}&search=${searchTerm ?? ""}&from=${fromParam ?? "All"}&to=English`,
+                    `/?sort_by=Popular&page=${page}&search=${searchTerm ?? ""}&from=${fromParam ?? "All"}&to=${language.name}`,
                   );
                 }
               }}
             >
-              <a>English</a>
-            </li>
-            <li
-              onClick={() => {
-                if (from) {
-                  setTo("Efik");
-                  navigate.push(
-                    `/?sort_by=Popular&page=${page}&search=${searchTerm ?? ""}&from=${fromParam ?? "All"}&to=Efik`,
-                  );
-                }
-              }}
-            >
-              <a>Efik</a>
-            </li>
+              <a>{language.name}</a>
+            </li>))}
+            
           </ul>
         </div>
 

@@ -36,5 +36,5 @@ export const metadata = createMetadata({
   title: "Page not found",
   description: "The page you're looking for doesn't exist or has been moved.",
   keywords: ["404", "not found", "page not found"],
-  image: "https://tuniko.com/404-og.png",
+  image: "https://tuniko.info/404-og.png",
 });

@@ -47,12 +47,8 @@ const setUpMessage = async () => {
 
 const sendAlert = (e, id) => {
     const message = JSON.parse(e.data)
-    // let title = "JavaScript Jeep";
-
+    
     let icon = '/brand/logo.png';
-
-    // let body = "It's Your boarding time";
-    // return window.registration.showNotification(title, notificationOptions);
 
     if (message.userid !== id) {
         return
