@@ -15,8 +15,7 @@ import Language from "@/types/language";
 
 type TextType = "All" | "Text" | "Document";
 
-
-const Filters = ({languages}: {languages: Language[]}) => {
+const Filters = ({ languages }: { languages: Language[] }) => {
   const navigate = useRouter();
   const searchParams = useSearchParams();
   const sortType = searchParams.get("sort_type");
@@ -149,7 +148,7 @@ const Filters = ({languages}: {languages: Language[]}) => {
           >
             {languages.map((language, index) => (
               <li
-              key={index}
+                key={index}
                 onClick={() => {
                   setFrom(language);
                   navigate.push(
@@ -182,20 +181,20 @@ const Filters = ({languages}: {languages: Language[]}) => {
             className="rounded bg-background text-tertiary-txt  menu dropdown-content z-[1] w-52 border border-base-300 p-2 shadow"
           >
             {languages.map((language, index) => (
-            <li
-            key={index}
-              onClick={() => {
-                if (from) {
-                  setTo(language);
-                  navigate.push(
-                    `/?sort_by=Popular&page=${page}&search=${searchTerm ?? ""}&from=${fromParam ?? "All"}&to=${language.name}`,
-                  );
-                }
-              }}
-            >
-              <a>{language.name}</a>
-            </li>))}
-            
+              <li
+                key={index}
+                onClick={() => {
+                  if (from) {
+                    setTo(language);
+                    navigate.push(
+                      `/?sort_by=Popular&page=${page}&search=${searchTerm ?? ""}&from=${fromParam ?? "All"}&to=${language.name}`,
+                    );
+                  }
+                }}
+              >
+                <a>{language.name}</a>
+              </li>
+            ))}
           </ul>
         </div>
 

@@ -16,7 +16,6 @@ const extendedSpacing = {
 };
 
 const fontSize = {
-  
   '2xs': '0.875rem', // small
   '3xs': '0.8125rem', // (?)
 };
