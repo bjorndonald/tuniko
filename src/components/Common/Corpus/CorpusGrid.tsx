@@ -26,7 +26,7 @@ const CorpusGrid = ({ corpusList }: Props) => {
     : 1;
 
   return (
-    <div className="flex flex-col pb-12 gap-4">
+    <div className="flex flex-col gap-4 pb-12">
       {!!corpusList.length && (
         <div
           id="corpus"
