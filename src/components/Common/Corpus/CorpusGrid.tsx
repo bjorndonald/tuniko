@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from "react";
 import CorpusCard from "./CorpusCard";
 import CorpusText from "@/types/corpustext";
@@ -25,10 +25,8 @@ const CorpusGrid = ({ corpusList }: Props) => {
     ? parseInt(searchParams.get("page"))
     : 1;
 
-  
-
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col pb-12 gap-4">
       {!!corpusList.length && (
         <div
           id="corpus"
@@ -59,15 +57,12 @@ const CorpusGrid = ({ corpusList }: Props) => {
         </div>
       )}
       <button
-        
-        onClick={()=> {
+        onClick={() => {
           navigate.push(
-            `/?page=${page+1}&sort_type=${sortType}&search=${search}&from=${from ?? ""}&to=${to ?? ""}`,
-          )
+            `/?page=${page + 1}&sort_type=${sortType}&search=${search}&from=${from ?? ""}&to=${to ?? ""}`,
+          );
         }}
-        className={cx(
-          `btn btn-outline `,
-        )}
+        className={cx("btn btn-outline ")}
       >
         Next
       </button>
