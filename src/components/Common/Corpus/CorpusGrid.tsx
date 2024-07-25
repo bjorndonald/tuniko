@@ -1,13 +1,13 @@
-"use client";
-import React, { useEffect } from "react";
+'use client';
+import React from "react";
 import CorpusCard from "./CorpusCard";
 import CorpusText from "@/types/corpustext";
 import useCorpus from "@/store/corpus";
 import ShareModal from "@/components/Shared/ShareModal";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Pagination } from "../Pagination";
 import EmptyGraphic from "@/components/Shared/empty";
 import NoResults from "@/components/Shared/no-result";
+import cx from "@/utils/cx";
 
 interface Props {
   corpusList: CorpusText[];
@@ -25,26 +25,7 @@ const CorpusGrid = ({ corpusList }: Props) => {
     ? parseInt(searchParams.get("page"))
     : 1;
 
-  useEffect(() => {
-    const init = async () => {
-      const Masonry = (await import("masonry-layout")).default;
-      const grid = document.querySelector("#corpus");
-      if (typeof window !== "undefined") {
-        new Masonry(grid, {
-          itemSelector: ".corpus",
-          gutter: 16,
-          transitionDuration: "0.01s",
-          // use element for option
-          columnWidth: ".width-ref",
-          horizontalOrder: true,
-          percentPosition: false,
-        });
-      }
-    };
-    init();
-
-    return () => {};
-  }, []);
+  
 
   return (
     <div className="flex flex-col gap-4">
@@ -77,19 +58,19 @@ const CorpusGrid = ({ corpusList }: Props) => {
           <NoResults />
         </div>
       )}
-
-      {corpusList.length > 9 && (
-        <Pagination
-          totalCount={corpusList.length}
-          currentPage={page}
-          pageSize={10}
-          onPageChange={p =>
-            navigate.push(
-              `/?page=${p}&sort_type=${sortType}&search=${search}&from=${from ?? ""}&to=${to ?? ""}`,
-            )
-          }
-        />
-      )}
+      <button
+        
+        onClick={()=> {
+          navigate.push(
+            `/?page=${page+1}&sort_type=${sortType}&search=${search}&from=${from ?? ""}&to=${to ?? ""}`,
+          )
+        }}
+        className={cx(
+          `btn btn-outline `,
+        )}
+      >
+        Next
+      </button>
     </div>
   );
 };
