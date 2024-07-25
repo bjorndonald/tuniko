@@ -89,7 +89,7 @@ export const corpusTexts = pgTable("corpustexts", {
     language_from: text("language_from")
         .notNull()
         .references(() => languages.id, { onDelete: "cascade" }),
-    no_translations: numeric("no_translations").default('0'),
+    no_translations: numeric("no_translations").default("0"),
     created_at: timestamp("created_at", { mode: "date" }),
     updated_at: timestamp("updated_at", { mode: "date" })
 })

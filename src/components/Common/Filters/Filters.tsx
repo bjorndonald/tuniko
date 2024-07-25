@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextIcon from "./Text.icon";
 import Logo from "../../Shared/Icons/Logo";
 import { FileText, Plus, X } from "react-feather";
@@ -40,6 +40,28 @@ const Filters = ({ languages }: { languages: Language[] }) => {
     const active = document.activeElement as HTMLElement;
     active.blur();
   };
+
+  useEffect(() => {
+    const init = async () => {
+      const Masonry = (await import("masonry-layout")).default;
+      const grid = document.querySelector("#corpus");
+      if (typeof window !== "undefined") {
+        new Masonry(grid, {
+          itemSelector: ".corpus",
+          gutter: 16,
+          transitionDuration: "0.01s",
+          // use element for option
+          columnWidth: ".width-ref",
+          horizontalOrder: true,
+          percentPosition: false,
+        });
+      }
+    };
+    init();
+
+    return () => { };
+  }, []);
+  
 
   return (
     <div className="flex  h-fit flex-col-reverse justify-between pt-3 desktop:h-[68px] desktop:flex-row desktop:items-center ">
