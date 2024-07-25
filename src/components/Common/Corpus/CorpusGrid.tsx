@@ -78,7 +78,7 @@ const CorpusGrid = ({ corpusList }: Props) => {
         </div>
       )}
 
-      {corpusList.length > 10 && (
+      {corpusList.length > 9 && (
         <Pagination
           totalCount={corpusList.length}
           currentPage={page}
