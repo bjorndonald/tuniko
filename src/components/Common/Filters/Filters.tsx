@@ -59,9 +59,8 @@ const Filters = ({ languages }: { languages: Language[] }) => {
     };
     init();
 
-    return () => { };
+    return () => {};
   }, []);
-  
 
   return (
     <div className="flex  h-fit flex-col-reverse justify-between pt-3 desktop:h-[68px] desktop:flex-row desktop:items-center ">
