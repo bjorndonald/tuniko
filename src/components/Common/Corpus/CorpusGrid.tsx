@@ -18,8 +18,8 @@ const CorpusGrid = ({ corpusList }: Props) => {
   const shareModal = useCorpus(s => s.shareModal);
   const searchParams = useSearchParams();
   const search = searchParams.get("search") ?? "";
-  const from = searchParams.get("from")??"All";
-  const to = searchParams.get("to")??"All";
+  const from = searchParams.get("from") ?? "All";
+  const to = searchParams.get("to") ?? "All";
   const sortType = searchParams.get("sort_type") ?? "";
   const page = searchParams.get("page")
     ? parseInt(searchParams.get("page"))

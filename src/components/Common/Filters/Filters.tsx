@@ -8,7 +8,7 @@ import { mdiSwapHorizontal } from "@mdi/js";
 import useCorpus from "@/store/corpus";
 import NextLink from "next/link";
 import { SortType } from "@/types/options";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "@/components/Shared/Link";
 import $ from "jquery";
 import Language from "@/types/language";
@@ -17,6 +17,7 @@ type TextType = "All" | "Text" | "Document";
 
 const Filters = ({ languages }: { languages: Language[] }) => {
   const navigate = useRouter();
+  const pathname = usePathname()
   const searchParams = useSearchParams();
   const sortType = searchParams.get("sort_type");
   const search = searchParams.get("search");
@@ -42,6 +43,7 @@ const Filters = ({ languages }: { languages: Language[] }) => {
   };
 
   useEffect(() => {
+    
     const init = async () => {
       const Masonry = (await import("masonry-layout")).default;
       const grid = document.querySelector("#corpus");
@@ -57,10 +59,12 @@ const Filters = ({ languages }: { languages: Language[] }) => {
         });
       }
     };
-    init();
+    const interval = setInterval(() => init(), 100)
 
-    return () => {};
-  }, []);
+    return () => {
+      clearInterval(interval)
+    };
+  }, [pathname]);
 
   return (
     <div className="flex  h-fit flex-col-reverse justify-between pt-3 desktop:h-[68px] desktop:flex-row desktop:items-center ">
@@ -159,7 +163,7 @@ const Filters = ({ languages }: { languages: Language[] }) => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-accent hover:bg-primary/10 hover:dark:text-white"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal hover:text-primary text-accent hover:bg-primary/10 hover:dark:text-white"
           >
             {fromParam || "All"}
           </div>
@@ -193,7 +197,7 @@ const Filters = ({ languages }: { languages: Language[] }) => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-accent hover:bg-primary/10 hover:dark:text-white"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal hover:text-primary text-accent hover:bg-primary/10 hover:dark:text-white"
           >
             {toParam || "All"}
           </div>
@@ -288,7 +292,7 @@ const Filters = ({ languages }: { languages: Language[] }) => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-primary hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal hover:text-primary text-primary hover:bg-primary/10"
           >
             {sort ?? "Sort By"}
           </div>

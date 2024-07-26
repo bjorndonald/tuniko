@@ -10,8 +10,8 @@ interface Props {
 export default async function HomePage({ searchParams }: Props) {
   const sortBy = searchParams["sort_by"];
   const search = searchParams["search"];
-  const from = searchParams["from"]?? "All";
-  const to = searchParams["to"]??"All";
+  const from = searchParams["from"] ?? "All";
+  const to = searchParams["to"] ?? "All";
   const page = searchParams["page"] ? parseInt(searchParams["page"]) : 1;
   const corpusList = await getCorpus(page, sortBy, search, from, to);
   const languages = await getLanguages();
