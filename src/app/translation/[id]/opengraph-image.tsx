@@ -83,7 +83,6 @@ export default async function Image({ params }: { params: { id: string } }) {
         </h1>
       </div>
     ),
-
     // ImageResponse options
     {
       // For convenience, we can re-use the exported opengraph-image
