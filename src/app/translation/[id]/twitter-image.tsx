@@ -18,8 +18,11 @@ export const contentType = "image/png";
 // Image generation
 export default async function Image({ params }: { params: { id: string } }) {
   // Font
-  const interSemiBold = fetch(
-    new URL("@/assets/fonts/Inter-SemiBold.ttf", import.meta.url),
+  const UxumBold = fetch(
+    new URL("@/assets/fonts/UxumGrotesque-Bold.woff", import.meta.url),
+  ).then(res => res.arrayBuffer());
+  const UxumRegular = fetch(
+    new URL("@/assets/fonts/UxumGrotesque-Regular.woff", import.meta.url),
   ).then(res => res.arrayBuffer());
   const corpus = await getCorpusById(params.id);
   return new ImageResponse(
@@ -33,47 +36,53 @@ export default async function Image({ params }: { params: { id: string } }) {
           width: "100%",
           height: "100%",
           display: "flex",
+          fontFamily: "Uxum",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <Logo
-          style={{
-            color: "#0A85F7",
-            fill: "#0A85F7",
-            width: 256,
-            height: 256,
-          }}
-        />
+        <div style={{
+          gap: 8,
+          display: "flex",
+          alignItems: "center"
+        }}>
+          <Logo
+            style={{
+              color: "#0A85F7",
+              fill: "#0A85F7",
+              width: 80,
+              height: 91.8,
+            }}
+          />
+          <span style={{
+            fontSize: 64,
+            color: "white",
+            fontWeight: "normal"
+          }}>
+            {corpus?.language_from?.name}
+          </span>
+
+        </div>
+
+
         <h1
           style={{
+            width: 1000,
             color: "white",
-            fontSize: 128,
-          }}
-        >
-          Tuniko - Help Us Translate
-        </h1>
-        <span
-          style={{
-            color: "white",
-            fontSize: 88,
-          }}
-        >
-          {corpus.language_from.name} - {corpus.language_to.name}
-        </span>
-        <h4
-          style={{
-            color: "white",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
+            fontSize: 100,
+            maxHeight: 120,
             textOverflow: "ellipsis",
-            fontSize: 112,
+            overflow: "hidden",
+            whiteSpace: "nowrap"
           }}
         >
           {corpus.text}
-        </h4>
+        </h1>
       </div>
+
+
+
     ),
     // ImageResponse options
     {
@@ -82,8 +91,14 @@ export default async function Image({ params }: { params: { id: string } }) {
       ...size,
       fonts: [
         {
-          name: "Inter",
-          data: await interSemiBold,
+          name: "Uxum",
+          data: await UxumBold,
+          style: "normal",
+          weight: 700,
+        },
+        {
+          name: "Uxum",
+          data: await UxumRegular,
           style: "normal",
           weight: 400,
         },

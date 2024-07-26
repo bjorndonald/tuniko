@@ -23,15 +23,14 @@ export default async function Image() {
 
   return new ImageResponse(
     (
-      // ImageResponse JSX element
       <div
         style={{
-          gap: 12,
+          gap: 4,
           background: "#0c121e",
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
+
           alignItems: "center",
           justifyContent: "center",
         }}
@@ -40,17 +39,17 @@ export default async function Image() {
           style={{
             color: "#0A85F7",
             fill: "#0A85F7",
-            width: 256,
-            height: 256,
+            width: 80,
+            height: 91.8,
           }}
         />
         <h1
           style={{
             color: "white",
-            fontSize: 72,
+            fontSize: 64,
           }}
         >
-          Tuniko - Help Us Translate
+          Tuniko
         </h1>
       </div>
     ),
