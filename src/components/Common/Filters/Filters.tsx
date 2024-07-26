@@ -17,7 +17,7 @@ type TextType = "All" | "Text" | "Document";
 
 const Filters = ({ languages }: { languages: Language[] }) => {
   const navigate = useRouter();
-  const pathname = usePathname()
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const sortType = searchParams.get("sort_type");
   const search = searchParams.get("search");
@@ -43,7 +43,6 @@ const Filters = ({ languages }: { languages: Language[] }) => {
   };
 
   useEffect(() => {
-    
     const init = async () => {
       const Masonry = (await import("masonry-layout")).default;
       const grid = document.querySelector("#corpus");
@@ -59,10 +58,10 @@ const Filters = ({ languages }: { languages: Language[] }) => {
         });
       }
     };
-    const interval = setInterval(() => init(), 100)
+    const interval = setInterval(() => init(), 100);
 
     return () => {
-      clearInterval(interval)
+      clearInterval(interval);
     };
   }, [pathname]);
 
@@ -163,7 +162,7 @@ const Filters = ({ languages }: { languages: Language[] }) => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal hover:text-primary text-accent hover:bg-primary/10 hover:dark:text-white"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-accent hover:bg-primary/10 hover:text-primary hover:dark:text-white"
           >
             {fromParam || "All"}
           </div>
@@ -197,7 +196,7 @@ const Filters = ({ languages }: { languages: Language[] }) => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal hover:text-primary text-accent hover:bg-primary/10 hover:dark:text-white"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-accent hover:bg-primary/10 hover:text-primary hover:dark:text-white"
           >
             {toParam || "All"}
           </div>
@@ -292,7 +291,7 @@ const Filters = ({ languages }: { languages: Language[] }) => {
           <div
             tabIndex={0}
             role="button"
-            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal hover:text-primary text-primary hover:bg-primary/10"
+            className="rounded btn btn-outline m-1 h-9 min-h-9 border-base-300 font-normal text-primary hover:bg-primary/10 hover:text-primary"
           >
             {sort ?? "Sort By"}
           </div>

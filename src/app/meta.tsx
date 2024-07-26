@@ -49,6 +49,10 @@ export const Meta = () => {
         media={"(prefers-color-scheme: dark)"}
         content={THEME_COLOR_DARK}
       />
+      <meta property="og:url" content="https:tuniko.info" />
+      <meta property="og:type" content="wbsite" />
+      <meta property="og:title" content="Tuniko| Help Us Translate" />
+      <meta property="og:image" content="/site/opengraph-image.png" />
       <meta name={"view-transition"} content={"same-origin"} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
