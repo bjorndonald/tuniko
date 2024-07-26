@@ -42,11 +42,13 @@ export default async function Image({ params }: { params: { id: string } }) {
           justifyContent: "center",
         }}
       >
-        <div style={{
-          gap: 8,
-          display: "flex",
-          alignItems: "center"
-        }}>
+        <div
+          style={{
+            gap: 8,
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
           <Logo
             style={{
               color: "#0A85F7",
@@ -55,16 +57,16 @@ export default async function Image({ params }: { params: { id: string } }) {
               height: 91.8,
             }}
           />
-          <span style={{
-            fontSize: 64,
-            color: "white",
-            fontWeight: "normal"
-          }}>
+          <span
+            style={{
+              fontSize: 64,
+              color: "white",
+              fontWeight: "normal",
+            }}
+          >
             {corpus?.language_from?.name}
           </span>
-
         </div>
-
 
         <h1
           style={{
@@ -74,16 +76,14 @@ export default async function Image({ params }: { params: { id: string } }) {
             maxHeight: 120,
             textOverflow: "ellipsis",
             overflow: "hidden",
-            whiteSpace: "nowrap"
+            whiteSpace: "nowrap",
           }}
         >
           {corpus.text}
         </h1>
       </div>
-
-
-
     ),
+
     // ImageResponse options
     {
       // For convenience, we can re-use the exported opengraph-image
