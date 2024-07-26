@@ -51,9 +51,12 @@ export const Meta = () => {
       />
       <meta property="og:url" content="https:tuniko.info" />
       <meta property="og:type" content="wbsite" />
-      <meta property="og:title" content="Tuniko| Help Us Translate" />
+      <meta property="og:title" content="Tuniko | Help Us Translate" />
       <meta property="og:image" content="/site/opengraph-image.png" />
-      <meta property="og:description" content="his is a platform that allows users to help each other with translations for languages not supported digitally" />
+      <meta
+        property="og:description"
+        content="his is a platform that allows users to help each other with translations for languages not supported digitally"
+      />
       <meta name={"view-transition"} content={"same-origin"} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
